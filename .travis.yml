@@ -7,6 +7,3 @@ go:
 branches:
   only:
     - master
-install:
-  - github.com/scmo/foodchain-backend
-  - github.com/astaxie/beego
