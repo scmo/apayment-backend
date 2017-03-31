@@ -7,3 +7,6 @@ go:
 branches:
   only:
     - master
+
+install:
+  - github.com/astaxie/beego
