@@ -1,3 +1,3 @@
-https://travis-ci.org/scmo/foodchain-backend.svg?branch=master
-
 # foodchain-backend
+
+[![Build Status][travis-badge]][travis-badge-url]
