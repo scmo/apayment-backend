@@ -7,3 +7,5 @@ go:
 branches:
   only:
     - master
+install:
+  - github.com/scmo/foodchain-backend
