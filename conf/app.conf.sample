@@ -1,0 +1,18 @@
+appname = foodchain-backend
+httpport = 8080
+runmode = dev
+autorender = false
+copyrequestbody = true
+EnableDocs = true
+
+[DEV]
+# DB
+db_name = "db_foodchain"
+db_user = "foodchain"
+db_password = "ENTER DB PASSWORD"
+db_sslmode = "disable"
+max_idle = 30
+max_conn = 30
+
+force_table_recreate = true
+db_log_verbose = true

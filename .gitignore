@@ -10,6 +10,9 @@
 # Routers 
 routers/*__________*.go
 
+# AppConfig
+conf/app.conf
+
 # Compiled Object files, Static and Dynamic libs (Shared Objects)
 *.o
 *.a
