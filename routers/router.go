@@ -11,20 +11,48 @@ import (
 	"github.com/scmo/foodchain-backend/controllers"
 
 	"github.com/astaxie/beego"
+	"strings"
+	"github.com/astaxie/beego/context"
+	"github.com/scmo/foodchain-backend/services"
 )
 
 func init() {
 	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/object",
-			beego.NSInclude(
-				&controllers.ObjectController{},
-			),
-		),
 		beego.NSNamespace("/user",
 			beego.NSInclude(
 				&controllers.UserController{},
 			),
 		),
+		beego.NSNamespace("/contribution",
+			beego.NSInclude(
+				&controllers.ContributionController{},
+			),
+		),
+		beego.NSNamespace("/inspectioncriterion",
+			beego.NSInclude(
+				&controllers.InspectionCriterionController{},
+			),
+		),
+		beego.NSNamespace("/ping",
+			beego.NSInclude(
+				&controllers.PingController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }
+
+var HandleJWT = func(ctx *context.Context) {
+	if strings.HasPrefix(ctx.Input.URL(), "/v1/user/login") {
+		return
+	}
+	if services.Validate(ctx.Request.Header.Get("Authorization")) {
+		return
+	}
+	ctx.Abort(401, "unauthorized")
+}
+
+
+
+
+
