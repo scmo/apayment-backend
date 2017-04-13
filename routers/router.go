@@ -23,6 +23,11 @@ func init() {
 				&controllers.UserController{},
 			),
 		),
+		beego.NSNamespace("/request",
+			beego.NSInclude(
+				&controllers.RequestController{},
+			),
+		),
 		beego.NSNamespace("/contribution",
 			beego.NSInclude(
 				&controllers.ContributionController{},
