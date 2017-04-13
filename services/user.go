@@ -8,11 +8,12 @@ import (
 
 func CreateUser(u *models.User) error {
 	o := orm.NewOrm()
-	_, err := o.Insert(u)
+	err := CreatePlant(u.Plant)
+	_, err = o.Insert(u)
 	m2m := o.QueryM2M(u, "Roles")
 	for _, rolePtr := range u.Roles {
 		if _, id, err := o.ReadOrCreate(rolePtr, "Name"); err == nil {
-			rolePtr.Id = uint32(id)
+			rolePtr.Id = id
 		} else {
 			beego.Error("ReadOrCreate ", err.Error())
 			return err
@@ -44,7 +45,7 @@ func GetAllUsers() ([]*models.User) {
 	return users
 }
 
-func GetUserById(_id uint32) (*models.User, error) {
+func GetUserById(_id int64) (*models.User, error) {
 	o := orm.NewOrm()
 	user := models.User{Id: _id}
 	err := o.Read(&user)

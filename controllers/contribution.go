@@ -39,9 +39,9 @@ func (this *ContributionController) Post() {
 // @Failure 403 :cid is empty
 // @router /:cid [get]
 func (this *ContributionController) Get() {
-	cid, err := this.GetUint32(":cid")
+	cid, err := this.GetInt64(":cid")
 	if err != nil {
-		beego.Error("GetUint32 ", err.Error())
+		beego.Error("GetInt64 ", err.Error())
 		this.CustomAbort(500, "No Contribution Id provided")
 	}
 	contribution, err := services.GetContributionById(cid)

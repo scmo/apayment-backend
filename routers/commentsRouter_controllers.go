@@ -34,6 +34,13 @@ func init() {
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LegalFormController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LegalFormController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ObjectController"],
 		beego.ControllerComments{
 			Method: "Post",
@@ -72,6 +79,13 @@ func init() {
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PingController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PingController"],
 		beego.ControllerComments{
 			Method: "Ping",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PlantTypeController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PlantTypeController"],
+		beego.ControllerComments{
+			Method: "GetAll",
 			Router: `/`,
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})

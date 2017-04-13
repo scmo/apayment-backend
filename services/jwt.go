@@ -15,6 +15,7 @@ func IssueToken(user *models.User) (map[string]string) {
 	claims := models.Claims{
 		user.Username,
 		jwt.StandardClaims{
+			//Subject: user.Id,
 			ExpiresAt:expireToken,
 			Issuer:"localhost:9000",
 			IssuedAt:time.Now().Unix(),

@@ -22,7 +22,7 @@ func GetAllContributions() ([]*models.Contribution) {
 	return contributions
 }
 
-func GetContributionById(_id uint32) (*models.Contribution, error) {
+func GetContributionById(_id int64) (*models.Contribution, error) {
 	o := orm.NewOrm()
 	contribution := models.Contribution{Id: _id}
 	err := o.Read(&contribution)

@@ -34,5 +34,7 @@ func Init() {
 	// Populate DB
 	SeedContributions()
 	SeedInspectionCriterion()
+	SeedLegalForm()
+	SeedPlantType()
 }
 

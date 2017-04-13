@@ -5,14 +5,22 @@ import (
 )
 
 type User struct {
-	Id             uint32
+	Id             int64 `json:"id"`
 	Username       string  `orm:"unique" json:"username"`
 	Password       string  `json:"password"`
-	Firstname      string  `json:"firstname"`
-	Lastname       string  `json:"lastname"`
+
 	Roles          []*Role `orm:"rel(m2m)" json:"roles"`
 	JwtToken       string  `orm:"-" json:"token"`
 	EtherumAddress string
+
+	Firstname      string  `json:"firstname"`
+	Lastname       string  `json:"lastname"`
+	Phone string  `json:"phone"`
+	EMail string  `json:"email"`
+	Address string  `json:"address"`
+	ZIP uint16  `json:"zip"`
+	Place string  `json:"place"`
+	Plant *Plant `orm:"rel(one)" json:"plant"`
 }
 
 func init() {

@@ -3,7 +3,7 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type InspectionCriterion struct {
-	Id           uint32 `json:"id"`
+	Id           int64 `json:"id"`
 	Name         string `json:"name"`
 	Description  string `json:"description"`
 	Contribution *Contribution `orm:"rel(fk)"`

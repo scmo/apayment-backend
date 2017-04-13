@@ -66,9 +66,9 @@ func (this *UserController) Profile() {
 // @Failure 403 :uid is empty
 // @router /:uid [get]
 func (this *UserController) Get() {
-	uid, err := this.GetUint32(":uid")
+	uid, err := this.GetInt64(":uid")
 	if err != nil {
-		beego.Error("GetUint32 ", err.Error())
+		beego.Error("GetInt64 ", err.Error())
 		this.CustomAbort(500, "No User Id provided")
 
 	}
@@ -120,7 +120,7 @@ func (this *UserController) Register() {
 	err := services.CreateUser(&user)
 	if err != nil {
 		beego.Error("CreateUser ", err.Error())
-		this.CustomAbort(500, "Registration Error")
+		this.CustomAbort(500, err.Error())
 	}
 
 	this.Data["json"] = user
