@@ -23,18 +23,20 @@ func Init() {
 
 	// set default database
 	orm.RegisterDataBase("default", "postgres", dataSource, max_idle, max_conn)
-
 	// Error.
 	err := orm.RunSyncdb("default", force_table_recreate, db_log_verbose)
 	if err != nil {
 		beego.Error("RunSyncdb Error")
 	}
+	orm.Debug = true
 
 
 	// Populate DB
-	SeedContributions()
-	SeedInspectionCriterion()
+	//SeedContributions()
+	//SeedInspectionCriterion()
 	SeedLegalForm()
 	SeedPlantType()
+
+	SeedControlPoints()
 }
 

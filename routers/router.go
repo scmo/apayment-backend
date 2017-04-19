@@ -28,16 +28,31 @@ func init() {
 				&controllers.RequestController{},
 			),
 		),
-		beego.NSNamespace("/contribution",
+		beego.NSNamespace("/controlcategory",
 			beego.NSInclude(
-				&controllers.ContributionController{},
+				&controllers.ControlCategoryController{},
 			),
 		),
-		beego.NSNamespace("/inspectioncriterion",
+		beego.NSNamespace("/controlpoint",
 			beego.NSInclude(
-				&controllers.InspectionCriterionController{},
+				&controllers.ControlPointController{},
 			),
 		),
+		beego.NSNamespace("/lack",
+			beego.NSInclude(
+				&controllers.LackController{},
+			),
+		),
+		//beego.NSNamespace("/contribution",
+		//	beego.NSInclude(
+		//		&controllers.ContributionController{},
+		//	),
+		//),
+		//beego.NSNamespace("/inspectioncriterion",
+		//	beego.NSInclude(
+		//		&controllers.InspectionCriterionController{},
+		//	),
+		//),
 		beego.NSNamespace("/legalform",
 			beego.NSInclude(
 				&controllers.LegalFormController{},

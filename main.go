@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/scmo/foodchain-backend/db"
 	"github.com/astaxie/beego/plugins/cors"
+	"github.com/scmo/foodchain-backend/ethereum"
 )
 
 func init() {
@@ -13,7 +14,7 @@ func init() {
 	db.Init()
 
 	// TODO: ethereum struct
-	//ethereum.Init()
+	ethereum.Init()
 }
 func main() {
 	if beego.BConfig.RunMode == "dev" {
@@ -32,7 +33,6 @@ func main() {
 	}))
 
 	beego.Run()
-
 }
 
 

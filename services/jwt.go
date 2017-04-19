@@ -6,11 +6,12 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/astaxie/beego"
 	"errors"
+	"strings"
 )
 
 func IssueToken(user *models.User) (map[string]string) {
 	//Expires the token and cookie in 1 hour
-	expireToken := time.Now().Add(time.Hour * 1).Unix()
+	expireToken := time.Now().Add(time.Hour * 5).Unix()
 
 	claims := models.Claims{
 		user.Username,
@@ -48,8 +49,15 @@ func Validate(signedToken string) (bool) {
 }
 
 
-func ParseToken(signedToken string) (models.Claims, error){
+func ParseToken(signedTokenWithBearer string) (models.Claims, error){
 	claims := models.Claims{}
+
+	signedToken, err := stripBearerPrefixFromTokenString(signedTokenWithBearer)
+	if err != nil {
+		beego.Error("Error while stripBearerPrefixFromTokenString.", err.Error())
+		return claims, err
+	}
+
 	token, err := jwt.ParseWithClaims(signedToken, &claims, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("Unexpected signing method")
@@ -65,4 +73,14 @@ func ParseToken(signedToken string) (models.Claims, error){
 		return claims, err
 	}
 	return claims, errors.New("Error while Parsing token")
+}
+
+
+// Strips 'Bearer ' prefix from bearer token string
+func stripBearerPrefixFromTokenString(tok string) (string, error) {
+	// Should be a bearer token
+	if len(tok) > 6 && strings.ToUpper(tok[0:7]) == "BEARER " {
+		return tok[7:], nil
+	}
+	return tok, nil
 }

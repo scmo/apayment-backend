@@ -3,7 +3,6 @@ package db
 import (
 	"github.com/scmo/foodchain-backend/services"
 	"github.com/scmo/foodchain-backend/models"
-	"github.com/astaxie/beego"
 )
 
 func SeedContributions() {
@@ -15,16 +14,34 @@ func SeedContributions() {
 	services.CreateContribution(&models.Contribution{Code:5417, Name:"Beitrag für regelmässigen Auslauf im Freien"})
 }
 
-func SeedInspectionCriterion() {
+func SeedControlPoints() {
+
 	//Only seed if table is empty
-	if cnt, _ := services.CountInspectionCriteria(); cnt > 0 {
+	if cnt, _ := services.CountControlCategories(); cnt > 0 {
 		return
 	}
-	contribution, err := services.GetContributionByCode(5416)
-	if err != nil {
-		beego.Error("Error fetching contribution.", err.Error())
+	if cnt, _ := services.CountPointGroups(); cnt > 0 {
+		return
 	}
-	services.CreateInspectionCriterion(&models.InspectionCriterion{Name:"Happy Cow", Description:"Is the a happy cow?", Contribution:contribution})
+	if cnt, _ := services.CountControlPoints(); cnt > 0 {
+		return
+	}
+	Seed_BTS_Rindergattung_Wasserbueffel()
+}
+
+
+func Seed_BTS_Rindergattung_Wasserbueffel() {
+	cc := models.ControlCategory{CategoryId:"12.01_2017", Abbreviation:"BTS - Rindergattung und Wasserbüffel"}
+	services.CreateControlCategory(&cc)
+
+	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Rinder - Milchkühe", ControlCategory: &cc}
+	services.CreatePointGroup(&pg1)
+
+	cp1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten", ControlPoint:"Alle Tiere der Kategorie in Gruppen gehalten oder zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4", PointGroup: &pg1}
+	services.CreateControlPoint(&cp1)
+	cp2 := models.ControlPoint{ControlPointId:"02", Abbreviation:"Mind. 15 Lux Tageslicht im Stall", ControlPoint:"Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg1}
+	services.CreateControlPoint(&cp2)
+
 }
 
 func SeedLegalForm() {
@@ -53,7 +70,7 @@ func SeedLegalForm() {
 	services.CreateLegalForm(&models.LegalForm{Code: 99, Name:"Nicht zugeteilt"})
 }
 
-func SeedPlantType(){
+func SeedPlantType() {
 	if cnt, _ := services.CountPlantTypes(); cnt > 0 {
 		return
 	}

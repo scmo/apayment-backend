@@ -1,0 +1,29 @@
+package services
+
+import (
+	"github.com/scmo/foodchain-backend/models"
+	"github.com/astaxie/beego/orm"
+)
+
+func CreateControlCategory(cc *models.ControlCategory) error {
+	o := orm.NewOrm()
+	_, err := o.Insert(cc)
+	return err
+}
+
+func GetAllControlCategories() ([]*models.ControlCategory) {
+	o := orm.NewOrm()
+	var controlCategories []*models.ControlCategory
+	o.QueryTable(new(models.ControlCategory)).All(&controlCategories)
+	//for _, controlCategory := range controlCategories {
+	//	o.LoadRelated(controlCategory, "PointGroup")
+	//}
+
+	return controlCategories
+}
+
+func CountControlCategories() (int64, error) {
+	o := orm.NewOrm()
+	cnt, err := o.QueryTable(new(models.ControlCategory)).Count() // SELECT COUNT(*) FROM USE
+	return cnt, err
+}

@@ -27,11 +27,53 @@ func init() {
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlCategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlCategoryController"],
+		beego.ControllerComments{
+			Method: "Post",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlCategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlCategoryController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlPointController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlPointController"],
+		beego.ControllerComments{
+			Method: "Post",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlPointController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:ControlPointController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:InspectionCriterionController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:InspectionCriterionController"],
 		beego.ControllerComments{
 			Method: "Post",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"],
+		beego.ControllerComments{
+			Method: "Post",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LegalFormController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LegalFormController"],
@@ -90,11 +132,39 @@ func init() {
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PointGroupController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PointGroupController"],
+		beego.ControllerComments{
+			Method: "Post",
+			Router: `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PointGroupController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:PointGroupController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"],
 		beego.ControllerComments{
 			Method: "Post",
 			Router: `/`,
 			AllowHTTPMethods: []string{"post"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"],
+		beego.ControllerComments{
+			Method: "Get",
+			Router: `/:requestId`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:RequestController"],
+		beego.ControllerComments{
+			Method: "GetAll",
+			Router: `/`,
+			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:UserController"],
