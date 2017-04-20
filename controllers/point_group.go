@@ -7,7 +7,7 @@ import (
 	"github.com/scmo/foodchain-backend/services"
 )
 
-// Operations about ControlCategories
+// Operations about PointGroups
 type PointGroupController struct {
 	beego.Controller
 }

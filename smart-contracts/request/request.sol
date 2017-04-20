@@ -1,16 +1,18 @@
 pragma solidity ^0.4.0;
+
+
 contract Request {
 
-    struct Contribution {
+  struct Contribution {
     uint id;
     bool passedInspection;
-    }
+  }
 
-    address public requester;
+  address public requester;
 
-    Contribution[] contribution;
+  Contribution[] contribution;
 
-    function Request() {
-        requester = msg.sender;
-    }
+  function Request() {
+    requester = msg.sender;
+  }
 }

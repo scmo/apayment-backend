@@ -4,12 +4,23 @@ import (
 	"github.com/scmo/foodchain-backend/models"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"golang.org/x/crypto/bcrypt"
+	"errors"
 )
 
 func CreateUser(u *models.User) error {
 	o := orm.NewOrm()
-	err := CreatePlant(u.Plant)
+	hash, err := hashPassword(u.Password)
+	if err != nil {
+		beego.Error("HashPassword ", err.Error())
+
+	}
+	u.Password = hash
 	_, err = o.Insert(u)
+	if err != nil {
+		beego.Error("Inser User ", err.Error())
+		return err
+	}
 	m2m := o.QueryM2M(u, "Roles")
 	for _, rolePtr := range u.Roles {
 		if _, id, err := o.ReadOrCreate(rolePtr, "Name"); err == nil {
@@ -29,9 +40,13 @@ func CreateUser(u *models.User) error {
 
 func CheckLogin(_username string, _password string) (models.User, error) {
 	o := orm.NewOrm()
-	user := models.User{Username: _username, Password: _password}
-	err := o.Read(&user, "Username", "Password")
-	beego.Debug(user)
+
+	user := models.User{Username: _username}
+	err := o.Read(&user, "Username")
+	if checkPasswordHash(_password, user.Password) == false {
+		return user, errors.New("Wrong password")
+	}
+	o.LoadRelated(&user, "Roles")
 	return user, err;
 }
 
@@ -73,4 +88,20 @@ func GetUserByUsername(_username string) (*models.User, error) {
 	}
 	o.LoadRelated(&user, "Roles")
 	return &user, nil
+}
+
+func CountUsers() (int64, error) {
+	o := orm.NewOrm()
+	cnt, err := o.QueryTable(new(models.User)).Count() // SELECT COUNT(*) FROM USE
+	return cnt, err
+}
+
+func hashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	return string(bytes), err
+}
+
+func checkPasswordHash(password, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }

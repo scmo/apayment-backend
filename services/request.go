@@ -10,14 +10,8 @@ import (
 
 func CreateRequest(r *models.Request) error {
 
-	beego.Debug(r.Id)
-	for i := range r.Contributions {
-		beego.Debug(r.Contributions[i].Name)
-	}
-
 	ethereumController := ethereum.GetEthereumController()
 	address, tx, _, err := smartcontracts.DeployRequestContract(ethereumController.Auth, ethereumController.Client)
-
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -25,9 +19,18 @@ func CreateRequest(r *models.Request) error {
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 
 	r.Address = address.String()
+
 	o := orm.NewOrm()
 	_, err = o.Insert(r)
-	//return err
+
+	m2m := o.QueryM2M(r, "Contributions")
+	for _, contributionPtr := range r.Contributions {
+		_, err := m2m.Add(contributionPtr)
+		if err != nil {
+			beego.Error("Many2Many Add ", err.Error())
+			return err
+		}
+	}
 	return err
 }
 

@@ -33,6 +33,11 @@ func init() {
 				&controllers.ControlCategoryController{},
 			),
 		),
+		beego.NSNamespace("/pointgroup",
+			beego.NSInclude(
+				&controllers.PointGroupController{},
+			),
+		),
 		beego.NSNamespace("/controlpoint",
 			beego.NSInclude(
 				&controllers.ControlPointController{},
@@ -43,16 +48,11 @@ func init() {
 				&controllers.LackController{},
 			),
 		),
-		//beego.NSNamespace("/contribution",
-		//	beego.NSInclude(
-		//		&controllers.ContributionController{},
-		//	),
-		//),
-		//beego.NSNamespace("/inspectioncriterion",
-		//	beego.NSInclude(
-		//		&controllers.InspectionCriterionController{},
-		//	),
-		//),
+		beego.NSNamespace("/contribution",
+			beego.NSInclude(
+				&controllers.ContributionController{},
+			),
+		),
 		beego.NSNamespace("/legalform",
 			beego.NSInclude(
 				&controllers.LegalFormController{},
@@ -73,6 +73,9 @@ func init() {
 }
 
 var HandleJWT = func(ctx *context.Context) {
+	if strings.Compare(ctx.Request.Method, "OPTIONS") == 0 {
+		return
+	}
 	if strings.HasPrefix(ctx.Input.URL(), "/v1/user/login") {
 		return
 	}

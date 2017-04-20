@@ -48,10 +48,8 @@ func (u *UserController) GetAll() {
 // @Failure 404
 // @router /profile [get]
 func (this *UserController) Profile() {
-
 	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
-
-	user, err := services.GetUserByUsername(claims.Username)
+	user, err := services.GetUserByUsername(claims.Subject)
 	if err != nil {
 		this.CustomAbort(404, err.Error())
 	}
@@ -112,7 +110,6 @@ func (u *UserController) Delete() {
 // @Failure 403 body is empty
 // @router /register [post]
 func (this *UserController) Register() {
-	beego.Debug("User Controller: Register")
 	var user models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &user)
 

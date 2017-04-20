@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/scmo/foodchain-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego"
 )
 
 func CreateControlCategory(cc *models.ControlCategory) error {
@@ -15,9 +16,13 @@ func GetAllControlCategories() ([]*models.ControlCategory) {
 	o := orm.NewOrm()
 	var controlCategories []*models.ControlCategory
 	o.QueryTable(new(models.ControlCategory)).All(&controlCategories)
-	//for _, controlCategory := range controlCategories {
-	//	o.LoadRelated(controlCategory, "PointGroup")
-	//}
+	for _, controlCategory := range controlCategories {
+		o.LoadRelated(controlCategory, "PointGroups")
+		for _, pointGroup := range controlCategory.PointGroups {
+			beego.Debug(pointGroup.Abbreviation)
+			o.LoadRelated(pointGroup, "ControlPoints")
+		}
+	}
 
 	return controlCategories
 }

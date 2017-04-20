@@ -17,7 +17,7 @@ func GetAllContributions() ([]*models.Contribution) {
 	var contributions []*models.Contribution
 	o.QueryTable(new(models.Contribution)).All(&contributions)
 	for _, contribution := range contributions {
-		o.LoadRelated(contribution, "InspectionCriteria")
+		o.LoadRelated(contribution, "ControlCategories")
 	}
 	return contributions
 }
@@ -33,7 +33,7 @@ func GetContributionById(_id int64) (*models.Contribution, error) {
 		beego.Error("No primary key found.")
 		return nil, err
 	}
-	o.LoadRelated(&contribution, "InspectionCriteria")
+	o.LoadRelated(&contribution, "ControlCategories")
 	return &contribution, nil
 }
 
@@ -48,7 +48,7 @@ func GetContributionByCode(_code uint16) (*models.Contribution, error) {
 		beego.Error("No primary key found.")
 		return nil, err
 	}
-	o.LoadRelated(&contribution, "InspectionCriteria")
+	o.LoadRelated(&contribution, "ControlCategories")
 	return &contribution, nil
 }
 

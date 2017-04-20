@@ -11,4 +11,9 @@ func CreateRole(r *models.Role) error  {
 	return err
 }
 
+func CountRoles() (int64, error) {
+	o := orm.NewOrm()
+	cnt, err := o.QueryTable(new(models.Role)).Count() // SELECT COUNT(*) FROM USE
+	return cnt, err
+}
 

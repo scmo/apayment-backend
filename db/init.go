@@ -28,15 +28,18 @@ func Init() {
 	if err != nil {
 		beego.Error("RunSyncdb Error")
 	}
-	orm.Debug = true
+	// Log every SQL Query
+	orm.Debug = db_log_verbose
 
 
 	// Populate DB
-	//SeedContributions()
-	//SeedInspectionCriterion()
-	SeedLegalForm()
-	SeedPlantType()
 
-	SeedControlPoints()
+	Seed_LegalForm()
+	Seed_PlantType()
+
+	Seed_Users()
+
+	Seed_Contributions()
+	Seed_ControlPoints()
 }
 

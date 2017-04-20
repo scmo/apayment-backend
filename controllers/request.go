@@ -23,7 +23,7 @@ func (this *RequestController) Post() {
 	json.Unmarshal(this.Ctx.Input.RequestBody, &request)
 
 	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
-	user, err := services.GetUserByUsername(claims.Username)
+	user, err := services.GetUserByUsername(claims.Subject)
 	if err != nil {
 		this.CustomAbort(404, err.Error())
 	}
@@ -41,15 +41,9 @@ func (this *RequestController) Post() {
 // @Failure 403 :requestId is empty
 // @router /:requestId [get]
 func (this *RequestController) Get() {
-	objectId := this.Ctx.Input.Param(":requestId")
-	if objectId != "" {
-		ob, err := models.GetOne(objectId)
-		if err != nil {
-			this.Data["json"] = err.Error()
-		} else {
-			this.Data["json"] = ob
-		}
-	}
+	requestId := this.Ctx.Input.Param(":requestId")
+
+	this.Data["json"] = requestId
 	this.ServeJSON()
 }
 

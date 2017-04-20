@@ -20,7 +20,7 @@ type User struct {
 	Address string  `json:"address"`
 	ZIP uint16  `json:"zip"`
 	Place string  `json:"place"`
-	Plant *Plant `orm:"rel(one)" json:"plant"`
+	Plant *Plant `orm:"rel(one);null" json:"plant"`
 }
 
 func init() {

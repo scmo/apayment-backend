@@ -15,6 +15,10 @@ func GetAllPointGroups() ([]*models.PointGroup) {
 	o := orm.NewOrm()
 	var pointGroups []*models.PointGroup
 	o.QueryTable(new(models.PointGroup)).All(&pointGroups)
+	for _, pointGroup := range pointGroups {
+		o.LoadRelated(pointGroup, "ControlPoints")
+	}
+
 	return pointGroups
 }
 

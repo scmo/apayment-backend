@@ -55,13 +55,6 @@ func init() {
 			AllowHTTPMethods: []string{"get"},
 			Params: nil})
 
-	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:InspectionCriterionController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:InspectionCriterionController"],
-		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
-			AllowHTTPMethods: []string{"post"},
-			Params: nil})
-
 	beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/foodchain-backend/controllers:LackController"],
 		beego.ControllerComments{
 			Method: "Post",
