@@ -37,10 +37,39 @@ func (this *UserController) Post() {
 // @Description get all Users
 // @Success 200 {Object} models.User
 // @router / [get]
-func (u *UserController) GetAll() {
-	u.Data["json"] = services.GetAllUsers()
-	u.ServeJSON()
+func (this *UserController) GetAll() {
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+		role := this.Ctx.Input.Query("role")
+		if ( role == "Inspector" ) {
+			this.Data["json"], err = services.GetAllUsersByRole(role)
+			if err != nil {
+				beego.Error("Error while fetching users by Role", err)
+			}
+		} else if (1 != 1) {
+			// maybe another condition
+		} else {
+			this.Data["json"] = services.GetAllUsers()
+		}
+
+	} else {
+		this.CustomAbort(401, "Unauthorized")
+	}
+	this.ServeJSON()
 }
+
+//// @Title GetAll Inspectors
+//// @Description get all Users with the Inspector Role
+//// @Success 200 {Object} models.User
+//// @router /inspectors [get]
+//func (u *UserController) GetAllInspectors() {
+//	u.Data["json"] = services.GetAllUsers()
+//	u.ServeJSON()
+//}
 
 // @Title Get my Profile
 // @Description get user based on JWT Token

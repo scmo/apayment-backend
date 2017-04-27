@@ -60,6 +60,22 @@ func GetAllUsers() ([]*models.User) {
 	return users
 }
 
+func GetAllUsersByRole(_role string) ([]*models.User, error) {
+	o := orm.NewOrm()
+	role := models.Role{Name: _role}
+	err := o.Read(&role, "Name")
+
+	if err == orm.ErrNoRows {
+		beego.Error("No result found.")
+		return nil, err
+	} else if err == orm.ErrMissPK {
+		beego.Error("No primary key found.")
+		return nil, err
+	}
+	o.LoadRelated(&role, "Users")
+	return role.Users, nil
+}
+
 func GetUserById(_id int64) (*models.User, error) {
 	o := orm.NewOrm()
 	user := models.User{Id: _id}

@@ -5,6 +5,7 @@ import (
 	"github.com/scmo/foodchain-backend/models"
 	"encoding/json"
 	"github.com/scmo/foodchain-backend/services"
+	"strconv"
 )
 
 // Operations about Contributions
@@ -29,7 +30,7 @@ func (this *RequestController) Post() {
 	}
 	request.User = user
 
-	services.CreateRequest(&request)
+	services.CreateRequest(request)
 	//// TODO Validiation
 	this.ServeJSON()
 }
@@ -41,9 +42,12 @@ func (this *RequestController) Post() {
 // @Failure 403 :requestId is empty
 // @router /:requestId [get]
 func (this *RequestController) Get() {
-	requestId := this.Ctx.Input.Param(":requestId")
-
-	this.Data["json"] = requestId
+	input := this.Ctx.Input.Param(":requestId")
+	requestId, err := strconv.ParseInt(input, 10, 64)
+	if err != nil {
+		beego.Error(err)
+	}
+	this.Data["json"] = services.GetRequestById(requestId)
 	this.ServeJSON()
 }
 
@@ -52,7 +56,73 @@ func (this *RequestController) Get() {
 // @Success 200 {object} models.Request
 // @router / [get]
 func (this *RequestController) GetAll() {
-	requests := services.GetAllRequests()
+	requests := []*models.Request{}
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if (user.HasRole("Farmer")) {
+		requests = services.GetAllRequestsByUserId(user.Id)
+	} else if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+		requests = services.GetAllRequests()
+	} else {
+		this.CustomAbort(401, "Unauthorized")
+	}
+
 	this.Data["json"] = requests
+	this.ServeJSON()
+}
+
+// @Title GetAll
+// @Description get all request which have an inspector assigned
+// @Success 200 {object} models.Request
+// @router /inspection [get]
+func (this *RequestController) GetAllForInspection() {
+	requests := []*models.Request{}
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if (user.HasRole("Inspector")) {
+		requests = services.GetAllRequestsForInspectionByInspectorId(user.Id)
+	} else if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+		requests = services.GetAllRequestsForInspection()
+	} else {
+		this.CustomAbort(401, "Unauthorized")
+	}
+
+	this.Data["json"] = requests
+	this.ServeJSON()
+}
+
+
+// @Title Add Inspector
+// @Description add Inspector to Requestion
+// @Param	body		body 	models.Request	true		"body for requestion content"
+// @Success 200 {object} models.Request
+// @router /inspector [put]
+func (this *RequestController) AddInspector() {
+	var request models.Request
+	json.Unmarshal(this.Ctx.Input.RequestBody, &request)
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+		//requests = services.GetAllRequests()
+		services.AddInspectorToRequest(&request)
+	} else {
+		this.CustomAbort(401, "Unauthorized")
+	}
+
+	this.Data["json"] = request
 	this.ServeJSON()
 }

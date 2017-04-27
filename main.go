@@ -7,7 +7,6 @@ import (
 	"github.com/astaxie/beego/plugins/cors"
 	"github.com/scmo/foodchain-backend/ethereum"
 
-	"github.com/scmo/foodchain-backend/routers"
 )
 
 func init() {
@@ -23,7 +22,7 @@ func main() {
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
 
-	beego.InsertFilter("/*", beego.BeforeRouter, routers.HandleJWT)
+	//beego.InsertFilter("/*", beego.BeforeRouter, routers.HandleJWT)
 
 	beego.InsertFilter("*", beego.BeforeRouter, cors.Allow(&cors.Options{
 		AllowAllOrigins: true,
