@@ -71,6 +71,9 @@ func GetRequestById(requestId int64) *models.Request {
 		beego.Error("Failed to instantiate a Token contract: %v", err)
 	}
 	assignRequest(&request, requestContract)
+
+	// load control categories
+
 	return &request
 }
 

@@ -49,6 +49,15 @@ func GetContributionByCode(_code uint16) (*models.Contribution, error) {
 		return nil, err
 	}
 	o.LoadRelated(&contribution, "ControlCategories")
+	for _, controlCategory := range contribution.ControlCategories {
+		o.LoadRelated(controlCategory, "PointGroups")
+		for _, pointgroup := range controlCategory.PointGroups {
+			o.LoadRelated(pointgroup, "ControlPoints")
+			for _, controlPoint := range pointgroup.ControlPoints {
+				o.LoadRelated(controlPoint, "Lacks")
+			}
+		}
+	}
 	return &contribution, nil
 }
 

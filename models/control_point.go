@@ -7,7 +7,7 @@ type ControlPoint struct {
 	ControlPointId string             `json:"controlPointId"`
 	Abbreviation   string             `json:"abbreviation"`
 	ControlPoint   string             `json:"controlPoint"`
-	//Lacks        []*Lack            `orm:"rel(m2m)" json:"lacks"`
+	Lacks          []*Lack            `orm:"reverse(many)" json:"lacks"`
 	PointGroup     *PointGroup        `orm:"rel(fk);null" json:"-"`
 }
 

@@ -37,6 +37,7 @@ func (this *RequestController) Post() {
 
 // @Title Get
 // @Description find request by requestID
+// @Param jwtToken header string true "jwt Token for Authorization"
 // @Param	requestId		path 	string	true		"the requestid you want to get"
 // @Success 200 {object} models.Request
 // @Failure 403 :requestId is empty
@@ -126,3 +127,14 @@ func (this *RequestController) AddInspector() {
 	this.Data["json"] = request
 	this.ServeJSON()
 }
+
+// @Title Add Inspection
+// @Description Add the report of the inspection
+// @Param	body		body 	models.Request	true		"body for requestion content"
+// @Success 200 {object} models.Request
+// @router /inspection [post]
+func (this *RequestController) AddInspection() {
+	this.Data["json"] = "Added"
+	this.ServeJSON()
+}
+

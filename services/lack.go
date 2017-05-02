@@ -11,6 +11,12 @@ func CreateLack(l *models.Lack) error  {
 	return err
 }
 
+func CreateMultiLacks(lacks []models.Lack) error {
+	o := orm.NewOrm()
+	_, err := o.InsertMulti(50, lacks)
+	return err
+}
+
 func GetAllLacks() ([]*models.Lack) {
 	o := orm.NewOrm()
 	var lacks []*models.Lack
