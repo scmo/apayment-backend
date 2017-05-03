@@ -1,18 +1,19 @@
-pragma solidity ^0.4.0;
+pragma solidity ^0.4.10;
+
 
 contract mortal {
   /* Define variable owner of the type address*/
   address owner;
 
   /* this function is executed at initialization and sets the owner of the contract */
-  function mortal() { owner = msg.sender; }
+  function mortal() {owner = msg.sender;}
 
   /* Function to recover the funds on the contract */
-  function kill() { if (msg.sender == owner) selfdestruct(owner); }
+  function kill() {if (msg.sender == owner) selfdestruct(owner);}
 }
 
-contract Request is mortal {
 
+contract Request is mortal {
 
   int64 public userId;
 
@@ -21,6 +22,17 @@ contract Request is mortal {
   uint16[] public contributionCodes;
 
   string public remark;
+
+  struct Lack {
+  uint16 contributionCode;
+  string controlCategoryId;
+  string pointGroupId;
+  string controlPointId;
+  int64 lackId;
+  }
+
+  uint public numLacks;
+  mapping (uint => Lack) public lacks;
 
   function Request(int64 _userId, uint16[] _contributionCodes, string _remark) public {
     userId = _userId;
@@ -34,6 +46,12 @@ contract Request is mortal {
 
   function setInspectorId(int64 _inspectorId){
     inspectorId = _inspectorId;
+  }
+
+
+  function addLack(uint16 _contributionCode, string _controlCategoryId, string _pointGroupId, string controlPointId, int64 lackId) {
+    uint lacksIndex = numLacks++;
+    lacks[lacksIndex] = Lack(_contributionCode, _controlCategoryId, _pointGroupId, controlPointId, lackId);
   }
 
 }

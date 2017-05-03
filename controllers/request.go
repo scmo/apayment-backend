@@ -134,7 +134,24 @@ func (this *RequestController) AddInspector() {
 // @Success 200 {object} models.Request
 // @router /inspection [post]
 func (this *RequestController) AddInspection() {
-	this.Data["json"] = "Added"
+	var inspection models.Inspection
+	json.Unmarshal(this.Ctx.Input.RequestBody, &inspection)
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+	if ( user.HasRole("Admin") || user.HasRole("Inspector")) {
+		//inspection.InspectorId = user.Id
+	} else {
+		this.CustomAbort(401, "Unauthorized")
+	}
+	err = services.AddLacksToRequest(&inspection)
+	if err != nil {
+		this.CustomAbort(500, err.Error())
+	}
+	this.Data["json"] = inspection
 	this.ServeJSON()
 }
 

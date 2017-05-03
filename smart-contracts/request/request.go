@@ -14,10 +14,10 @@ import (
 )
 
 // RequestContractABI is the input ABI used to generate the binding from.
-const RequestContractABI = "[{\"constant\":true,\"inputs\":[],\"name\":\"createdTimestamp\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"kill\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"userId\",\"outputs\":[{\"name\":\"\",\"type\":\"int64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_inspectorId\",\"type\":\"int64\"}],\"name\":\"setInspectorId\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"inspectorId\",\"outputs\":[{\"name\":\"\",\"type\":\"int64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"contributionCodes\",\"outputs\":[{\"name\":\"\",\"type\":\"uint16\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"remark\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_userId\",\"type\":\"int64\"},{\"name\":\"_contributionCodes\",\"type\":\"uint16[]\"},{\"name\":\"_remark\",\"type\":\"string\"}],\"payable\":false,\"type\":\"constructor\"}]"
+const RequestContractABI = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"lacks\",\"outputs\":[{\"name\":\"contributionCode\",\"type\":\"uint16\"},{\"name\":\"controlCategoryId\",\"type\":\"string\"},{\"name\":\"pointGroupId\",\"type\":\"string\"},{\"name\":\"controlPointId\",\"type\":\"string\"},{\"name\":\"lackId\",\"type\":\"int64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"createdTimestamp\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[],\"name\":\"kill\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"numLacks\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"userId\",\"outputs\":[{\"name\":\"\",\"type\":\"int64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_inspectorId\",\"type\":\"int64\"}],\"name\":\"setInspectorId\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"inspectorId\",\"outputs\":[{\"name\":\"\",\"type\":\"int64\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"contributionCodes\",\"outputs\":[{\"name\":\"\",\"type\":\"uint16\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"remark\",\"outputs\":[{\"name\":\"\",\"type\":\"string\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"_contributionCode\",\"type\":\"uint16\"},{\"name\":\"_controlCategoryId\",\"type\":\"string\"},{\"name\":\"_pointGroupId\",\"type\":\"string\"},{\"name\":\"controlPointId\",\"type\":\"string\"},{\"name\":\"lackId\",\"type\":\"int64\"}],\"name\":\"addLack\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"inputs\":[{\"name\":\"_userId\",\"type\":\"int64\"},{\"name\":\"_contributionCodes\",\"type\":\"uint16[]\"},{\"name\":\"_remark\",\"type\":\"string\"}],\"payable\":false,\"type\":\"constructor\"}]"
 
 // RequestContractBin is the compiled bytecode used for deploying new contracts.
-const RequestContractBin = `6060604052341561000c57fe5b604051610670380380610670833981016040528080519060200190919080518201919060200180518201919050505b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b82600060146101000a81548167ffffffffffffffff021916908360070b67ffffffffffffffff16021790555081600290805190602001906100c09291906100e1565b5080600390805190602001906100d792919061018b565b505b505050610261565b82805482825590600052602060002090600f0160109004810192821561017a5791602002820160005b8382111561014a57835183826101000a81548161ffff021916908361ffff160217905550926020019260020160208160010104928301926001030261010a565b80156101785782816101000a81549061ffff021916905560020160208160010104928301926001030261014a565b505b509050610187919061020b565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106101cc57805160ff19168380011785556101fa565b828001600101855582156101fa579182015b828111156101f95782518255916020019190600101906101de565b5b509050610207919061023c565b5090565b61023991905b8082111561023557600081816101000a81549061ffff021916905550600101610211565b5090565b90565b61025e91905b8082111561025a576000816000905550600101610242565b5090565b90565b610400806102706000396000f30060606040523615610081576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063103097811461008357806341c0e1b5146100a957806358975919146100bb578063727af9c6146100e757806379a517fe1461010a5780639b5d25d914610136578063a47d1f5e14610172575bfe5b341561008b57fe5b61009361020b565b6040518082815260200191505060405180910390f35b34156100b157fe5b6100b9610214565b005b34156100c357fe5b6100cb6102a8565b604051808260070b60070b815260200191505060405180910390f35b34156100ef57fe5b610108600480803560070b9060200190919050506102bb565b005b341561011257fe5b61011a6102eb565b604051808260070b60070b815260200191505060405180910390f35b341561013e57fe5b61015460048080359060200190919050506102fe565b604051808261ffff1661ffff16815260200191505060405180910390f35b341561017a57fe5b610182610336565b60405180806020018281038252838181518152602001915080519060200190808383600083146101d1575b8051825260208311156101d1576020820191506020810190506020830392506101ad565b505050905090810190601f1680156101fd5780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b60004290505b90565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614156102a557600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b565b600060149054906101000a900460070b81565b80600160006101000a81548167ffffffffffffffff021916908360070b67ffffffffffffffff1602179055505b50565b600160009054906101000a900460070b81565b60028181548110151561030d57fe5b90600052602060002090601091828204019190066002025b915054906101000a900461ffff1681565b60038054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156103cc5780601f106103a1576101008083540402835291602001916103cc565b820191906000526020600020905b8154815290600101906020018083116103af57829003601f168201915b5050505050815600a165627a7a7230582005658a5e6df06b41fa52b6428bf51622a784ef2b9c0eb2774041693a938040990029`
+const RequestContractBin = `6060604052341561000c57fe5b604051610b9c380380610b9c833981016040528080519060200190919080518201919060200180518201919050505b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b82600060146101000a81548167ffffffffffffffff021916908360070b67ffffffffffffffff16021790555081600290805190602001906100c09291906100e1565b5080600390805190602001906100d792919061018b565b505b505050610261565b82805482825590600052602060002090600f0160109004810192821561017a5791602002820160005b8382111561014a57835183826101000a81548161ffff021916908361ffff160217905550926020019260020160208160010104928301926001030261010a565b80156101785782816101000a81549061ffff021916905560020160208160010104928301926001030261014a565b505b509050610187919061020b565b5090565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f106101cc57805160ff19168380011785556101fa565b828001600101855582156101fa579182015b828111156101f95782518255916020019190600101906101de565b5b509050610207919061023c565b5090565b61023991905b8082111561023557600081816101000a81549061ffff021916905550600101610211565b5090565b90565b61025e91905b8082111561025a576000816000905550600101610242565b5090565b90565b61092c806102706000396000f300606060405236156100a2576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680630478e042146100a4578063103097811461028857806341c0e1b5146102ae57806355bcbf57146102c057806358975919146102e6578063727af9c61461031257806379a517fe146103355780639b5d25d914610361578063a47d1f5e1461039d578063ad0672fd14610436575bfe5b34156100ac57fe5b6100c2600480803590602001909190505061052f565b604051808661ffff1661ffff1681526020018060200180602001806020018560070b60070b815260200184810384528881815460018160011615610100020316600290048152602001915080546001816001161561010002031660029004801561016d5780601f106101425761010080835404028352916020019161016d565b820191906000526020600020905b81548152906001019060200180831161015057829003601f168201915b50508481038352878181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156101f05780601f106101c5576101008083540402835291602001916101f0565b820191906000526020600020905b8154815290600101906020018083116101d357829003601f168201915b50508481038252868181546001816001161561010002031660029004815260200191508054600181600116156101000203166002900480156102735780601f1061024857610100808354040283529160200191610273565b820191906000526020600020905b81548152906001019060200180831161025657829003601f168201915b50509850505050505050505060405180910390f35b341561029057fe5b61029861057d565b6040518082815260200191505060405180910390f35b34156102b657fe5b6102be610586565b005b34156102c857fe5b6102d061061a565b6040518082815260200191505060405180910390f35b34156102ee57fe5b6102f6610620565b604051808260070b60070b815260200191505060405180910390f35b341561031a57fe5b610333600480803560070b906020019091905050610633565b005b341561033d57fe5b610345610663565b604051808260070b60070b815260200191505060405180910390f35b341561036957fe5b61037f6004808035906020019091905050610676565b604051808261ffff1661ffff16815260200191505060405180910390f35b34156103a557fe5b6103ad6106ae565b60405180806020018281038252838181518152602001915080519060200190808383600083146103fc575b8051825260208311156103fc576020820191506020810190506020830392506103d8565b505050905090810190601f1680156104285780820380516001836020036101000a031916815260200191505b509250505060405180910390f35b341561043e57fe5b61052d600480803561ffff1690602001909190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803590602001908201803590602001908080601f0160208091040260200160405190810160405280939291908181526020018383808284378201915050505050509190803560070b90602001909190505061074c565b005b60056020528060005260406000206000915090508060000160009054906101000a900461ffff16908060010190806002019080600301908060040160009054906101000a900460070b905085565b60004290505b90565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16141561061757600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16ff5b5b565b60045481565b600060149054906101000a900460070b81565b80600160006101000a81548167ffffffffffffffff021916908360070b67ffffffffffffffff1602179055505b50565b600160009054906101000a900460070b81565b60028181548110151561068557fe5b90600052602060002090601091828204019190066002025b915054906101000a900461ffff1681565b60038054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156107445780601f1061071957610100808354040283529160200191610744565b820191906000526020600020905b81548152906001019060200180831161072757829003601f168201915b505050505081565b60006004600081548092919060010191905055905060a0604051908101604052808761ffff1681526020018681526020018581526020018481526020018360070b8152506005600083815260200190815260200160002060008201518160000160006101000a81548161ffff021916908361ffff16021790555060208201518160010190805190602001906107e292919061085b565b5060408201518160020190805190602001906107ff92919061085b565b50606082015181600301908051906020019061081c92919061085b565b5060808201518160040160006101000a81548167ffffffffffffffff021916908360070b67ffffffffffffffff1602179055509050505b505050505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061089c57805160ff19168380011785556108ca565b828001600101855582156108ca579182015b828111156108c95782518255916020019190600101906108ae565b5b5090506108d791906108db565b5090565b6108fd91905b808211156108f95760008160009055506001016108e1565b5090565b905600a165627a7a72305820ab9a862c291dabd41459b7ad61267ddd577656a67ee79212a752b1133c50122b0029`
 
 // DeployRequestContract deploys a new Ethereum contract, binding an instance of RequestContract to it.
 func DeployRequestContract(auth *bind.TransactOpts, backend bind.ContractBackend, _userId int64, _contributionCodes []uint16, _remark string) (common.Address, *types.Transaction, *RequestContract, error) {
@@ -237,6 +237,80 @@ func (_RequestContract *RequestContractCallerSession) InspectorId() (int64, erro
 	return _RequestContract.Contract.InspectorId(&_RequestContract.CallOpts)
 }
 
+// Lacks is a free data retrieval call binding the contract method 0x0478e042.
+//
+// Solidity: function lacks( uint256) constant returns(contributionCode uint16, controlCategoryId string, pointGroupId string, controlPointId string, lackId int64)
+func (_RequestContract *RequestContractCaller) Lacks(opts *bind.CallOpts, arg0 *big.Int) (struct {
+	ContributionCode  uint16
+	ControlCategoryId string
+	PointGroupId      string
+	ControlPointId    string
+	LackId            int64
+}, error) {
+	ret := new(struct {
+		ContributionCode  uint16
+		ControlCategoryId string
+		PointGroupId      string
+		ControlPointId    string
+		LackId            int64
+	})
+	out := ret
+	err := _RequestContract.contract.Call(opts, out, "lacks", arg0)
+	return *ret, err
+}
+
+// Lacks is a free data retrieval call binding the contract method 0x0478e042.
+//
+// Solidity: function lacks( uint256) constant returns(contributionCode uint16, controlCategoryId string, pointGroupId string, controlPointId string, lackId int64)
+func (_RequestContract *RequestContractSession) Lacks(arg0 *big.Int) (struct {
+	ContributionCode  uint16
+	ControlCategoryId string
+	PointGroupId      string
+	ControlPointId    string
+	LackId            int64
+}, error) {
+	return _RequestContract.Contract.Lacks(&_RequestContract.CallOpts, arg0)
+}
+
+// Lacks is a free data retrieval call binding the contract method 0x0478e042.
+//
+// Solidity: function lacks( uint256) constant returns(contributionCode uint16, controlCategoryId string, pointGroupId string, controlPointId string, lackId int64)
+func (_RequestContract *RequestContractCallerSession) Lacks(arg0 *big.Int) (struct {
+	ContributionCode  uint16
+	ControlCategoryId string
+	PointGroupId      string
+	ControlPointId    string
+	LackId            int64
+}, error) {
+	return _RequestContract.Contract.Lacks(&_RequestContract.CallOpts, arg0)
+}
+
+// NumLacks is a free data retrieval call binding the contract method 0x55bcbf57.
+//
+// Solidity: function numLacks() constant returns(uint256)
+func (_RequestContract *RequestContractCaller) NumLacks(opts *bind.CallOpts) (*big.Int, error) {
+	var (
+		ret0 = new(*big.Int)
+	)
+	out := ret0
+	err := _RequestContract.contract.Call(opts, out, "numLacks")
+	return *ret0, err
+}
+
+// NumLacks is a free data retrieval call binding the contract method 0x55bcbf57.
+//
+// Solidity: function numLacks() constant returns(uint256)
+func (_RequestContract *RequestContractSession) NumLacks() (*big.Int, error) {
+	return _RequestContract.Contract.NumLacks(&_RequestContract.CallOpts)
+}
+
+// NumLacks is a free data retrieval call binding the contract method 0x55bcbf57.
+//
+// Solidity: function numLacks() constant returns(uint256)
+func (_RequestContract *RequestContractCallerSession) NumLacks() (*big.Int, error) {
+	return _RequestContract.Contract.NumLacks(&_RequestContract.CallOpts)
+}
+
 // Remark is a free data retrieval call binding the contract method 0xa47d1f5e.
 //
 // Solidity: function remark() constant returns(string)
@@ -287,6 +361,27 @@ func (_RequestContract *RequestContractSession) UserId() (int64, error) {
 // Solidity: function userId() constant returns(int64)
 func (_RequestContract *RequestContractCallerSession) UserId() (int64, error) {
 	return _RequestContract.Contract.UserId(&_RequestContract.CallOpts)
+}
+
+// AddLack is a paid mutator transaction binding the contract method 0xad0672fd.
+//
+// Solidity: function addLack(_contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) returns()
+func (_RequestContract *RequestContractTransactor) AddLack(opts *bind.TransactOpts, _contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) (*types.Transaction, error) {
+	return _RequestContract.contract.Transact(opts, "addLack", _contributionCode, _controlCategoryId, _pointGroupId, controlPointId, lackId)
+}
+
+// AddLack is a paid mutator transaction binding the contract method 0xad0672fd.
+//
+// Solidity: function addLack(_contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) returns()
+func (_RequestContract *RequestContractSession) AddLack(_contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) (*types.Transaction, error) {
+	return _RequestContract.Contract.AddLack(&_RequestContract.TransactOpts, _contributionCode, _controlCategoryId, _pointGroupId, controlPointId, lackId)
+}
+
+// AddLack is a paid mutator transaction binding the contract method 0xad0672fd.
+//
+// Solidity: function addLack(_contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) returns()
+func (_RequestContract *RequestContractTransactorSession) AddLack(_contributionCode uint16, _controlCategoryId string, _pointGroupId string, controlPointId string, lackId int64) (*types.Transaction, error) {
+	return _RequestContract.Contract.AddLack(&_RequestContract.TransactOpts, _contributionCode, _controlCategoryId, _pointGroupId, controlPointId, lackId)
 }
 
 // Kill is a paid mutator transaction binding the contract method 0x41c0e1b5.

@@ -77,6 +77,17 @@ func GetRequestById(requestId int64) *models.Request {
 	return &request
 }
 
+func GetRequestAddressById(requestId int64) string {
+	o := orm.NewOrm()
+	var request models.Request
+	err := o.QueryTable(new(models.Request)).Filter("Id", requestId).RelatedSel().One(&request)
+	if err != nil {
+		beego.Error("Error while fetching Request.", err)
+	}
+
+	return request.Address
+}
+
 func GetAllRequestsForInspection() []*models.Request {
 	o := orm.NewOrm()
 	var requests []*models.Request
@@ -107,6 +118,28 @@ func AddInspectorToRequest(request *models.Request) {
 		beego.Critical("Failed to update name: ", err)
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+}
+
+// Add inspection Lacks to Request
+func AddLacksToRequest(inspection *models.Inspection) error {
+
+	requestAddress := GetRequestAddressById(inspection.RequestId)
+	// Add to the SmartContract
+	requestContract, err := getRequestByAddress(requestAddress)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return err
+	}
+	session := getRequestContractSession(requestContract)
+	for _, lack := range inspection.Lacks {
+		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupId, lack.ControlPointId, lack.LackId)
+		if err != nil {
+			beego.Critical("Failed to update name: ", err)
+			return err
+		}
+		beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+	}
+	return err
 }
 
 func getRequestContractSession(requestContract *smartcontracts.RequestContract) (*smartcontracts.RequestContractSession) {
@@ -148,8 +181,23 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 		beego.Error("Request User and Contract UserId does not match!")
 	}
 
-	if (request.Inspector != nil) {
+	setInspector(request, session)
+	setContributions(request, session)
+	setLacksInspected(request, session)
 
+	request.Remark, err = session.Remark()
+	if err != nil {
+		beego.Error("Failed to instantiate a Token contract: ", err)
+	}
+
+	createdTimestamp, err := session.CreatedTimestamp()
+	if err != nil {
+		beego.Error("Error while reading createdTimestamp from Contract: ", err)
+	}
+	request.Created = createdTimestamp
+}
+func setInspector(request *models.Request, session *smartcontracts.RequestContractSession) {
+	if (request.Inspector != nil) {
 		inspectorId, err := session.InspectorId()
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
@@ -159,11 +207,9 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
 	}
+}
 
-	request.Remark, err = session.Remark()
-	if err != nil {
-		beego.Error("Failed to instantiate a Token contract: ", err)
-	}
+func setContributions(request *models.Request, session *smartcontracts.RequestContractSession) {
 	request.Contributions = make([]*models.Contribution, 0)
 	next := true
 	index := big.NewInt(0)
@@ -182,9 +228,24 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 		index.Add(index, big.NewInt(1))
 	}
 
-	createdTimestamp, err := session.CreatedTimestamp()
-	if err != nil {
-		beego.Error("Error while reading createdTimestamp from Contract: ", err)
-	}
-	request.Created = createdTimestamp
 }
+
+func setLacksInspected(request *models.Request, session *smartcontracts.RequestContractSession) {
+	request.InspectionLacks = make([]*models.InspectionLack, 0)
+	numLack, err := session.NumLacks()
+	if err != nil {
+		beego.Error("Error getting NumLacks", err)
+		return
+	}
+	for i := new(big.Int).Set(big.NewInt(1)); i.Cmp(numLack) < 0; i.Add(i, big.NewInt(1)) {
+		lack, err := session.Lacks(i)
+		if err != nil {
+			beego.Error("Error getting Lack", err)
+			return
+		}
+		inspectionLacks := models.InspectionLack(lack)
+		request.InspectionLacks = append(request.InspectionLacks, &inspectionLacks)
+	}
+}
+
+
