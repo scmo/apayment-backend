@@ -92,6 +92,13 @@ func GetAllRequestsForInspection() []*models.Request {
 	o := orm.NewOrm()
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).Filter("inspector__isnull", false).RelatedSel().All(&requests)
+	for _, request := range requests {
+		requestContract, err := getRequestByAddress(request.Address)
+		if err != nil {
+			beego.Error("Failed to instantiate a Token contract: %v", err)
+		}
+		assignRequest(request, requestContract)
+	}
 	return requests
 }
 
@@ -99,6 +106,13 @@ func GetAllRequestsForInspectionByInspectorId(inspectorId int64) []*models.Reque
 	o := orm.NewOrm()
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).Filter("inspector", inspectorId).RelatedSel().All(&requests)
+	for _, request := range requests {
+		requestContract, err := getRequestByAddress(request.Address)
+		if err != nil {
+			beego.Error("Failed to instantiate a Token contract: %v", err)
+		}
+		assignRequest(request, requestContract)
+	}
 	return requests
 }
 
@@ -184,17 +198,12 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 	setInspector(request, session)
 	setContributions(request, session)
 	setLacksInspected(request, session)
-
+	setTimestamps(request, session)
 	request.Remark, err = session.Remark()
 	if err != nil {
 		beego.Error("Failed to instantiate a Token contract: ", err)
 	}
 
-	createdTimestamp, err := session.CreatedTimestamp()
-	if err != nil {
-		beego.Error("Error while reading createdTimestamp from Contract: ", err)
-	}
-	request.Created = createdTimestamp
 }
 func setInspector(request *models.Request, session *smartcontracts.RequestContractSession) {
 	if (request.Inspector != nil) {
@@ -248,4 +257,19 @@ func setLacksInspected(request *models.Request, session *smartcontracts.RequestC
 	}
 }
 
+func setTimestamps(request *models.Request, session *smartcontracts.RequestContractSession) {
 
+	// Created
+	createdTimestamp, err := session.Created()
+	if err != nil {
+		beego.Error("Error while reading createdTimestamp from Contract: ", err)
+	}
+	request.Created = createdTimestamp
+
+	// Modified
+	modifiedTimestamp, err := session.Modified()
+	if err != nil {
+		beego.Error("Error while reading updatedTimestamp from Contract: ", err)
+	}
+	request.Modified = modifiedTimestamp
+}
