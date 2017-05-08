@@ -1,0 +1,1 @@
+abigen --abi request.abi --pkg smartcontracts --type RequestContract --out request.go --bin request.bin
