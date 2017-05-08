@@ -6,6 +6,10 @@ import (
 	"github.com/astaxie/beego"
 	"golang.org/x/crypto/bcrypt"
 	"errors"
+	"github.com/scmo/foodchain-backend/ethereum"
+	"net/http"
+	"context"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 func CreateUser(u *models.User) error {
@@ -13,9 +17,17 @@ func CreateUser(u *models.User) error {
 	hash, err := hashPassword(u.Password)
 	if err != nil {
 		beego.Error("HashPassword ", err.Error())
-
+		return err
 	}
 	u.Password = hash
+
+	accountAddress, err := createNewEthereumAccount()
+	if err != nil {
+		beego.Error("Creating Ethereum Account ", err.Error())
+		return err
+	}
+	u.Address = accountAddress
+
 	_, err = o.Insert(u)
 	if err != nil {
 		beego.Error("Inser User ", err.Error())
@@ -36,6 +48,27 @@ func CreateUser(u *models.User) error {
 		}
 	}
 	return err
+}
+
+func createNewEthereumAccount() (string, error) {
+	ethereumController := ethereum.GetEthereumController()
+	account, err := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
+	if beego.BConfig.RunMode == "dev" {
+		ethereum.SendEther("0x88f1e48e11864bfc4685f9f9d8b79b18450764ef", account.Address.String(), 1)
+		//addEthers(account.Address.String())
+	}
+
+	return account.Address.String(), err
+}
+
+func addEthers(address string) {
+	faucetURL := "http://faucet.ropsten.be:3001/donate/" + address
+	beego.Info(faucetURL)
+	resp, err := http.Get(faucetURL)
+	if err != nil {
+		beego.Error("Error while calling faucet. ", err)
+	}
+	beego.Info("Calling faucet. Response Code: ", resp.Status)
 }
 
 func CheckLogin(_username string, _password string) (models.User, error) {
@@ -88,6 +121,7 @@ func GetUserById(_id int64) (*models.User, error) {
 		return nil, err
 	}
 	o.LoadRelated(&user, "Roles")
+	setEtherBalance(&user)
 	return &user, nil
 }
 
@@ -103,7 +137,21 @@ func GetUserByUsername(_username string) (*models.User, error) {
 		return nil, err
 	}
 	o.LoadRelated(&user, "Roles")
+
+	setEtherBalance(&user)
 	return &user, nil
+}
+
+func setEtherBalance(user *models.User) {
+	ethereumController := ethereum.GetEthereumController()
+	ctx := context.Background()
+	latestBlock, err := ethereumController.Client.BlockByNumber(ctx, nil)
+	if err != nil {
+		beego.Critical("Failed to get latest block: ", err)
+	}
+	balance, err := ethereumController.Client.BalanceAt(ctx, common.StringToAddress(user.Address), latestBlock.Number())
+
+ 	user.EthereumBalance = balance
 }
 
 func CountUsers() (int64, error) {

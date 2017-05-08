@@ -10,11 +10,12 @@ import (
 )
 
 func init() {
+	// TODO: ethereum struct
+	ethereum.Init()
 	// Setup DB
 	db.Init()
 
-	// TODO: ethereum struct
-	ethereum.Init()
+
 }
 func main() {
 	if beego.BConfig.RunMode == "dev" {
