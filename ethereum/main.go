@@ -2,7 +2,6 @@ package ethereum
 
 import (
 	"github.com/astaxie/beego"
-	"strings"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
@@ -17,6 +16,7 @@ import (
 	"context"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum"
+	"strings"
 )
 
 type EthereumController struct {
@@ -50,6 +50,7 @@ func Init() {
 	ks := keystore.NewKeyStore(pathToEthereum + "keystore", keystore.LightScryptN, keystore.LightScryptP)
 
 	ethereumController = EthereumController{Auth:auth, Client:client, Keystore: ks}
+	//ethereumController = EthereumController{ Client:client, Keystore: ks}
 
 	// Assuption: SyncProgress returns nil if it is not syncing
 	//sy, err := client.SyncProgress(ctx)
@@ -87,8 +88,9 @@ func SendEther(from string, to string, amountEther int64) {
 
 }
 
-func GetAuth(address string) {
+func GetAuth(address string) *bind.TransactOpts {
 	account, err := ethereumController.Keystore.Find(accounts.Account{Address: common.HexToAddress(address)})
+
 	if ( err != nil ) {
 		beego.Error("Error find: ", err)
 	}
@@ -97,7 +99,7 @@ func GetAuth(address string) {
 	if err != nil {
 		beego.Critical("Failed  to create authorized transactor: ", err)
 	}
-	ethereumController.Auth = auth
+	return auth
 }
 
 func GetEthereumController() EthereumController {

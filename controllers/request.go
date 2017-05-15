@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"github.com/scmo/foodchain-backend/services"
 	"strconv"
+	"github.com/scmo/foodchain-backend/ethereum"
 )
 
 // Operations about Contributions
@@ -30,8 +31,8 @@ func (this *RequestController) Post() {
 	}
 	request.User = user
 
-	services.CreateRequest(request)
-	//// TODO Validiation
+	services.CreateRequest(request, ethereum.GetAuth(user.Address))
+	// TODO Validiation
 	this.ServeJSON()
 }
 
@@ -119,7 +120,7 @@ func (this *RequestController) AddInspector() {
 
 	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
 		//requests = services.GetAllRequests()
-		services.AddInspectorToRequest(&request)
+		services.AddInspectorToRequest(&request, ethereum.GetAuth(user.Address))
 	} else {
 		this.CustomAbort(401, "Unauthorized")
 	}
@@ -147,7 +148,7 @@ func (this *RequestController) AddInspection() {
 	} else {
 		this.CustomAbort(401, "Unauthorized")
 	}
-	err = services.AddLacksToRequest(&inspection)
+	err = services.AddLacksToRequest(&inspection, ethereum.GetAuth(user.Address))
 	if err != nil {
 		this.CustomAbort(500, err.Error())
 	}

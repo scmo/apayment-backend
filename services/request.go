@@ -11,10 +11,10 @@ import (
 	"github.com/scmo/foodchain-backend/smart-contracts/request"
 )
 
-func CreateRequest(r models.Request) error {
+func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	beego.Debug(r.Remark)
-	address, tx, _, err := smartcontracts.DeployRequestContract(ethereumController.Auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark)
+
+	address, tx, _, err := smartcontracts.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark)
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -116,7 +116,7 @@ func GetAllRequestsForInspectionByInspectorId(inspectorId int64) []*models.Reque
 	return requests
 }
 
-func AddInspectorToRequest(request *models.Request) {
+func AddInspectorToRequest(request *models.Request , auth *bind.TransactOpts) {
 	// Add to DB
 	o := orm.NewOrm()
 	o.Update(request, "Inspector")
@@ -127,6 +127,8 @@ func AddInspectorToRequest(request *models.Request) {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 	}
 	session := getRequestContractSession(requestContract)
+	session.TransactOpts.From = auth.From
+	session.TransactOpts.Signer = auth.Signer
 	tx, err := session.SetInspectorId(request.Inspector.Id)
 	if err != nil {
 		beego.Critical("Failed to update name: ", err)
@@ -135,16 +137,18 @@ func AddInspectorToRequest(request *models.Request) {
 }
 
 // Add inspection Lacks to Request
-func AddLacksToRequest(inspection *models.Inspection) error {
-
+func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) error {
 	requestAddress := GetRequestAddressById(inspection.RequestId)
 	// Add to the SmartContract
 	requestContract, err := getRequestByAddress(requestAddress)
+
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return err
 	}
 	session := getRequestContractSession(requestContract)
+	session.TransactOpts.From = auth.From
+	session.TransactOpts.Signer = auth.Signer
 	for _, lack := range inspection.Lacks {
 		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupId, lack.ControlPointId, lack.LackId)
 		if err != nil {
@@ -157,15 +161,15 @@ func AddLacksToRequest(inspection *models.Inspection) error {
 }
 
 func getRequestContractSession(requestContract *smartcontracts.RequestContract) (*smartcontracts.RequestContractSession) {
-	ethereumController := ethereum.GetEthereumController()
+	//ethereumController := ethereum.GetEthereumController()
 	requestContractSesssion := &smartcontracts.RequestContractSession{
 		Contract:requestContract,
 		CallOpts:bind.CallOpts{Pending:true},
-		TransactOpts:bind.TransactOpts{
-			From: ethereumController.Auth.From,
-			Signer: ethereumController.Auth.Signer,
-			GasLimit: big.NewInt(3141592),
-		},
+		//TransactOpts:bind.TransactOpts{
+		//	From: ethereumController.Auth.From,
+		//	Signer: ethereumController.Auth.Signer,
+		//	GasLimit: big.NewInt(3141592),
+		//},
 	}
 	return requestContractSesssion
 
@@ -240,6 +244,35 @@ func setContributions(request *models.Request, session *smartcontracts.RequestCo
 }
 
 func setLacksInspected(request *models.Request, session *smartcontracts.RequestContractSession) {
+	inspectionLacks := make([]*models.InspectionLack, 0)
+	//contributions := make([] *models.Contribution, 0)
+	numLack, err := session.NumLacks()
+	if err != nil {
+		beego.Error("Error getting NumLacks", err)
+		return
+	}
+	for i := new(big.Int).Set(big.NewInt(1)); i.Cmp(numLack) < 0; i.Add(i, big.NewInt(1)) {
+		lack, err := session.Lacks(i)
+		if err != nil {
+			beego.Error("Error getting Lack", err)
+			return
+		}
+
+		inspectionLack := models.InspectionLack(lack)
+		inspectionLacks = append(inspectionLacks, &inspectionLack)
+	}
+
+	/*
+	contribution, err := GetContributionByCode(lack.ContributionCode)
+		if err != nil {
+			beego.Error("Error loading contribution", err)
+		}
+		contributions = append(contributions, contribution)
+		beego.Debug(contribution)
+	 */
+}
+
+func setLacksInspected_old(request *models.Request, session *smartcontracts.RequestContractSession) {
 	request.InspectionLacks = make([]*models.InspectionLack, 0)
 	numLack, err := session.NumLacks()
 	if err != nil {

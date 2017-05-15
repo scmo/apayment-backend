@@ -6,6 +6,13 @@ import (
 	_ "github.com/scmo/foodchain-backend/routers"
 
 	"github.com/astaxie/beego"
+	"testing"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
+	"github.com/ethereum/go-ethereum/core"
+	"math/big"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/scmo/foodchain-backend/smart-contracts/request"
 )
 
 func init() {
@@ -14,6 +21,19 @@ func init() {
 	beego.TestBeegoInit(apppath)
 }
 
+func TestEthereum (t * testing.T) {
+	// Generate a new random account and a funded simulator
+	key, _ := crypto.GenerateKey()
+	auth := bind.NewKeyedTransactor(key)
+
+	sim := backends.NewSimulatedBackend(core.GenesisAccount{ Balance: big.NewInt(10000000000)})
+
+	// Deploy a token contract on the simulated blockchain
+
+	smartcontracts.DeployRequestContract(auth, sim,  12, nil, "asdf")
+
+
+}
 //// TestGet is a sample to run an endpoint test
 //func TestGet(t *testing.T) {
 //	r, _ := http.NewRequest("GET", "/v1/object", nil)
