@@ -1,4 +1,4 @@
-pragma solidity ^0.4.10;
+pragma solidity ^0.4.11;
 
 
 contract mortal {
@@ -28,7 +28,7 @@ contract Request is mortal {
 
   int64 public userId;
 
-  int64 public inspectorId;
+  address public inspectorAddress;
 
   uint16[] public contributionCodes;
 
@@ -54,14 +54,14 @@ contract Request is mortal {
     setCreated();
   }
 
-  function setInspectorId(int64 _inspectorId){
-
-    inspectorId = _inspectorId;
+  function setInspectorId(address _inspectorAddress){
+    inspectorAddress = _inspectorAddress;
     setModified();
   }
 
 
   function addLack(uint16 _contributionCode, string _controlCategoryId, string _pointGroupId, string controlPointId, int64 lackId) {
+    require(tx.origin == inspectorAddress);
     uint lacksIndex = numLacks++;
     lacks[lacksIndex] = Lack(_contributionCode, _controlCategoryId, _pointGroupId, controlPointId, lackId);
     setModified();

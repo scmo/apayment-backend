@@ -8,9 +8,15 @@ import (
 	"github.com/astaxie/beego"
 	. "github.com/smartystreets/goconvey/convey"
 	"encoding/json"
+	"path/filepath"
+	"runtime"
 )
 
-
+func init() {
+	_, file, _, _ := runtime.Caller(1)
+	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".." + string(filepath.Separator))))
+	beego.TestBeegoInit(apppath)
+}
 // Test ping endpoint
 func TestPing(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/v1/ping", nil)

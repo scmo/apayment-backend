@@ -116,7 +116,7 @@ func GetAllRequestsForInspectionByInspectorId(inspectorId int64) []*models.Reque
 	return requests
 }
 
-func AddInspectorToRequest(request *models.Request , auth *bind.TransactOpts) {
+func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 	// Add to DB
 	o := orm.NewOrm()
 	o.Update(request, "Inspector")
@@ -129,7 +129,7 @@ func AddInspectorToRequest(request *models.Request , auth *bind.TransactOpts) {
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
-	tx, err := session.SetInspectorId(request.Inspector.Id)
+	tx, err := session.SetInspectorId(common.StringToAddress(request.Inspector.Address))
 	if err != nil {
 		beego.Critical("Failed to update name: ", err)
 	}
@@ -211,12 +211,11 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 }
 func setInspector(request *models.Request, session *smartcontracts.RequestContractSession) {
 	if (request.Inspector != nil) {
-		inspectorId, err := session.InspectorId()
+		inspectorAddress, err := session.InspectorAddress()
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
-		if (inspectorId != request.Inspector.Id) {
-			beego.Debug(inspectorId, request.Inspector.Id)
+		if (inspectorAddress.String() != request.Inspector.Address) {
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
 	}

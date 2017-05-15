@@ -1,1 +1,9 @@
-abigen --abi request.abi --pkg smartcontracts --type RequestContract --out request.go --bin request.bin
+abigen --abi Request.abi --pkg smartcontracts --type RequestContract --out request.go --bin Request.bin
+
+
+solc -o ./ --abi --bin request.sol
+
+
+solc -o ./ --abi --bin rbac.sol
+
+abigen --abi RBAC.abi --pkg rbac --type RBACContract --out rbac.go --bin RBAC.bin
