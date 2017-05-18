@@ -66,3 +66,46 @@ func CountContributions() (int64, error) {
 	cnt, err := o.QueryTable(new(models.Contribution)).Count() // SELECT COUNT(*) FROM USE
 	return cnt, err
 }
+
+func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribution {
+	o := orm.NewOrm()
+	contribution := models.Contribution{Code:iL.ContributionCode}
+	err := o.Read(&contribution, "Code")
+	if err != nil {
+		beego.Error("Error while loading Contribution. (ContributionCode: ", iL.ContributionCode, ") Error:", err)
+		return &contribution
+	}
+	controlCategory := models.ControlCategory{ControlCategoryId:iL.ControlCategoryId, Contribution: &contribution}
+	err = o.Read(&controlCategory, "ControlCategoryId")
+	if err != nil {
+		beego.Error("Error while loading ControlCategory. (ControlCategoryId: ", iL.ControlCategoryId, ") Error:", err)
+		return &contribution
+	}
+	contribution.ControlCategories = append(contribution.ControlCategories, &controlCategory)
+
+	pointGroup := models.PointGroup{PointGroupId:iL.PointGroupId, ControlCategory: &controlCategory}
+	err = o.Read(&pointGroup, "PointGroupId")
+	if err != nil {
+		beego.Error("Error while loading PointGroup. (PointGroupId: ", iL.PointGroupId, ") Error:", err)
+		return &contribution
+	}
+	controlCategory.PointGroups = append(controlCategory.PointGroups, &pointGroup)
+
+	controlPoint := models.ControlPoint{ControlPointId: iL.ControlPointId, PointGroup: &pointGroup}
+	err = o.Read(&controlPoint, "ControlPointId")
+	if err != nil {
+		beego.Error("Error while loading ControlPoint. (ControlPointId: ", iL.ControlPointId, ") Error:", err)
+		return &contribution
+	}
+	pointGroup.ControlPoints = append(pointGroup.ControlPoints, &controlPoint)
+
+	lack := models.Lack{Id:iL.LackId, ControlPoint:&controlPoint}
+	err = o.Read(&lack)
+	if err != nil {
+		beego.Error("Error while loading Lack. (Lackid:", iL.LackId, ") Error:", err)
+		return &contribution
+	}
+	controlPoint.Lacks = append(controlPoint.Lacks, &lack)
+
+	return &contribution
+}

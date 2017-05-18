@@ -13,7 +13,7 @@ import (
 
 func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	address, tx, _, err := smartcontracts.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark)
+	address, tx, _, err := smartcontracts.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -128,6 +128,9 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
+
+	beego.Debug(request.Inspector.Address)
+	beego.Debug(session.TransactOpts.Signer)
 	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.Address))
 	if err != nil {
 		beego.Critical("Failed to update name: ", err)
@@ -214,6 +217,7 @@ func setInspector(request *models.Request, session *smartcontracts.RequestContra
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
+		beego.Debug(inspectorAddress.String())
 		if (inspectorAddress.String() != request.Inspector.Address) {
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
@@ -242,9 +246,9 @@ func setContributions(request *models.Request, session *smartcontracts.RequestCo
 }
 
 func setLacksInspected(request *models.Request, session *smartcontracts.RequestContractSession) {
-	inspectionLacks := make([]*models.InspectionLack, 0)
-	//contributions := make([] *models.Contribution, 0)
+	contributions := make([] *models.Contribution, 0)
 	numLack, err := session.NumLacks()
+	beego.Debug(numLack)
 	if err != nil {
 		beego.Error("Error getting NumLacks", err)
 		return
@@ -257,36 +261,65 @@ func setLacksInspected(request *models.Request, session *smartcontracts.RequestC
 		}
 
 		inspectionLack := models.InspectionLack(lack)
-		inspectionLacks = append(inspectionLacks, &inspectionLack)
+		contribution := GetContributionByInspectionLack(&inspectionLack)
+		contributions = AddContributionToContributions(contributions, contribution)
+		//inspectionLacks = append(inspectionLacks, &inspectionLack)
 	}
 
-	/*
-	contribution, err := GetContributionByCode(lack.ContributionCode)
-		if err != nil {
-			beego.Error("Error loading contribution", err)
-		}
-		contributions = append(contributions, contribution)
-		beego.Debug(contribution)
-	 */
+	request.ContributionsWithLacks = contributions
 }
 
-func setLacksInspected_old(request *models.Request, session *smartcontracts.RequestContractSession) {
-	request.InspectionLacks = make([]*models.InspectionLack, 0)
-	numLack, err := session.NumLacks()
-	if err != nil {
-		beego.Error("Error getting NumLacks", err)
-		return
-	}
-	for i := new(big.Int).Set(big.NewInt(1)); i.Cmp(numLack) < 0; i.Add(i, big.NewInt(1)) {
-		lack, err := session.Lacks(i)
-		if err != nil {
-			beego.Error("Error getting Lack", err)
-			return
+// Function adds a Contribution to a slice of contributions if
+// contribution does not exist yet in the slice, if contribution exist,
+// it checks if the contribution alreayd contains the ControlCategory and so on...
+func AddContributionToContributions(contributions []*models.Contribution, contribution *models.Contribution) []*models.Contribution {
+	for i := range contributions {
+		if contributions[i].Id == contribution.Id {
+			// Contribution exist! Check if ControlCategory exists
+			for j := range contributions[i].ControlCategories {
+				if contributions[i].Id == contribution.Id &&
+					contributions[i].ControlCategories[j].Id == contribution.ControlCategories[0].Id {
+					// ControlCategory exists! Check if PointGroup exist
+					for k := range contributions[i].ControlCategories[j].PointGroups {
+						if contributions[i].Id == contribution.Id &&
+							contributions[i].ControlCategories[j].Id == contribution.ControlCategories[0].Id &&
+							contributions[i].ControlCategories[j].PointGroups[k].Id == contribution.ControlCategories[0].PointGroups[0].Id {
+							// PointGroup exists! Check if ControlPoint exist
+							for l := range contributions[i].ControlCategories[j].PointGroups[k].ControlPoints {
+								if contributions[i].Id == contribution.Id &&
+									contributions[i].ControlCategories[j].Id == contribution.ControlCategories[0].Id &&
+									contributions[i].ControlCategories[j].PointGroups[k].Id == contribution.ControlCategories[0].PointGroups[0].Id &&
+									contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Id == contribution.ControlCategories[0].PointGroups[0].ControlPoints[0].Id {
+									// ControlPoint exists! Check if Lack exist
+									for m := range contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Lacks {
+										if contributions[i].Id == contribution.Id &&
+											contributions[i].ControlCategories[j].Id == contribution.ControlCategories[0].Id &&
+											contributions[i].ControlCategories[j].PointGroups[k].Id == contribution.ControlCategories[0].PointGroups[0].Id &&
+											contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Id == contribution.ControlCategories[0].PointGroups[0].ControlPoints[0].Id &&
+											contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Lacks[m].Id == contribution.ControlCategories[0].PointGroups[0].ControlPoints[0].Lacks[0].Id {
+											// Lack exists! Check if Lack exist
+											return contributions
+										}
+									}
+									contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Lacks = append(contributions[i].ControlCategories[j].PointGroups[k].ControlPoints[l].Lacks, contribution.ControlCategories[0].PointGroups[0].ControlPoints[0].Lacks[0])
+									return contributions
+								}
+							}
+							contributions[i].ControlCategories[j].PointGroups[k].ControlPoints = append(contributions[i].ControlCategories[j].PointGroups[k].ControlPoints, contribution.ControlCategories[0].PointGroups[0].ControlPoints[0])
+							return contributions
+						}
+					}
+					contributions[i].ControlCategories[j].PointGroups = append(contributions[i].ControlCategories[j].PointGroups, contribution.ControlCategories[0].PointGroups[0])
+					return contributions
+				}
+			}
+			contributions[i].ControlCategories = append(contributions[i].ControlCategories, contribution.ControlCategories[0])
+			return contributions
 		}
-		inspectionLacks := models.InspectionLack(lack)
-		request.InspectionLacks = append(request.InspectionLacks, &inspectionLacks)
 	}
+	return append(contributions, contribution)
 }
+
 
 func setTimestamps(request *models.Request, session *smartcontracts.RequestContractSession) {
 
