@@ -2,7 +2,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database db_foodchain_test;' -U postgres -P test123456
+  - psql -c 'create database db_foodchain_test;' -U postgres
 
 language: go
 go:
