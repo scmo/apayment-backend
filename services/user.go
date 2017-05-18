@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"context"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
 )
 
 func CreateUser(u *models.User) error {
@@ -44,12 +45,31 @@ func CreateUser(u *models.User) error {
 			return err
 		}
 		_, err := m2m.Add(rolePtr)
+		addUserToRBAC(u.Address, rolePtr.Name)
 		if err != nil {
 			beego.Error("Many2Many Add ", err.Error())
 			return err
 		}
 	}
 	return err
+}
+func addUserToRBAC(address string, role string) {
+	ethereumController := ethereum.GetEthereumController()
+	rbacContract, err := rbac.NewRBACContract(common.HexToAddress(beego.AppConfig.String("accessControlContract")), ethereumController.Client)
+	if err != nil {
+		beego.Error("Error while creating a new instace of RBAC")
+	}
+	switch role {
+	case "Farmer":
+		rbacContract.AddFarmer(ethereumController.Auth, common.HexToAddress(address))
+	case "Inspector":
+		rbacContract.AddInspector(ethereumController.Auth, common.HexToAddress(address))
+	case "Admin":
+		rbacContract.AddAdmin(ethereumController.Auth, common.HexToAddress(address))
+	default:
+		beego.Error("Unknown role.")
+	}
+
 }
 
 func createNewEthereumAccount() (string, error) {
@@ -152,7 +172,6 @@ func setEtherBalance(user *models.User) {
 		beego.Critical("Failed to get latest block: ", err)
 	}
 	balance, err := ethereumController.Client.BalanceAt(ctx, common.HexToAddress(user.Address), latestBlock.Number())
-	beego.Debug(balance)
 	user.EthereumBalance = balance
 }
 

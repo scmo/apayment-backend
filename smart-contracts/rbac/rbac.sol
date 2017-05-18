@@ -4,12 +4,8 @@ pragma solidity ^0.4.11;
 /// @title Role Based Access Control
 contract RBAC {
   address owner;
-
-
   mapping (address => bool) admins;
-
   mapping (address => bool) inspectors;
-
   mapping (address => bool) farmers;
 
   function RBAC(){

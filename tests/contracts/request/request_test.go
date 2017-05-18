@@ -10,13 +10,17 @@ import (
 	"github.com/ethereum/go-ethereum/core"
 	"math/big"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
+	"github.com/ethereum/go-ethereum/common"
 )
 
 var farmerAuth *bind.TransactOpts
 var inspectorAuth *bind.TransactOpts
 var adminAuth *bind.TransactOpts
+var systemAuth *bind.TransactOpts
 var sim *backends.SimulatedBackend
 
+var rbacAddress common.Address
 var requestContract *smartcontracts.RequestContract
 
 func init() {
@@ -29,11 +33,24 @@ func init() {
 
 	key, _ = crypto.GenerateKey()
 	inspectorAuth = bind.NewKeyedTransactor(key)
+	key, _ = crypto.GenerateKey()
+	systemAuth = bind.NewKeyedTransactor(key)
+
 	sim = backends.NewSimulatedBackend(core.GenesisAlloc{
 		farmerAuth.From: {Balance: big.NewInt(10000000000)},
 		adminAuth.From: {Balance: big.NewInt(10000000000)},
+		systemAuth.From: {Balance: big.NewInt(10000000000)},
 		inspectorAuth.From: {Balance: big.NewInt(10000000000)},
 	})
+	ra, _, rbacContract, _ := rbac.DeployRBACContract(systemAuth, sim)
+	sim.Commit()
+	rbacAddress = ra
+	rbacContract.AddFarmer(systemAuth, farmerAuth.From)
+	rbacContract.AddAdmin(systemAuth, adminAuth.From)
+	rbacContract.AddInspector(systemAuth, inspectorAuth.From)
+	sim.Commit()
+
+
 
 }
 
@@ -41,7 +58,7 @@ func TestDeployContract(t *testing.T) {
 	contributionCodes := []uint16{5416}
 	remark := "This is my remark"
 	beego.Trace("Test: ", "DeployContractRequest", "ContributionCodes: ", contributionCodes)
-	_, _, rc, err := smartcontracts.DeployRequestContract(farmerAuth, sim, 3, contributionCodes, remark)
+	_, _, rc, err := smartcontracts.DeployRequestContract(farmerAuth, sim, 3, contributionCodes, remark, rbacAddress)
 	sim.Commit()
 	requestContract = rc
 	Convey("Subject: Deploy Request-Contract\n", t, func() {
@@ -58,7 +75,7 @@ func TestDeployContract(t *testing.T) {
 
 func TestSetInspector(t *testing.T) {
 	beego.Trace("Test: ", "SetInspectorId", "InspectorId: ", inspectorAuth.From.String())
-	_, err := requestContract.SetInspectorId(inspectorAuth, inspectorAuth.From)
+	_, err := requestContract.SetInspectorId(adminAuth, inspectorAuth.From)
 	sim.Commit()
 	Convey("Subject: Set Inspector Id\n", t, func() {
 		Convey("No error", func() {

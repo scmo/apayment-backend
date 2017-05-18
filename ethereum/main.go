@@ -17,6 +17,7 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"strings"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
 )
 
 type EthereumController struct {
@@ -59,6 +60,19 @@ func Init() {
 	//}
 	//_ = sy
 
+	deployRoleBasedAccessControlContract()
+
+}
+
+func deployRoleBasedAccessControlContract() {
+	if (beego.AppConfig.String("accessControlContract") == "" ) {
+		address, _, _, err := rbac.DeployRBACContract(ethereumController.Auth, ethereumController.Client)
+		if err != nil {
+			beego.Critical("Error while creating RBAC: ", err)
+		}
+		beego.Debug(address.Str())
+		beego.AppConfig.Set("accessControlContract", address.String())
+	}
 }
 
 func createNewEthereumAccount() {
@@ -121,4 +135,3 @@ func GetAuth(address string) *bind.TransactOpts {
 func GetEthereumController() EthereumController {
 	return ethereumController
 }
-
