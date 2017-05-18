@@ -13,7 +13,6 @@ import (
 
 func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-
 	address, tx, _, err := smartcontracts.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark)
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
@@ -129,7 +128,7 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
-	tx, err := session.SetInspectorId(common.StringToAddress(request.Inspector.Address))
+	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.Address))
 	if err != nil {
 		beego.Critical("Failed to update name: ", err)
 	}

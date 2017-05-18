@@ -21,12 +21,14 @@ func CreateUser(u *models.User) error {
 	}
 	u.Password = hash
 
-	accountAddress, err := createNewEthereumAccount()
-	if err != nil {
-		beego.Error("Creating Ethereum Account ", err.Error())
-		return err
+	if (beego.BConfig.RunMode != "test") {
+		accountAddress, err := createNewEthereumAccount()
+		if err != nil {
+			beego.Error("Creating Ethereum Account ", err.Error())
+			return err
+		}
+		u.Address = accountAddress
 	}
-	u.Address = accountAddress
 
 	_, err = o.Insert(u)
 	if err != nil {
@@ -149,9 +151,9 @@ func setEtherBalance(user *models.User) {
 	if err != nil {
 		beego.Critical("Failed to get latest block: ", err)
 	}
-	balance, err := ethereumController.Client.BalanceAt(ctx, common.StringToAddress(user.Address), latestBlock.Number())
-
- 	user.EthereumBalance = balance
+	balance, err := ethereumController.Client.BalanceAt(ctx, common.HexToAddress(user.Address), latestBlock.Number())
+	beego.Debug(balance)
+	user.EthereumBalance = balance
 }
 
 func CountUsers() (int64, error) {

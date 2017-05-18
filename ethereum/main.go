@@ -10,13 +10,13 @@ import (
 	"bytes"
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/core/types"
 	"math/big"
 
 	"context"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum"
 	"strings"
+	"github.com/ethereum/go-ethereum/core/types"
 )
 
 type EthereumController struct {
@@ -28,7 +28,7 @@ type EthereumController struct {
 var ethereumController EthereumController
 
 func Init() {
-	pathToEthereum := beego.AppConfig.String("pathToEthereum")
+	pathToEthereum := beego.AppConfig.String("ethereumRootPath")
 	if beego.BConfig.RunMode == "dev" {
 		pathToEthereum = pathToEthereum + "testnet/"
 	}
@@ -59,12 +59,27 @@ func Init() {
 	//}
 	//_ = sy
 
+}
 
+func createNewEthereumAccount() {
+
+	account, _ := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
+
+	beego.Debug(account.Address.String())
+	beego.Debug(common.HexToAddress(account.Address.String()).String())
+	beego.Debug(common.StringToAddress(account.Address.String()).String())
 }
 
 func SendEther(from string, to string, amountEther int64) {
+	beego.Info("Send ether from: ", from, "to: ", to, "amount:", amountEther)
 	ctx := context.Background()
 	fromAccount, err := ethereumController.Keystore.Find(accounts.Account{Address: common.HexToAddress(from)})
+	if fromAccount.Address.String() != from {
+		beego.Debug(fromAccount.Address.String(), from)
+		beego.Error("something wrong")
+		return
+	}
+
 	nonce, err := ethereumController.Client.PendingNonceAt(ctx, fromAccount.Address)
 	if err != nil {
 		beego.Critical("Failed to get nounce: ", err)
@@ -75,7 +90,8 @@ func SendEther(from string, to string, amountEther int64) {
 	if err != nil {
 		beego.Critical("Failed to estimate gas: ", err)
 	}
-	tx := types.NewTransaction(nonce, common.StringToAddress(to), amount, estimateGas, big.NewInt(50000000000), nil)
+
+	tx := types.NewTransaction(nonce, common.HexToAddress(to), amount, estimateGas, big.NewInt(50000000000), nil)
 
 	tx, err = ethereumController.Keystore.SignTxWithPassphrase(fromAccount, beego.AppConfig.String("systemAccountPassword"), tx, big.NewInt(3))
 	if err != nil {
