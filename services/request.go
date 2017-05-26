@@ -129,8 +129,6 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
 
-	beego.Debug(request.Inspector.Address)
-	beego.Debug(session.TransactOpts.Signer)
 	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.Address))
 	if err != nil {
 		beego.Critical("Failed to update name: ", err)
@@ -152,6 +150,7 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
 	for _, lack := range inspection.Lacks {
+		beego.Debug("Add Lack", lack.LackId)
 		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupId, lack.ControlPointId, lack.LackId)
 		if err != nil {
 			beego.Critical("Failed to update name: ", err)
@@ -217,7 +216,6 @@ func setInspector(request *models.Request, session *smartcontracts.RequestContra
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
-		beego.Debug(inspectorAddress.String())
 		if (inspectorAddress.String() != request.Inspector.Address) {
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
@@ -253,7 +251,7 @@ func setLacksInspected(request *models.Request, session *smartcontracts.RequestC
 		beego.Error("Error getting NumLacks", err)
 		return
 	}
-	for i := new(big.Int).Set(big.NewInt(1)); i.Cmp(numLack) < 0; i.Add(i, big.NewInt(1)) {
+	for i := new(big.Int).Set(big.NewInt(0)); i.Cmp(numLack) < 0; i.Add(i, big.NewInt(1)) {
 		lack, err := session.Lacks(i)
 		if err != nil {
 			beego.Error("Error getting Lack", err)
@@ -261,6 +259,7 @@ func setLacksInspected(request *models.Request, session *smartcontracts.RequestC
 		}
 
 		inspectionLack := models.InspectionLack(lack)
+		beego.Debug(inspectionLack)
 		contribution := GetContributionByInspectionLack(&inspectionLack)
 		contributions = AddContributionToContributions(contributions, contribution)
 		//inspectionLacks = append(inspectionLacks, &inspectionLack)
