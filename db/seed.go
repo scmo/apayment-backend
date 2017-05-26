@@ -144,7 +144,7 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name:"Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points:60, ControlPoint:&cp3})
 	services.CreateLack(&models.Lack{Name:"Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points:110, ControlPoint:&cp3})
-	services.CreateLack(&models.Lack{Name:"Anderer Mangel", ControlPoint:&cp2})
+	services.CreateLack(&models.Lack{Name:"Anderer Mangel", ControlPoint:&cp3})
 }
 
 func Seed_Users() {
