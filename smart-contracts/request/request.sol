@@ -1,6 +1,9 @@
 pragma solidity ^0.4.11;
 
 
+import "github.com/scmo/foodchain-backend/smart-contracts/rbac/rbac.sol";
+
+
 contract mortal {
   /* Define variable owner of the type address*/
   address owner;
@@ -59,15 +62,11 @@ contract Request is mortal {
   }
 
   function setInspectorId(address _inspectorAddress){
-    //    require( rbac.isAdmin(msg.sender) );
+    require(rbac.isAdmin(msg.sender));
+    require(rbac.isInspector(_inspectorAddress));
     inspectorAddress = _inspectorAddress;
     setModified();
   }
-  //
-  //  function isAdmin(address inspectorAddress) constant returns (bool) {
-  //    return rbac.isAdmin(inspectorAddress);
-  //  }
-
 
   function addLack(uint16 _contributionCode, string _controlCategoryId, string _pointGroupId, string controlPointId, int64 lackId) {
     require(msg.sender == inspectorAddress);
@@ -79,24 +78,4 @@ contract Request is mortal {
 }
 
 
-/// @title Role Based Access Control
-// This is basically an interface for solidity. So solidity can work out how to call the functions
-contract RBAC {
-  mapping (address => bool) admins;
 
-  mapping (address => bool) inspectors;
-
-  mapping (address => bool) farmers;
-
-  function isFarmer(address farmerAddress) constant returns (bool) {
-    return farmers[farmerAddress];
-  }
-
-  function isAdmin(address adminAddress) constant returns (bool) {
-    return admins[adminAddress];
-  }
-
-  function isInspector(address inspectorAddress) constant returns (bool) {
-    return inspectors[inspectorAddress];
-  }
-}
