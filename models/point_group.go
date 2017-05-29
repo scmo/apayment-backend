@@ -7,6 +7,7 @@ type PointGroup struct {
 	PointGroupId    string            `json:"pointGroupId"`
 	Abbreviation    string            `json:"abbreviation"`
 	PointGroup      string            `json:"pointGroup"`
+	PointGroupCode  uint16        `json:"pointGroupCode"`
 	//Condition
 	//Type
 	ControlCategory *ControlCategory  `orm:"rel(fk);null" json:"-"`
