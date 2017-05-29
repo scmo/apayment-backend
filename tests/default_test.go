@@ -10,6 +10,7 @@ import (
 	"github.com/scmo/foodchain-backend/services"
 	"github.com/scmo/foodchain-backend/tests/db_test"
 	"github.com/scmo/foodchain-backend/models"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 func init() {
