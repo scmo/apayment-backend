@@ -83,10 +83,10 @@ func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribu
 	}
 	contribution.ControlCategories = append(contribution.ControlCategories, &controlCategory)
 
-	pointGroup := models.PointGroup{PointGroupId:iL.PointGroupId, ControlCategory: &controlCategory}
-	err = o.Read(&pointGroup, "PointGroupId")
+	pointGroup := models.PointGroup{PointGroupCode:iL.PointGroupCode, ControlCategory: &controlCategory}
+	err = o.Read(&pointGroup, "PointGroupCode")
 	if err != nil {
-		beego.Error("Error while loading PointGroup. (PointGroupId: ", iL.PointGroupId, ") Error:", err)
+		beego.Error("Error while loading PointGroup. (PointGroupCode: ", iL.PointGroupCode, ") Error:", err)
 		return &contribution
 	}
 	controlCategory.PointGroups = append(controlCategory.PointGroups, &pointGroup)

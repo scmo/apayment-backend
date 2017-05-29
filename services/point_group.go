@@ -3,6 +3,7 @@ package services
 import (
 	"github.com/scmo/foodchain-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/astaxie/beego"
 )
 
 func CreatePointGroup(pc *models.PointGroup) error {
@@ -20,6 +21,21 @@ func GetAllPointGroups() ([]*models.PointGroup) {
 	}
 
 	return pointGroups
+}
+
+func GetAllPointGroupById(_id int64) (*models.PointGroup, error) {
+	o := orm.NewOrm()
+	pointGroup := models.PointGroup{Id: _id}
+	err := o.Read(&pointGroup)
+	if err == orm.ErrNoRows {
+		beego.Error("No result found.")
+		return nil, err
+	} else if err == orm.ErrMissPK {
+		beego.Error("No primary key found.")
+		return nil, err
+	}
+
+	return &pointGroup, nil
 }
 
 func CountPointGroups() (int64, error) {

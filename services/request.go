@@ -150,8 +150,8 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
 	for _, lack := range inspection.Lacks {
-		beego.Debug("Add Lack", lack.LackId)
-		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupId, lack.ControlPointId, lack.LackId)
+		beego.Debug("Add Lack", lack.LackId, lack.Points)
+		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
 		if err != nil {
 			beego.Critical("Failed to update name: ", err)
 			return err
@@ -246,7 +246,6 @@ func setContributions(request *models.Request, session *smartcontracts.RequestCo
 func setLacksInspected(request *models.Request, session *smartcontracts.RequestContractSession) {
 	contributions := make([] *models.Contribution, 0)
 	numLack, err := session.NumLacks()
-	beego.Debug(numLack)
 	if err != nil {
 		beego.Error("Error getting NumLacks", err)
 		return
@@ -259,10 +258,8 @@ func setLacksInspected(request *models.Request, session *smartcontracts.RequestC
 		}
 
 		inspectionLack := models.InspectionLack(lack)
-		beego.Debug(inspectionLack)
 		contribution := GetContributionByInspectionLack(&inspectionLack)
 		contributions = AddContributionToContributions(contributions, contribution)
-		//inspectionLacks = append(inspectionLacks, &inspectionLack)
 	}
 
 	request.ContributionsWithLacks = contributions
