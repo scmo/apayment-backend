@@ -35,7 +35,7 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	cc := models.ControlCategory{ControlCategoryId:"12.01_2017", Abbreviation:"BTS - Rindergattung und Wasserbüffel", Contribution: contribution}
 	services.CreateControlCategory(&cc)
 
-	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Rinder - Milchkühe", ControlCategory: &cc}
+	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Rinder - Milchkühe", PointGroupCode:1110, ControlCategory: &cc}
 	services.CreatePointGroup(&pg1)
 
 	cp1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten",
@@ -63,7 +63,7 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	//services.CreateMultiLacks(lacks)
 
 	// A2	Rinder - andere Kühe
-	pg2 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", ControlCategory: &cc}
+	pg2 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroupCode:1150, ControlCategory: &cc}
 	services.CreatePointGroup(&pg2)
 
 	cpA2_1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten", ControlPoint:"Alle Tiere der Kategorie in Gruppen gehalten oder zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4", PointGroup: &pg2}
@@ -121,7 +121,7 @@ func Seed_RAUS_Weidetiere() {
 	cc := models.ControlCategory{ControlCategoryId:"12.07_2017", Abbreviation:"RAUS-Weidetiere", Contribution: contribution}
 	services.CreateControlCategory(&cc)
 
-	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Milchkühe", ControlCategory: &cc}
+	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Milchkühe", PointGroupCode:1110, ControlCategory: &cc}
 	services.CreatePointGroup(&pg1)
 
 	cp1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten",
