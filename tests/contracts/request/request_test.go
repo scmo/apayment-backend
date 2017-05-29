@@ -89,9 +89,8 @@ func TestSetInspector(t *testing.T) {
 }
 
 func TestAddLacks(t *testing.T) {
-
 	beego.Trace("Test: ", "AddLacks", "ContributionCode: ", 5416)
-	_, err := requestContract.AddLack(farmerAuth, 5416, "cat", "pointgroup", "controlPoint", 1)
+	_, err := requestContract.AddLack(farmerAuth, 5416, "cat", 1110, "controlPoint", 1, 10)
 	sim.Commit()
 	Convey("Subject: Add Inspection Lack with wrong User\n", t, func() {
 		Convey("No error", func() {
@@ -104,7 +103,7 @@ func TestAddLacks(t *testing.T) {
 		})
 	})
 
-	_, err = requestContract.AddLack(inspectorAuth, 5416, "cat", "pointgroup", "controlPoint", 1)
+	_, err = requestContract.AddLack(inspectorAuth, 5416, "cat", 1110, "controlPoint", 1, 10)
 	sim.Commit()
 	Convey("Subject: Add Inspection Lack as an Inspector\n", t, func() {
 		Convey("No error", func() {
@@ -116,5 +115,22 @@ func TestAddLacks(t *testing.T) {
 			So(numLacks.Cmp(big.NewInt(0)), ShouldEqual, 1) // +1 if x >  y
 		})
 	})
-
 }
+
+func TestCalculateBTS(t *testing.T) {
+	beego.Trace("Test: ", "Calculate BTS", 5416)
+	// Add some more lacks
+
+	requestContract.AddLack(inspectorAuth, 5416, "cat", 1110, "controlPoint", 2, 110)
+	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 1, 10)
+	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 2, 10)
+	sim.Commit()
+	sum, err := requestContract.CalculateBTS(nil)
+	if (err != nil) {
+		beego.Error("Error while calculating BTS")
+		t.Failed()
+	}
+	beego.Debug(sum)
+}
+
+
