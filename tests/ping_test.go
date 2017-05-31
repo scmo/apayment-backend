@@ -17,6 +17,7 @@ func init() {
 	apppath, _ := filepath.Abs(filepath.Dir(filepath.Join(file, ".." + string(filepath.Separator))))
 	beego.TestBeegoInit(apppath)
 }
+
 // Test ping endpoint
 func TestPing(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/v1/ping", nil)
