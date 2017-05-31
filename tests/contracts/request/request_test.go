@@ -49,9 +49,6 @@ func init() {
 	rbacContract.AddAdmin(systemAuth, adminAuth.From)
 	rbacContract.AddInspector(systemAuth, inspectorAuth.From)
 	sim.Commit()
-
-
-
 }
 
 func TestDeployContract(t *testing.T) {
@@ -125,12 +122,18 @@ func TestCalculateBTS(t *testing.T) {
 	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 1, 10)
 	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 2, 10)
 	sim.Commit()
-	sum, err := requestContract.CalculateBTS(nil)
-	if (err != nil) {
-		beego.Error("Error while calculating BTS")
-		t.Failed()
-	}
-	beego.Debug(sum)
+
+	//sum, err := requestContract.CalculateBTS(nil)
+	//if (err != nil) {
+	//	beego.Error("Error while calculating BTS")
+	//	t.Failed()
+	//}
+	//
+	//beego.Debug(sum)
+	//sim.Commit()
+	beego.Debug(requestContract.BtsPointGroups(nil, 1110))
+	beego.Debug(requestContract.BtsPointGroups(nil, 1150))
+
 }
 
 

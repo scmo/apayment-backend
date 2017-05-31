@@ -69,21 +69,32 @@ contract Request is mortal {
     setModified();
   }
 
-  function addLack(uint16 _contributionCode, string _controlCategoryId, uint16 _pointGroupCode, string controlPointId, int64 lackId, uint8 points) {
+  function addLack(uint16 _contributionCode, string _controlCategoryId, uint16 _pointGroupCode, string _controlPointId, int64 _lackId, uint8 _points) {
     require(msg.sender == inspectorAddress);
     uint lacksIndex = numLacks++;
-    lacks[lacksIndex] = Lack(_contributionCode, _controlCategoryId, _pointGroupCode, controlPointId, lackId, points);
+    lacks[lacksIndex] = Lack(_contributionCode, _controlCategoryId, _pointGroupCode, _controlPointId, _lackId, _points);
     setModified();
+
+    if (_contributionCode == 5416) {
+      updateBtsPoint(_pointGroupCode, _points);
+    }
   }
 
-  mapping (uint16 => CalcVariables) btsPointGroups;
-
+  // For each pointGroup there is one CalcVariables
   uint16[10] pointGroupCodes = [1110, 1150, 1123, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
+
+  mapping (uint16 => CalcVariables) public btsPointGroups;
 
   struct CalcVariables {
   uint16 gve;
   uint16 points;
-  bool exists;
+  uint16 total;
+  uint16 deduction;
+  }
+
+  function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
+    CalcVariables btsPointGroup = btsPointGroups[_pointGroupCode];
+    btsPointGroup.points = btsPointGroup.points + _points;
   }
 
   function calculateBTS() constant returns (uint16){
@@ -100,38 +111,10 @@ contract Request is mortal {
 
     uint16 sum = 0;
 
-    // make a list of for each category
-    //uint8[2] memory a = [0, 0];
-    for (uint i = 0; i < numLacks; i++) {
-      Lack lack = lacks[i];
-      if (lack.contributionCode == 5416) {// if lacks belongs to BTS contribution
-        CalcVariables btsPointGroup = btsPointGroups[lack.pointGroupCode];
-        if (btsPointGroups[lack.pointGroupCode].exists == false) {
-          btsPointGroups[lack.pointGroupCode] = CalcVariables(0, lack.points, true);
-          btsPointGroup = btsPointGroups[lack.pointGroupCode];
-        }
-        else {
-          btsPointGroup.points = btsPointGroup.points + lack.points;
-        }
-      }
-    }
-
-    for (i = 0; i < pointGroupCodes.length; i++) {
-      sum = sum + btsPointGroups[pointGroupCodes[i]].points;
-      //    sum = pointGroupCodes[i];
-    }
+    for (uint16 i)
 
     // calculate deductions
     return sum;
-  }
-
-
-  function indexOf(uint16[] pointGroups, uint pointGroupCode) internal returns (uint) {
-    for (uint i = 0; i < pointGroups.length; i++) {
-      if (pointGroups[i] == pointGroupCode) {
-        return i;
-      }
-    }
   }
 
 }
