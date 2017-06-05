@@ -8,6 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/astaxie/beego"
 	"testing"
+	. "github.com/smartystreets/goconvey/convey"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 )
 

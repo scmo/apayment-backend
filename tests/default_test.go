@@ -6,7 +6,7 @@ import (
 	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
 	"testing"
-
+	. "github.com/smartystreets/goconvey/convey"
 	"github.com/scmo/apayment-backend/services"
 	"github.com/scmo/apayment-backend/tests/db_test"
 	"github.com/scmo/apayment-backend/models"

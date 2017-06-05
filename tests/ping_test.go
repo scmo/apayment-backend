@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	. "github.com/smartystreets/goconvey/convey"
 	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
 	"encoding/json"

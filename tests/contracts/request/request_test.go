@@ -11,6 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"github.com/ethereum/go-ethereum/common"
+	. "github.com/smartystreets/goconvey/convey"
 )
 
 var farmerAuth *bind.TransactOpts
