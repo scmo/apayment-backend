@@ -19,17 +19,21 @@ func Setup() {
 	//dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 
 
-	travis, err := strconv.ParseBool(os.Getenv("TRAVIS"))
-	if err != nil {
-		beego.Error("Error while parsing boolean: ", err)
+	travis_env := os.Getenv("TRAVIS")
+	if len(travis_env) > 0 {
+		travis, err := strconv.ParseBool(travis_env)
+		if err != nil {
+			beego.Error("Error while parsing boolean: ", err)
+		}
+		if ( travis == true ) {
+			dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+		}
 	}
-	if ( travis == true ) {
-		dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
-	}
+
 	beego.Info(dataSource)
 
 	// set default database
-	err = orm.RegisterDataBase("default", "postgres", dataSource, 30, 30)
+	err := orm.RegisterDataBase("default", "postgres", dataSource, 30, 30)
 	// Error.
 	err = orm.RunSyncdb("default", true, false)
 	if err != nil {
