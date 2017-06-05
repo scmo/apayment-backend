@@ -23,7 +23,7 @@ func Setup() {
 	if err != nil {
 		beego.Error("Error while parsing boolean: ", err)
 	}
-	if ( travis == true) {
+	if ( travis == true ) {
 		dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 	}
 	beego.Info(dataSource)
