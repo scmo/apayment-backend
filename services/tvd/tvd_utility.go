@@ -46,7 +46,7 @@ func GetUserCattleLivestock(userTvd int32, agateUsername string, agatePassword s
 	return cattleLivestockV2Response, nil
 }
 
-func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) {
+func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (map[uint16]int, error) {
 
 	a1 := 0 // a1 1110    Milchkühe
 	a2 := 0 // a2 1150   andere Kühe
@@ -66,7 +66,7 @@ func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) {
 		//beego.Debug(cattleLiveStockDataItem)
 		cat, err := GetAnimalCategory(cattleLiveStockDataItem)
 		if (err != nil) {
-			return
+			return nil, err
 		}
 		switch cat {
 		case 1:
@@ -87,10 +87,22 @@ func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) {
 			a8++
 		case 9:
 			a9++
+		default:
+			beego.Error("No category defined")
 		}
 	}
-	beego.Debug(a1, a2, a3, a4, a5, a6, a7, a8, a9)
-}
+	return map[uint16]int{
+		1110: a1,
+		1150: a2,
+		1128: a3,
+		1141: a4,
+		1142: a5,
+		1124: a6,
+		1129: a7,
+		1143: a8,
+		1144: a9,
+	}, nil
+};
 
 func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, error) {
 	ageInDays, err := getAgeInDays(cattleLiveStockDataItem)
@@ -112,7 +124,6 @@ func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, e
 				beego.Error("Error while parsing lastCalvingDate: ", err)
 				return 0, err
 			}
-			//ageInDaysAtFirstCalving := uint32(calvingDate.Sub(birthdate).Hours() / 24))
 			return 1, nil // A3
 		}
 
@@ -120,9 +131,11 @@ func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, e
 			return 5, nil // a5
 		}
 		if (160 < ageInDays && ageInDays <= 365) {
-			return 4, nil // a5
+			return 4, nil // a4
 		}
-		return 1, nil
+		if (365 < ageInDays) {
+			return 3, nil // a3
+		}
 	} else if (genderCode == 2 ) {
 		// male
 		if (ageInDays <= 160) {
@@ -138,7 +151,6 @@ func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, e
 			return 6, nil // a5
 		}
 	}
-	_ = ageInDays
 	return 0, errors.New("No Gender specified")
 }
 
