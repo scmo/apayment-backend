@@ -6,6 +6,7 @@ import (
 	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 	"github.com/scmo/apayment-backend/db"
+	"os"
 )
 
 func Setup() {
@@ -13,9 +14,13 @@ func Setup() {
 	// Register Driver
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 
-	//dataSource := "port=9032 user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
-	dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+	dataSource := "port=9032 user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+	//dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 
+
+	if (os.Getenv("TRAVIS") == true) {
+		dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+	}
 	beego.Info(dataSource)
 
 	// set default database
