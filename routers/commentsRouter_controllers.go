@@ -204,6 +204,13 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
+			Method: "FullProfile",
+			Router: `/fullprofile`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
+		beego.ControllerComments{
 			Method: "Get",
 			Router: `/:uid`,
 			AllowHTTPMethods: []string{"get"},

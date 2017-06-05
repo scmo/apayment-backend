@@ -9,6 +9,7 @@ import (
 	"runtime"
 	"github.com/scmo/apayment-backend/services/tvd"
 	. "github.com/smartystreets/goconvey/convey"
+	"strconv"
 )
 
 func init() {
@@ -17,7 +18,6 @@ func init() {
 	beego.TestBeegoInit(apppath)
 }
 
-// Test soap request
 func Test_TvdVersion(t *testing.T) {
 	auth := tvd.BasicAuth{
 		Login: beego.AppConfig.String("agate_username"),
@@ -110,4 +110,47 @@ func Test_SetCategory(t *testing.T) {
 			So(cat, ShouldEqual, 9)
 		})
 	})
+}
+
+func _Test_GetFarmer(t *testing.T) {
+	auth := tvd.BasicAuth{
+		Login: beego.AppConfig.String("agate_username"),
+		Password:beego.AppConfig.String("agate_password"),
+	}
+	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
+
+	agate_username, _ := strconv.ParseInt(beego.AppConfig.String("agate_username"), 8, 32)
+	getFarmersRequest := tvd.GetFarmers{
+		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
+		PLCID: 2055,
+		PTVDNumber: int32(agate_username),
+	}
+
+	getFarmersResponse, err := animalTracingPortType.GetFarmers(&getFarmersRequest)
+	if (err != nil) {
+		beego.Error("Failed to fetch info about the farmber: ", err)
+	}
+	beego.Debug(getFarmersResponse)
+}
+
+func _Test_GetPersonAddress(t *testing.T) {
+
+	auth := tvd.BasicAuth{
+		Login: beego.AppConfig.String("agate_username"),
+		Password:beego.AppConfig.String("agate_password"),
+	}
+	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
+
+	getPersonAddressRequest := tvd.GetPersonAddress{
+		Action: "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetPersonAddress",
+		PManufacturerKey: "bebc4e6a-2477-4ec6-8837-d503a87e85f2",
+		PLCID: 2055,
+		PAgateNumber: beego.AppConfig.String("agate_username"),
+	}
+
+	resp, err := animalTracingPortType.GetPersonAddress(&getPersonAddressRequest)
+	if (err != nil) {
+		beego.Error("Failed to fetch info about the person: ", err)
+	}
+	beego.Debug(resp.GetPersonAddressResult.PostAddress)
 }
