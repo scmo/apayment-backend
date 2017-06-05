@@ -7,6 +7,7 @@ import (
 	_ "github.com/lib/pq"
 	"github.com/scmo/apayment-backend/db"
 	"os"
+	"strconv"
 )
 
 func Setup() {
@@ -18,13 +19,17 @@ func Setup() {
 	//dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 
 
-	if (os.Getenv("TRAVIS") == true) {
+	travis, err := strconv.ParseBool(os.Getenv("TRAVIS"))
+	if err != nil {
+		beego.Error("Error while parsing boolean: ", err)
+	}
+	if ( travis == true) {
 		dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 	}
 	beego.Info(dataSource)
 
 	// set default database
-	err := orm.RegisterDataBase("default", "postgres", dataSource, 30, 30)
+	err = orm.RegisterDataBase("default", "postgres", dataSource, 30, 30)
 	// Error.
 	err = orm.RunSyncdb("default", true, false)
 	if err != nil {
