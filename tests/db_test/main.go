@@ -13,8 +13,8 @@ func Setup() {
 	// Register Driver
 	orm.RegisterDriver("postgres", orm.DRPostgres)
 
-	dataSource := "port=9032 user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
-	//dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+	//dataSource := "port=9032 user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
+	dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 
 	beego.Info(dataSource)
 
