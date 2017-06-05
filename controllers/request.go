@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
-	"github.com/scmo/foodchain-backend/services"
+	"github.com/scmo/apayment-backend/services"
 	"strconv"
-	"github.com/scmo/foodchain-backend/ethereum"
+	"github.com/scmo/apayment-backend/ethereum"
 )
 
 // Operations about Contributions

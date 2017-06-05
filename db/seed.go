@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/scmo/foodchain-backend/services"
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/services"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func Seed_Contributions() {

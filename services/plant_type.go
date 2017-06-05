@@ -1,7 +1,7 @@
 package services
 
 import (
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
 )
 

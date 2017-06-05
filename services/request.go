@@ -1,14 +1,14 @@
 package services
 
 import (
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego"
-	"github.com/scmo/foodchain-backend/ethereum"
+	"github.com/scmo/apayment-backend/ethereum"
 	"github.com/astaxie/beego/orm"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"math/big"
-	"github.com/scmo/foodchain-backend/smart-contracts/request"
+	"github.com/scmo/apayment-backend/smart-contracts/request"
 )
 
 func CreateRequest(r models.Request, auth *bind.TransactOpts) error {

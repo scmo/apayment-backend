@@ -1,11 +1,11 @@
 package main
 
 import (
-	_ "github.com/scmo/foodchain-backend/routers"
+	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
-	"github.com/scmo/foodchain-backend/db"
+	"github.com/scmo/apayment-backend/db"
 	"github.com/astaxie/beego/plugins/cors"
-	"github.com/scmo/foodchain-backend/ethereum"
+	"github.com/scmo/apayment-backend/ethereum"
 
 )
 

@@ -3,14 +3,13 @@ package request
 import (
 	"github.com/astaxie/beego"
 	"testing"
-	"github.com/scmo/foodchain-backend/smart-contracts/request"
-	. "github.com/smartystreets/goconvey/convey"
+	"github.com/scmo/apayment-backend/smart-contracts/request"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/core"
 	"math/big"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
+	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"github.com/ethereum/go-ethereum/common"
 )
 

@@ -8,18 +8,18 @@ package integrationtests
 //	"testing"
 //	"runtime"
 //	"net/http"
-//	_ "github.com/scmo/foodchain-backend/routers"
+//	_ "github.com/scmo/apayment-backend/routers"
 //	. "github.com/smartystreets/goconvey/convey"
 //	"strings"
-//	"github.com/scmo/foodchain-backend/tests/db_test"
+//	"github.com/scmo/apayment-backend/tests/db_test"
 //	"encoding/json"
 //	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 //	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 //	"github.com/ethereum/go-ethereum/core"
 //	"math/big"
 //	"github.com/ethereum/go-ethereum/crypto"
-//	"github.com/scmo/foodchain-backend/services"
-//	"github.com/scmo/foodchain-backend/models"
+//	"github.com/scmo/apayment-backend/services"
+//	"github.com/scmo/apayment-backend/models"
 //)
 //
 //

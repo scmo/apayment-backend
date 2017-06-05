@@ -8,12 +8,12 @@
 package routers
 
 import (
-	"github.com/scmo/foodchain-backend/controllers"
+	"github.com/scmo/apayment-backend/controllers"
 
 	"github.com/astaxie/beego"
 	"strings"
 	"github.com/astaxie/beego/context"
-	"github.com/scmo/foodchain-backend/services"
+	"github.com/scmo/apayment-backend/services"
 )
 
 func init() {

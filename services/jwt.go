@@ -2,7 +2,7 @@ package services
 
 import (
 	"time"
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/astaxie/beego"
 	"errors"

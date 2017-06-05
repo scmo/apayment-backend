@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"encoding/json"
-	"github.com/scmo/foodchain-backend/models"
-	"github.com/scmo/foodchain-backend/services"
+	"github.com/scmo/apayment-backend/models"
+	"github.com/scmo/apayment-backend/services"
 )
 
 // Operations about Contributions

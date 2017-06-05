@@ -1,16 +1,16 @@
 package services
 
 import (
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
 	"golang.org/x/crypto/bcrypt"
 	"errors"
-	"github.com/scmo/foodchain-backend/ethereum"
+	"github.com/scmo/apayment-backend/ethereum"
 	"net/http"
 	"context"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
+	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 )
 
 func CreateUser(u *models.User) error {

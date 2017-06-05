@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/scmo/foodchain-backend/services"
+	"github.com/scmo/apayment-backend/services"
 )
 
 type PlantTypeController struct {

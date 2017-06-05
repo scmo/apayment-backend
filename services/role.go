@@ -2,7 +2,7 @@ package services
 
 import (
 	"github.com/astaxie/beego/orm"
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreateRole(r *models.Role) error  {

@@ -1,6 +1,5 @@
-package tvd
+package myservice
 
-//https://github.com/fiorix/wsdl2go
 import (
 	"bytes"
 	"crypto/tls"
@@ -18,9 +17,9 @@ var _ time.Time
 var _ xml.Name
 
 type Version struct {
-	XMLName           xml.Name `xml:"ns:Version"`
+	XMLName           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 Version"`
 
-	P_ManufacturerKey string `xml:"ns:p_ManufacturerKey,omitempty"`
+	P_ManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 }
 
 type VersionResponse struct {
@@ -6200,62 +6199,26 @@ func dialTimeout(network, addr string) (net.Conn, error) {
 }
 
 type SOAPEnvelope struct {
-	XMLName   xml.Name `xml:"soap:Envelope"`
-	XmlnsSoap string   `xml:"xmlns:soap,attr,omitempty"`
-	XmlnsNs   string   `xml:"xmlns:ns,attr,omitempty"`
-	Header    *SOAPHeader
-	Body      SOAPBody
+	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Envelope"`
+	Header  *SOAPHeader
+	Body    SOAPBody
 }
 
 type SOAPHeader struct {
-	XMLName  xml.Name `xml:"soap:Header"`
-	Xmlnswsa string   `xml:"xmlns:wsa,attr,omitempty"`
+	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Header"`
 
-	Action   string `xml:"wsa:Action,omitempty"`
-	To       string `xml:"wsa:To,omitempty"`
+	Items   []interface{} `xml:",omitempty"`
 }
 
 type SOAPBody struct {
-	XMLName xml.Name `xml:"soap:Body"`
+	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Body"`
 
 	Fault   *SOAPFault  `xml:",omitempty"`
 	Content interface{} `xml:",omitempty"`
 }
-
-//type SOAPResponseEnvelope struct {
-//	XMLName xml.Name
-//	Body    SOAPResponseBody
-//}
-//
-//type SOAPResponseBody struct {
-//	XMLName xml.Name
-//	Fault   *SOAPFault  `xml:",omitempty"`
-//	Content interface{}
-//}
-
-
-/////
-
-
-type SOAPResponseEnvelope struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Envelope"`
-	Body    SOAPResponseBody
-}
-
-type SOAPResponseBody struct {
-	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Body"`
-
-	Fault   *SOAPFault  `xml:",omitempty"`
-	Content interface{} `xml:",omitempty"`
-}
-
-
-////
-
-
 
 type SOAPFault struct {
-	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ soap:Fault"`
+	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Fault"`
 
 	Code    string `xml:"faultcode,omitempty"`
 	String  string `xml:"faultstring,omitempty"`
@@ -6425,21 +6388,10 @@ func (s *SOAPClient) AddHeader(header interface{}) {
 func (s *SOAPClient) Call(soapAction string, request, response interface{}) error {
 	envelope := SOAPEnvelope{}
 
-	envelope.XmlnsSoap = "http://www.w3.org/2003/05/soap-envelope"
-	envelope.XmlnsNs = "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1"
-
-
-	//if s.headers != nil && len(s.headers) > 0 {
-	//	soapHeader := &SOAPHeader{Items: make([]interface{}, len(s.headers))}
-	//	copy(soapHeader.Items, s.headers)
-	//	envelope.Header = soapHeader
-	//}
-
-
-	envelope.Header = &SOAPHeader{
-		Xmlnswsa:"http://www.w3.org/2005/08/addressing",
-		Action: "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/Version",
-		To: "https://ws.wbf.admin.ch/Livestock/AnimalTracing/1",
+	if s.headers != nil && len(s.headers) > 0 {
+		soapHeader := &SOAPHeader{Items: make([]interface{}, len(s.headers))}
+		copy(soapHeader.Items, s.headers)
+		envelope.Header = soapHeader
 	}
 
 	envelope.Body.Content = request
@@ -6496,11 +6448,9 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 	}
 
 	log.Println(string(rawbody))
-	soapRaw := []byte(`<?xml version="1.0" encoding="UTF-8"?><s:Envelope xmlns:a="http://www.w3.org/2005/08/addressing" xmlns:s="http://www.w3.org/2003/05/soap-envelope"><s:Header><a:Action s:mustUnderstand="1">http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/VersionResponse</a:Action></s:Header><s:Body><VersionResponse xmlns="http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1"><VersionResult>1.15.0</VersionResult></VersionResponse></s:Body></s:Envelope>`)
-	respEnvelope := new(SOAPResponseEnvelope)
-	respEnvelope.Body = SOAPResponseBody{Content: response}
-
-	err = xml.Unmarshal(soapRaw, respEnvelope)
+	respEnvelope := new(SOAPEnvelope)
+	respEnvelope.Body = SOAPBody{Content: response}
+	err = xml.Unmarshal(rawbody, respEnvelope)
 	if err != nil {
 		return err
 	}
@@ -6509,5 +6459,6 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 	if fault != nil {
 		return fault
 	}
+
 	return nil
 }

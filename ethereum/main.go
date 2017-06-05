@@ -17,7 +17,7 @@ import (
 	"github.com/ethereum/go-ethereum"
 	"strings"
 	"github.com/ethereum/go-ethereum/core/types"
-	"github.com/scmo/foodchain-backend/smart-contracts/rbac"
+	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 )
 
 type EthereumController struct {

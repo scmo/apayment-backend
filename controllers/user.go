@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
 
 	"github.com/astaxie/beego"
-	"github.com/scmo/foodchain-backend/services"
+	"github.com/scmo/apayment-backend/services"
 )
 
 // Operations about Users

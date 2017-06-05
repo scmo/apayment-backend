@@ -3,14 +3,13 @@ package test
 import (
 	"runtime"
 	"path/filepath"
-	_ "github.com/scmo/foodchain-backend/routers"
+	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
 	"testing"
 
-	"github.com/scmo/foodchain-backend/services"
-	"github.com/scmo/foodchain-backend/tests/db_test"
-	"github.com/scmo/foodchain-backend/models"
-	. "github.com/smartystreets/goconvey/convey"
+	"github.com/scmo/apayment-backend/services"
+	"github.com/scmo/apayment-backend/tests/db_test"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func init() {

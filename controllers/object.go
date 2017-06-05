@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"github.com/scmo/foodchain-backend/models"
+	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
 
 	"github.com/astaxie/beego"
