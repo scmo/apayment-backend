@@ -134,24 +134,33 @@ func Test_UpdateBTSGVE(t *testing.T) {
 
 func TestCalculateBTS(t *testing.T) {
 	beego.Trace("Test: ", "Calculate BTS", 5416)
-	// Add some more lacks
 
-	requestContract.AddLack(inspectorAuth, 5416, "cat", 1110, "controlPoint", 2, 110)
-	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 1, 10)
-	requestContract.AddLack(inspectorAuth, 5416, "dog", 1150, "controlPoint", 2, 10)
+	// Add some more lacks
+	requestContract.AddLack(inspectorAuth, 5416, "cat", 1128, "controlPoint", 2, 110)
+	requestContract.AddLack(inspectorAuth, 5416, "dog", 1141, "controlPoint", 1, 20)
+	requestContract.AddLack(inspectorAuth, 5416, "dog", 1141, "controlPoint", 2, 60)
 	sim.Commit()
 
-	//sum, err := requestContract.CalculateBTS(nil)
-	//if (err != nil) {
-	//	beego.Error("Error while calculating BTS")
-	//	t.Failed()
-	//}
-	//
-	//beego.Debug(sum)
-	//sim.Commit()
-	beego.Debug(requestContract.BtsPointGroups(nil, 1110))
-	beego.Debug(requestContract.BtsPointGroups(nil, 1150))
+	_, err := requestContract.CalculateBTS(adminAuth)
+	if (err != nil) {
+		beego.Error("Error while calculating BTS")
+		t.Failed()
+	}
+	sim.Commit()
 
+	Convey("Subject: Calculate BTS Direct Payment Amount\n", t, func() {
+		Convey("No error", func() {
+			So(err, ShouldEqual, nil)
+		})
+		Convey("1128 gets no directpayment", func() {
+			amount1128, _ := requestContract.BtsPointGroups(nil, 1128)
+			So(amount1128.Total, ShouldEqual, 0)
+		})
+		Convey("1141 should get 297", func() {
+			amount1141, _ := requestContract.BtsPointGroups(nil, 1141)
+			So((amount1141.Total - amount1141.Deduction) / 100, ShouldEqual, 297)
+		})
+	})
 }
 
 

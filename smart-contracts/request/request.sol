@@ -83,7 +83,19 @@ contract Request is mortal {
 
   /* ==============================
     Calculate Direct Payment amount
-    =============================== */
+    ===============================
+    - All amounts in rappen */
+
+  // 1110   Milchkühe
+  // 1150   andere Kühe
+
+  // 1128   weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung
+  // 1141   weibliche Tiere über 160 - 365 Tage alt
+  // 1142   weibliche Tiere bis 160 Tage alt (nur RAUS)
+  // 1124   männliche Tiere, über 730 Tage alt
+  // 1129   männliche Tiere, über 365 bis 730 Tage alt
+  // 1143   männliche Tiere, über 160 bis 365 Tage alt
+  // 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
 
   // For each pointGroup there is one CalcVariables
   uint16[9] pointGroupCodes = [1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
@@ -93,8 +105,8 @@ contract Request is mortal {
   struct CalcVariables {
   uint16 gve;
   uint16 points;
-  uint16 total;
-  uint16 deduction;
+  uint32 total;
+  uint32 deduction;
   }
 
   function setGVE(uint16 _gve1110, uint16 _gve1150, uint16 _gve1128, uint16 _gve1141, uint16 _gve1142, uint16 _gve1124, uint16 _gve1129, uint16 _gve1143, uint16 _gve1144) {
@@ -130,30 +142,22 @@ contract Request is mortal {
     return btsPointGroups[_pointGroupCode].gve;
   }
 
-
   function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
     CalcVariables btsPointGroup = btsPointGroups[_pointGroupCode];
     btsPointGroup.points = btsPointGroup.points + _points;
   }
 
-  function calculateBTS() constant returns (uint16){
-    // 1110    Milchkühe
-    // 1150   andere Kühe
-
-    // 1128    weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung
-    // 1141    weibliche Tiere über 160 - 365 Tage alt
-    // 1142   weibliche Tiere bis 160 Tage alt (nur RAUS)
-    // 1124   männliche Tiere, über 730 Tage alt
-    // 1129   männliche Tiere, über 365 bis 730 Tage alt
-    // 1143   männliche Tiere, über 160 bis 365 Tage alt
-    // 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
-
-    uint16 sum = 0;
-
-    //    for (uint16 i)
-
-    // calculate deductions
-    return sum;
+  function calculateBTS() {
+    for (uint16 i = 0; i < pointGroupCodes.length; i++) {
+      CalcVariables btsPointGroup = btsPointGroups[pointGroupCodes[i]];
+      if (pointGroupCodes[i] != 1142 || pointGroupCodes[i] != 1144) {
+        if (btsPointGroup.points < 110) {
+          btsPointGroup.total = 9000 * btsPointGroup.gve;
+          btsPointGroup.deduction = (btsPointGroup.points - 10) * (9000 / 100);
+          sum = btsPointGroup.deduction;
+        }
+      }
+    }
   }
 
 }
