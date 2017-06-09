@@ -17,7 +17,7 @@ var adminAuth *bind.TransactOpts
 var systemAuth *bind.TransactOpts
 var sim *backends.SimulatedBackend
 
-var tokenContract *apaymenttoken.APaymentToken
+var tokenContract *apaymenttoken.APaymentTokenContract
 
 func init() {
 	// Generate a new random account and a funded simulator
@@ -44,7 +44,7 @@ func init() {
 func Test_DeployContract(t *testing.T) {
 	Convey("Subject: Deploy aPaymentToken-Contract\n", t, func() {
 		supply := big.NewInt(1000000000000)
-		_, _, tc, err := apaymenttoken.DeployAPaymentToken(systemAuth, sim, supply)
+		_, _, tc, err := apaymenttoken.DeployAPaymentTokenContract(systemAuth, sim, supply)
 		sim.Commit()
 		tokenContract = tc
 		Convey("No error", func() {

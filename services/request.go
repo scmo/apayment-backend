@@ -8,12 +8,12 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"math/big"
-	"github.com/scmo/apayment-backend/smart-contracts/request"
+	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
 )
 
 func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	address, tx, _, err := smartcontracts.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
 		beego.Critical("Failed to deploy new token contract: ", err)
 	}
@@ -161,9 +161,9 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 	return err
 }
 
-func getRequestContractSession(requestContract *smartcontracts.RequestContract) (*smartcontracts.RequestContractSession) {
+func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) (*directpaymentrequest.RequestContractSession) {
 	//ethereumController := ethereum.GetEthereumController()
-	requestContractSesssion := &smartcontracts.RequestContractSession{
+	requestContractSesssion := &directpaymentrequest.RequestContractSession{
 		Contract:requestContract,
 		CallOpts:bind.CallOpts{Pending:true},
 		//TransactOpts:bind.TransactOpts{
@@ -184,12 +184,12 @@ func getContributionCodes(request *models.Request) []uint16 {
 	return codes
 }
 
-func getRequestByAddress(address string) (*smartcontracts.RequestContract, error) {
+func getRequestByAddress(address string) (*directpaymentrequest.RequestContract, error) {
 	ethereumController := ethereum.GetEthereumController()
-	return smartcontracts.NewRequestContract(common.HexToAddress(address), ethereumController.Client)
+	return directpaymentrequest.NewRequestContract(common.HexToAddress(address), ethereumController.Client)
 }
 
-func assignRequest(request *models.Request, requestContract *smartcontracts.RequestContract) {
+func assignRequest(request *models.Request, requestContract *directpaymentrequest.RequestContract) {
 	session := getRequestContractSession(requestContract)
 
 	userId, err := session.UserId()
@@ -210,7 +210,7 @@ func assignRequest(request *models.Request, requestContract *smartcontracts.Requ
 	}
 
 }
-func setInspector(request *models.Request, session *smartcontracts.RequestContractSession) {
+func setInspector(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	if (request.Inspector != nil) {
 		inspectorAddress, err := session.InspectorAddress()
 		if err != nil {
@@ -222,7 +222,7 @@ func setInspector(request *models.Request, session *smartcontracts.RequestContra
 	}
 }
 
-func setContributions(request *models.Request, session *smartcontracts.RequestContractSession) {
+func setContributions(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	request.Contributions = make([]*models.Contribution, 0)
 	next := true
 	index := big.NewInt(0)
@@ -243,7 +243,7 @@ func setContributions(request *models.Request, session *smartcontracts.RequestCo
 
 }
 
-func setLacksInspected(request *models.Request, session *smartcontracts.RequestContractSession) {
+func setLacksInspected(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	contributions := make([] *models.Contribution, 0)
 	numLack, err := session.NumLacks()
 	if err != nil {
@@ -316,8 +316,7 @@ func AddContributionToContributions(contributions []*models.Contribution, contri
 	return append(contributions, contribution)
 }
 
-
-func setTimestamps(request *models.Request, session *smartcontracts.RequestContractSession) {
+func setTimestamps(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 
 	// Created
 	createdTimestamp, err := session.Created()

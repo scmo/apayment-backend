@@ -3,7 +3,6 @@ package request
 import (
 	"github.com/astaxie/beego"
 	"testing"
-	"github.com/scmo/apayment-backend/smart-contracts/request"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/core"
@@ -12,6 +11,7 @@ import (
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"github.com/ethereum/go-ethereum/common"
 	. "github.com/smartystreets/goconvey/convey"
+	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
 )
 
 var farmerAuth *bind.TransactOpts
@@ -21,7 +21,7 @@ var systemAuth *bind.TransactOpts
 var sim *backends.SimulatedBackend
 
 var rbacAddress common.Address
-var requestContract *smartcontracts.RequestContract
+var requestContract *directpaymentrequest.RequestContract
 
 func init() {
 	// Generate a new random account and a funded simulator
@@ -55,7 +55,7 @@ func TestDeployContract(t *testing.T) {
 	contributionCodes := []uint16{5416}
 	remark := "This is my remark"
 	beego.Trace("Test: ", "DeployContractRequest", "ContributionCodes: ", contributionCodes)
-	_, _, rc, err := smartcontracts.DeployRequestContract(farmerAuth, sim, 3, contributionCodes, remark, rbacAddress)
+	_, _, rc, err := directpaymentrequest.DeployRequestContract(farmerAuth, sim, 3, contributionCodes, remark, rbacAddress)
 	sim.Commit()
 	requestContract = rc
 	Convey("Subject: Deploy Request-Contract\n", t, func() {

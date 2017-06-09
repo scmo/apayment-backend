@@ -154,7 +154,6 @@ contract Request is mortal {
         if (btsPointGroup.points < 110) {
           btsPointGroup.total = 9000 * btsPointGroup.gve;
           btsPointGroup.deduction = (btsPointGroup.points - 10) * (9000 / 100);
-          sum = btsPointGroup.deduction;
         }
       }
     }
