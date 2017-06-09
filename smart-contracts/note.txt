@@ -1,9 +1,14 @@
-abigen --abi Request.abi --pkg smartcontracts --type RequestContract --out request.go --bin Request.bin
+// DirectPaymentRequest
+solc -o ./direct-payment-request --abi --bin request.sol
+abigen --abi ./direct-payment-request/Request.abi --pkg directpaymentrequest --type RequestContract --out ./direct-payment-request/Request.go --bin ./direct-payment-request/Request.bin
 
 
-solc -o ./ --abi --bin request.sol
+// RBAC
+solc -o ./rbac --abi --bin rbac.sol
+abigen --abi ./rbac/RBAC.abi --pkg rbac --type RBACContract --out ./rbac/rbac.go --bin ./rbac/RBAC.bin
 
 
-solc -o ./ --abi --bin rbac.sol
+// APayment
+solc -o ./apayment-token --abi --bin apayment_token.sol
+abigen --abi ./apayment-token/APaymentToken.abi --pkg apaymenttoken --type APaymentTokenContract --out ./apayment-token/apayment-token.go --bin ./apayment-token/APaymentToken.bin
 
-abigen --abi RBAC.abi --pkg rbac --type RBACContract --out rbac.go --bin RBAC.bin
