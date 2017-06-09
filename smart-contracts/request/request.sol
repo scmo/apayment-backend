@@ -80,8 +80,13 @@ contract Request is mortal {
     }
   }
 
+
+  /* ==============================
+    Calculate Direct Payment amount
+    =============================== */
+
   // For each pointGroup there is one CalcVariables
-  uint16[10] pointGroupCodes = [1110, 1150, 1123, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
+  uint16[9] pointGroupCodes = [1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
 
   mapping (uint16 => CalcVariables) public btsPointGroups;
 
@@ -92,6 +97,40 @@ contract Request is mortal {
   uint16 deduction;
   }
 
+  function setGVE(uint16 _gve1110, uint16 _gve1150, uint16 _gve1128, uint16 _gve1141, uint16 _gve1142, uint16 _gve1124, uint16 _gve1129, uint16 _gve1143, uint16 _gve1144) {
+    CalcVariables btsPointGroup = btsPointGroups[1110];
+    btsPointGroup.gve = _gve1110;
+
+    btsPointGroup = btsPointGroups[1150];
+    btsPointGroup.gve = _gve1150;
+
+    btsPointGroup = btsPointGroups[1128];
+    btsPointGroup.gve = _gve1128;
+
+    btsPointGroup = btsPointGroups[1141];
+    btsPointGroup.gve = _gve1141;
+
+    btsPointGroup = btsPointGroups[1142];
+    btsPointGroup.gve = _gve1142;
+
+    btsPointGroup = btsPointGroups[1124];
+    btsPointGroup.gve = _gve1124;
+
+    btsPointGroup = btsPointGroups[1129];
+    btsPointGroup.gve = _gve1129;
+
+    btsPointGroup = btsPointGroups[1143];
+    btsPointGroup.gve = _gve1143;
+
+    btsPointGroup = btsPointGroups[1144];
+    btsPointGroup.gve = _gve1144;
+  }
+
+  function getBTSGVE(uint16 _pointGroupCode) constant returns (uint16) {
+    return btsPointGroups[_pointGroupCode].gve;
+  }
+
+
   function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
     CalcVariables btsPointGroup = btsPointGroups[_pointGroupCode];
     btsPointGroup.points = btsPointGroup.points + _points;
@@ -100,7 +139,7 @@ contract Request is mortal {
   function calculateBTS() constant returns (uint16){
     // 1110    Milchkühe
     // 1150   andere Kühe
-    // 1123   weibliche Tiere über 730 Tage alt, ohne Abkalbung
+
     // 1128    weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung
     // 1141    weibliche Tiere über 160 - 365 Tage alt
     // 1142   weibliche Tiere bis 160 Tage alt (nur RAUS)
@@ -111,7 +150,7 @@ contract Request is mortal {
 
     uint16 sum = 0;
 
-    for (uint16 i)
+    //    for (uint16 i)
 
     // calculate deductions
     return sum;

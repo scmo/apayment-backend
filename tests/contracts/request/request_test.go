@@ -114,6 +114,24 @@ func TestAddLacks(t *testing.T) {
 	})
 }
 
+func Test_UpdateBTSGVE(t *testing.T) {
+	_, err := requestContract.SetGVE(adminAuth, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+	sim.Commit()
+	Convey("Subject: Add Inspection Lack with wrong User\n", t, func() {
+		Convey("No error", func() {
+			So(err, ShouldEqual, nil)
+		})
+		Convey("GVE should be 1", func() {
+			gve, _ := requestContract.GetBTSGVE(nil, 1110)
+			So(gve, ShouldEqual, 1)
+		})
+		Convey("GVE should be 2", func() {
+			gve, _ := requestContract.GetBTSGVE(nil, 1150)
+			So(gve, ShouldEqual, 2)
+		})
+	})
+}
+
 func TestCalculateBTS(t *testing.T) {
 	beego.Trace("Test: ", "Calculate BTS", 5416)
 	// Add some more lacks
