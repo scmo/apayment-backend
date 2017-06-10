@@ -63,7 +63,7 @@ contract Request is mortal {
   }
 
   function setInspectorId(address _inspectorAddress){
-    require(rbac.isAdmin(msg.sender));
+    require(rbac.isAdmin(msg.sender) || rbac.isCantonEmployee(msg.sender));
     require(rbac.isInspector(_inspectorAddress));
     inspectorAddress = _inspectorAddress;
     setModified();

@@ -6,10 +6,10 @@ contract RBAC {
   address owner;
 
   mapping (address => bool) admins;
-
   mapping (address => bool) inspectors;
-
   mapping (address => bool) farmers;
+
+  mapping (address => bool) cantonEmployees;
 
   function RBAC(){
     owner = msg.sender;
@@ -57,4 +57,17 @@ contract RBAC {
     delete inspectors[inspectorAddress];
   }
 
+  function addCantonEmployee(address cantonEmployeeAddress){
+    require(tx.origin == owner);
+    cantonEmployees[cantonEmployeeAddress] = true;
+  }
+
+  function isCantonEmployee(address cantonEmployeeAddress) constant returns (bool) {
+    return cantonEmployees[cantonEmployeeAddress];
+  }
+
+  function removecantonEmployee(address cantonEmployeeAddress) {
+    require(tx.origin == owner);
+    delete cantonEmployees[cantonEmployeeAddress];
+  }
 }
