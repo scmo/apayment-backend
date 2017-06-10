@@ -13,10 +13,10 @@ import (
 )
 
 // RBACContractABI is the input ABI used to generate the binding from.
-const RBACContractABI = "[{\"constant\":false,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"isInspector\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"removeInspector\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"addInspector\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"addFarmer\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"isFarmer\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"removeFarmer\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"type\":\"constructor\"}]"
+const RBACContractABI = "[{\"constant\":false,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"isInspector\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"cantonEmployeeAddress\",\"type\":\"address\"}],\"name\":\"isCantonEmployee\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"adminAddress\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"removeInspector\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"inspectorAddress\",\"type\":\"address\"}],\"name\":\"addInspector\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"addFarmer\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"isFarmer\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"farmerAddress\",\"type\":\"address\"}],\"name\":\"removeFarmer\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"cantonEmployeeAddress\",\"type\":\"address\"}],\"name\":\"addCantonEmployee\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"cantonEmployeeAddress\",\"type\":\"address\"}],\"name\":\"removecantonEmployee\",\"outputs\":[],\"payable\":false,\"type\":\"function\"},{\"inputs\":[],\"payable\":false,\"type\":\"constructor\"}]"
 
 // RBACContractBin is the compiled bytecode used for deploying new contracts.
-const RBACContractBin = `6060604052341561000c57fe5b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b5b6108338061005f6000396000f30060606040523615610097576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631785f53c1461009957806324d7806c146100cf5780632cdad41c1461011d578063704802751461016b5780637c70e791146101a15780637e458492146101d757806380c3f96d1461020d578063b942906914610243578063e6bf3fdc14610291575bfe5b34156100a157fe5b6100cd600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506102c7565b005b34156100d757fe5b610103600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610377565b604051808215151515815260200191505060405180910390f35b341561012557fe5b610151600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103ce565b604051808215151515815260200191505060405180910390f35b341561017357fe5b61019f600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610425565b005b34156101a957fe5b6101d5600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506104de565b005b34156101df57fe5b61020b600480803573ffffffffffffffffffffffffffffffffffffffff1690602001909190505061058e565b005b341561021557fe5b610241600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610647565b005b341561024b57fe5b610277600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610700565b604051808215151515815260200191505060405180910390f35b341561029957fe5b6102c5600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610757565b005b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156103245760006000fd5b600160008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b50565b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b6000600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156104825760006000fd5b6001600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff1614151561053b5760006000fd5b600260008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156105eb5760006000fd5b6001600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156106a45760006000fd5b6001600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b6000600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156107b45760006000fd5b600360008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b505600a165627a7a7230582034872d36197bc4698ed01088f65bfa4e84e0a8054277c8a330915db0678185140029`
+const RBACContractBin = `6060604052341561000c57fe5b5b33600060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505b5b610ace8061005f6000396000f300606060405236156100b8576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631785f53c146100ba57806324d7806c146100f05780632cdad41c1461013e5780636bb164c91461018c57806370480275146101da5780637c70e791146102105780637e4584921461024657806380c3f96d1461027c578063b9429069146102b2578063e6bf3fdc14610300578063eaec3fc814610336578063f6bf0edd1461036c575bfe5b34156100c257fe5b6100ee600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506103a2565b005b34156100f857fe5b610124600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610452565b604051808215151515815260200191505060405180910390f35b341561014657fe5b610172600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506104a9565b604051808215151515815260200191505060405180910390f35b341561019457fe5b6101c0600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610500565b604051808215151515815260200191505060405180910390f35b34156101e257fe5b61020e600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610557565b005b341561021857fe5b610244600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610610565b005b341561024e57fe5b61027a600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506106c0565b005b341561028457fe5b6102b0600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610779565b005b34156102ba57fe5b6102e6600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610832565b604051808215151515815260200191505060405180910390f35b341561030857fe5b610334600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610889565b005b341561033e57fe5b61036a600480803573ffffffffffffffffffffffffffffffffffffffff16906020019091905050610939565b005b341561037457fe5b6103a0600480803573ffffffffffffffffffffffffffffffffffffffff169060200190919050506109f2565b005b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156103ff5760006000fd5b600160008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b50565b6000600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b6000600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b6000600460008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156105b45760006000fd5b6001600160008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff1614151561066d5760006000fd5b600260008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff1614151561071d5760006000fd5b6001600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156107d65760006000fd5b6001600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b6000600360008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff1690505b919050565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156108e65760006000fd5b600360008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff161415156109965760006000fd5b6001600460008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055505b50565b600060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff163273ffffffffffffffffffffffffffffffffffffffff16141515610a4f5760006000fd5b600460008273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81549060ff02191690555b505600a165627a7a7230582029cb798615b55ae8d4dad374814bd03038eb6534ee706fc6a6e7d21ff3fc14eb0029`
 
 // DeployRBACContract deploys a new Ethereum contract, binding an instance of RBACContract to it.
 func DeployRBACContract(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *RBACContract, error) {
@@ -184,6 +184,32 @@ func (_RBACContract *RBACContractCallerSession) IsAdmin(adminAddress common.Addr
 	return _RBACContract.Contract.IsAdmin(&_RBACContract.CallOpts, adminAddress)
 }
 
+// IsCantonEmployee is a free data retrieval call binding the contract method 0x6bb164c9.
+//
+// Solidity: function isCantonEmployee(cantonEmployeeAddress address) constant returns(bool)
+func (_RBACContract *RBACContractCaller) IsCantonEmployee(opts *bind.CallOpts, cantonEmployeeAddress common.Address) (bool, error) {
+	var (
+		ret0 = new(bool)
+	)
+	out := ret0
+	err := _RBACContract.contract.Call(opts, out, "isCantonEmployee", cantonEmployeeAddress)
+	return *ret0, err
+}
+
+// IsCantonEmployee is a free data retrieval call binding the contract method 0x6bb164c9.
+//
+// Solidity: function isCantonEmployee(cantonEmployeeAddress address) constant returns(bool)
+func (_RBACContract *RBACContractSession) IsCantonEmployee(cantonEmployeeAddress common.Address) (bool, error) {
+	return _RBACContract.Contract.IsCantonEmployee(&_RBACContract.CallOpts, cantonEmployeeAddress)
+}
+
+// IsCantonEmployee is a free data retrieval call binding the contract method 0x6bb164c9.
+//
+// Solidity: function isCantonEmployee(cantonEmployeeAddress address) constant returns(bool)
+func (_RBACContract *RBACContractCallerSession) IsCantonEmployee(cantonEmployeeAddress common.Address) (bool, error) {
+	return _RBACContract.Contract.IsCantonEmployee(&_RBACContract.CallOpts, cantonEmployeeAddress)
+}
+
 // IsFarmer is a free data retrieval call binding the contract method 0xb9429069.
 //
 // Solidity: function isFarmer(farmerAddress address) constant returns(bool)
@@ -255,6 +281,27 @@ func (_RBACContract *RBACContractSession) AddAdmin(adminAddress common.Address) 
 // Solidity: function addAdmin(adminAddress address) returns()
 func (_RBACContract *RBACContractTransactorSession) AddAdmin(adminAddress common.Address) (*types.Transaction, error) {
 	return _RBACContract.Contract.AddAdmin(&_RBACContract.TransactOpts, adminAddress)
+}
+
+// AddCantonEmployee is a paid mutator transaction binding the contract method 0xeaec3fc8.
+//
+// Solidity: function addCantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractTransactor) AddCantonEmployee(opts *bind.TransactOpts, cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.contract.Transact(opts, "addCantonEmployee", cantonEmployeeAddress)
+}
+
+// AddCantonEmployee is a paid mutator transaction binding the contract method 0xeaec3fc8.
+//
+// Solidity: function addCantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractSession) AddCantonEmployee(cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.Contract.AddCantonEmployee(&_RBACContract.TransactOpts, cantonEmployeeAddress)
+}
+
+// AddCantonEmployee is a paid mutator transaction binding the contract method 0xeaec3fc8.
+//
+// Solidity: function addCantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractTransactorSession) AddCantonEmployee(cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.Contract.AddCantonEmployee(&_RBACContract.TransactOpts, cantonEmployeeAddress)
 }
 
 // AddFarmer is a paid mutator transaction binding the contract method 0x80c3f96d.
@@ -360,4 +407,25 @@ func (_RBACContract *RBACContractSession) RemoveInspector(inspectorAddress commo
 // Solidity: function removeInspector(inspectorAddress address) returns()
 func (_RBACContract *RBACContractTransactorSession) RemoveInspector(inspectorAddress common.Address) (*types.Transaction, error) {
 	return _RBACContract.Contract.RemoveInspector(&_RBACContract.TransactOpts, inspectorAddress)
+}
+
+// RemovecantonEmployee is a paid mutator transaction binding the contract method 0xf6bf0edd.
+//
+// Solidity: function removecantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractTransactor) RemovecantonEmployee(opts *bind.TransactOpts, cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.contract.Transact(opts, "removecantonEmployee", cantonEmployeeAddress)
+}
+
+// RemovecantonEmployee is a paid mutator transaction binding the contract method 0xf6bf0edd.
+//
+// Solidity: function removecantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractSession) RemovecantonEmployee(cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.Contract.RemovecantonEmployee(&_RBACContract.TransactOpts, cantonEmployeeAddress)
+}
+
+// RemovecantonEmployee is a paid mutator transaction binding the contract method 0xf6bf0edd.
+//
+// Solidity: function removecantonEmployee(cantonEmployeeAddress address) returns()
+func (_RBACContract *RBACContractTransactorSession) RemovecantonEmployee(cantonEmployeeAddress common.Address) (*types.Transaction, error) {
+	return _RBACContract.Contract.RemovecantonEmployee(&_RBACContract.TransactOpts, cantonEmployeeAddress)
 }
