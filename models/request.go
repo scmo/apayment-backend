@@ -17,6 +17,13 @@ type Request struct {
 
 	Inspector              *User `orm:"rel(fk);null" json:"inspector"`
 	ContributionsWithLacks []*Contribution `orm:"-" json:"contributionsWithLacks"`
+
+	GVE                    []*GVE `orm:"-" json:"gve"`
+}
+
+type GVE struct {
+	Amount     uint16 `json:"amount"`
+	PointGroup *PointGroup `json:"pointGroup"`
 }
 
 func init() {

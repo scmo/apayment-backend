@@ -235,6 +235,7 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	setContributions(request, session)
 	setLacksInspected(request, session)
 	setTimestamps(request, session)
+	setGVE(request, session)
 	request.Remark, err = session.Remark()
 	if err != nil {
 		beego.Error("Failed to instantiate a Token contract: ", err)
@@ -298,8 +299,19 @@ func setLacksInspected(request *models.Request, session *directpaymentrequest.Re
 	request.ContributionsWithLacks = contributions
 }
 
+func setGVE(request *models.Request, session *directpaymentrequest.RequestContractSession) {
+	pointGroupCodes := tvd.GetPointGroupCodes()
 
-
+	for i := range pointGroupCodes {
+		requestGVE, err := session.PointGroups(pointGroupCodes[i])
+		if ( err != err ) {
+			beego.Critical("Error get GVE", err)
+		}
+		pointGroup, err := GetAllPointGroupByCode(pointGroupCodes[i])
+		gve := models.GVE{PointGroup: pointGroup, Amount: requestGVE.Gve}
+		request.GVE = append(request.GVE, &gve)
+	}
+}
 // Function adds a Contribution to a slice of contributions if
 // contribution does not exist yet in the slice, if contribution exist,
 // it checks if the contribution alreayd contains the ControlCategory and so on...

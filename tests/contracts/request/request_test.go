@@ -153,12 +153,12 @@ func TestCalculateBTS(t *testing.T) {
 			So(err, ShouldEqual, nil)
 		})
 		Convey("1128 gets no directpayment", func() {
-			amount1128, _ := requestContract.BtsPointGroups(nil, 1128)
-			So(amount1128.Total, ShouldEqual, 0)
+			amount1128, _ := requestContract.PointGroups(nil, 1128)
+			So(amount1128.BtsTotal, ShouldEqual, 0)
 		})
 		Convey("1141 should get 297", func() {
-			amount1141, _ := requestContract.BtsPointGroups(nil, 1141)
-			So((amount1141.Total - amount1141.Deduction) / 100, ShouldEqual, 297)
+			amount1141, _ := requestContract.PointGroups(nil, 1141)
+			So((amount1141.BtsTotal - amount1141.BtsDeduction) / 100, ShouldEqual, 297)
 		})
 	})
 }

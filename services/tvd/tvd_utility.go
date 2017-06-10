@@ -7,7 +7,7 @@ import (
 	"errors"
 )
 
-func GetBTSPointGroupCodes() []uint16 {
+func GetPointGroupCodes() []uint16 {
 	return []uint16{1110, 1150, 1123, 1128, 1141, 1142, 1124, 1129, 1143, 1144};
 }
 

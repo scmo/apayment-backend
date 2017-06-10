@@ -38,6 +38,20 @@ func GetAllPointGroupById(_id int64) (*models.PointGroup, error) {
 	return &pointGroup, nil
 }
 
+func GetAllPointGroupByCode(_code uint16) (*models.PointGroup, error) {
+	o := orm.NewOrm()
+	pointGroup := models.PointGroup{PointGroupCode: _code}
+	err := o.Read(&pointGroup, "PointGroupCode")
+	if err == orm.ErrNoRows {
+		beego.Error("No result found.")
+		return nil, err
+	} else if err == orm.ErrMissPK {
+		beego.Error("No primary key found.")
+		return nil, err
+	}
+	return &pointGroup, err
+}
+
 func CountPointGroups() (int64, error) {
 	o := orm.NewOrm()
 	cnt, err := o.QueryTable(new(models.PointGroup)).Count() // SELECT COUNT(*) FROM USE

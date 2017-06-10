@@ -100,60 +100,61 @@ contract Request is mortal {
   // For each pointGroup there is one CalcVariables
   uint16[9] pointGroupCodes = [1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
 
-  mapping (uint16 => CalcVariables) public btsPointGroups;
+  mapping (uint16 => CalcVariables) public pointGroups;
 
   struct CalcVariables {
   uint16 gve;
   uint16 points;
-  uint32 total;
-  uint32 deduction;
+  uint16 btsPoints;
+  uint32 btsTotal;
+  uint32 btsDeduction;
   }
 
   function setGVE(uint16 _gve1110, uint16 _gve1150, uint16 _gve1128, uint16 _gve1141, uint16 _gve1142, uint16 _gve1124, uint16 _gve1129, uint16 _gve1143, uint16 _gve1144) {
-    CalcVariables btsPointGroup = btsPointGroups[1110];
+    CalcVariables btsPointGroup = pointGroups[1110];
     btsPointGroup.gve = _gve1110;
 
-    btsPointGroup = btsPointGroups[1150];
+    btsPointGroup = pointGroups[1150];
     btsPointGroup.gve = _gve1150;
 
-    btsPointGroup = btsPointGroups[1128];
+    btsPointGroup = pointGroups[1128];
     btsPointGroup.gve = _gve1128;
 
-    btsPointGroup = btsPointGroups[1141];
+    btsPointGroup = pointGroups[1141];
     btsPointGroup.gve = _gve1141;
 
-    btsPointGroup = btsPointGroups[1142];
+    btsPointGroup = pointGroups[1142];
     btsPointGroup.gve = _gve1142;
 
-    btsPointGroup = btsPointGroups[1124];
+    btsPointGroup = pointGroups[1124];
     btsPointGroup.gve = _gve1124;
 
-    btsPointGroup = btsPointGroups[1129];
+    btsPointGroup = pointGroups[1129];
     btsPointGroup.gve = _gve1129;
 
-    btsPointGroup = btsPointGroups[1143];
+    btsPointGroup = pointGroups[1143];
     btsPointGroup.gve = _gve1143;
 
-    btsPointGroup = btsPointGroups[1144];
+    btsPointGroup = pointGroups[1144];
     btsPointGroup.gve = _gve1144;
   }
 
   function getBTSGVE(uint16 _pointGroupCode) constant returns (uint16) {
-    return btsPointGroups[_pointGroupCode].gve;
+    return pointGroups[_pointGroupCode].gve;
   }
 
   function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
-    CalcVariables btsPointGroup = btsPointGroups[_pointGroupCode];
-    btsPointGroup.points = btsPointGroup.points + _points;
+    CalcVariables btsPointGroup = pointGroups[_pointGroupCode];
+    btsPointGroup.btsPoints = btsPointGroup.btsPoints + _points;
   }
 
   function calculateBTS() {
     for (uint16 i = 0; i < pointGroupCodes.length; i++) {
-      CalcVariables btsPointGroup = btsPointGroups[pointGroupCodes[i]];
+      CalcVariables btsPointGroup = pointGroups[pointGroupCodes[i]];
       if (pointGroupCodes[i] != 1142 || pointGroupCodes[i] != 1144) {
-        if (btsPointGroup.points < 110) {
-          btsPointGroup.total = 9000 * btsPointGroup.gve;
-          btsPointGroup.deduction = (btsPointGroup.points - 10) * (9000 / 100);
+        if (btsPointGroup.btsPoints < 110) {
+          btsPointGroup.btsTotal = 9000 * btsPointGroup.gve;
+          btsPointGroup.btsDeduction = (btsPointGroup.btsPoints - 10) * (9000 / 100);
         }
       }
     }
