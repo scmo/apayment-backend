@@ -13,11 +13,11 @@ import (
 	"math/big"
 
 	"context"
-	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/go-ethereum"
 	"strings"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
+	"github.com/scmo/apayment-backend/smart-contracts/apayment-token"
 )
 
 type EthereumController struct {
@@ -49,19 +49,10 @@ func Init() {
 
 	// Keystore to administrate accounts
 	ks := keystore.NewKeyStore(pathToEthereum + "keystore", keystore.LightScryptN, keystore.LightScryptP)
-
 	ethereumController = EthereumController{Auth:auth, Client:client, Keystore: ks}
-	//ethereumController = EthereumController{ Client:client, Keystore: ks}
-
-	// Assuption: SyncProgress returns nil if it is not syncing
-	//sy, err := client.SyncProgress(ctx)
-	//if err != nil {
-	//	beego.Critical("Failed to get SyncProgress: ", err)
-	//}
-	//_ = sy
 
 	deployRoleBasedAccessControlContract()
-
+	deployAPaymentTokenContract()
 }
 
 func deployRoleBasedAccessControlContract() {
@@ -75,6 +66,21 @@ func deployRoleBasedAccessControlContract() {
 	}
 }
 
+func deployAPaymentTokenContract() {
+	if (beego.AppConfig.String("apaymentTokenContract") == "" ) {
+		tokenSupply, err := beego.AppConfig.Int("tokenSupply")
+		if (err != nil) {
+			beego.Critical("tokenSupply not found. ", err)
+		}
+		address, _, _, err := apaymenttoken.DeployAPaymentTokenContract(ethereumController.Auth, ethereumController.Client, big.NewInt(int64(tokenSupply)))
+		if err != nil {
+			beego.Critical("Error while deploying APaymentTokenContract: ", err)
+		}
+		beego.Debug(address.Str())
+		beego.AppConfig.Set("tokenSupply", address.String())
+	}
+}
+
 func createNewEthereumAccount() {
 
 	account, _ := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
@@ -84,8 +90,8 @@ func createNewEthereumAccount() {
 	beego.Debug(common.StringToAddress(account.Address.String()).String())
 }
 
-func SendEther(from string, to string, amountEther int64) {
-	beego.Info("Send ether from: ", from, "to: ", to, "amount:", amountEther)
+func SendWei(from string, to string, amount *big.Int) {
+	beego.Info("Send ether from: ", from, "to: ", to, "amount:", amount)
 	ctx := context.Background()
 	fromAccount, err := ethereumController.Keystore.Find(accounts.Account{Address: common.HexToAddress(from)})
 	if fromAccount.Address.String() != from {
@@ -98,7 +104,7 @@ func SendEther(from string, to string, amountEther int64) {
 	if err != nil {
 		beego.Critical("Failed to get nounce: ", err)
 	}
-	amount := new(big.Int).Mul(big.NewInt(amountEther), big.NewInt(params.Ether))
+
 	//estimateGas, err := ethereumController.Client.EstimateGas(ctx, ethereum.CallMsg{From: fromAccount.Address, To: common.StringToAddress(to), Value:amount, Data: nil})
 	estimateGas, err := ethereumController.Client.EstimateGas(ctx, ethereum.CallMsg{From: fromAccount.Address, Value:amount, Data: nil})
 	if err != nil {
