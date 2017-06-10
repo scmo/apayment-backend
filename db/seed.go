@@ -35,7 +35,7 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	cc := models.ControlCategory{ControlCategoryId:"12.01_2017", Abbreviation:"BTS - Rindergattung und Wasserbüffel", Contribution: contribution}
 	services.CreateControlCategory(&cc)
 
-	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Rinder - Milchkühe", PointGroupCode:1110, ControlCategory: &cc}
+	pg1 := models.PointGroup{PointGroupId:"A1", Abbreviation:"Rinder - Milchkühe", PointGroup: "Rinder - Milchkühe", PointGroupCode:1110, ControlCategory: &cc}
 	services.CreatePointGroup(&pg1)
 
 	cp1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten",
@@ -52,18 +52,9 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateLack(&models.Lack{Name:"Viel zu wenig Tageslicht", Points:110, ControlPoint:&cp2})
 	services.CreateLack(&models.Lack{Name:"Anderer Mangel", ControlPoint:&cp2})
 
-	//lacks := []models.Lack{
-	//	{Name:"Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points:60, ControlPoint:&cp1},
-	//	{Name:"Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points:110, ControlPoint:&cp1},
-	//	{Name:"Anderer Mangel", ControlPoint:&cp1},
-	//	{Name:"Etwas zu wenig Tageslicht", Points:10, ControlPoint:&cp2},
-	//	{Name:"Viel zu wenig Tageslicht", Points:110, ControlPoint:&cp2},
-	//	{Name:"Anderer Mangel", ControlPoint:&cp2},
-	//}
-	//services.CreateMultiLacks(lacks)
 
 	// A2	Rinder - andere Kühe
-	pg2 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroupCode:1150, ControlCategory: &cc}
+	pg2 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "Rinder - andere Kühe", PointGroupCode:1150, ControlCategory: &cc}
 	services.CreatePointGroup(&pg2)
 
 	cpA2_1 := models.ControlPoint{ControlPointId:"01", Abbreviation:"Alle Tiere frei in Gruppen gehalten", ControlPoint:"Alle Tiere der Kategorie in Gruppen gehalten oder zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4", PointGroup: &pg2}
@@ -114,6 +105,20 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateLack(&models.Lack{Name:"Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points:110, ControlPoint:&cpA2_9})
 	services.CreateLack(&models.Lack{Name:"Anderer Mangel", ControlPoint:&cpA2_9})
 
+	pg3 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung", PointGroupCode:1128, ControlCategory: &cc}
+	services.CreatePointGroup(&pg3)
+	pg4 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "weibliche Tiere über 160 - 365 Tage alt", PointGroupCode:1141, ControlCategory: &cc}
+	services.CreatePointGroup(&pg4)
+	pg5 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "weibliche Tiere bis 160 Tage alt", PointGroupCode:1142, ControlCategory: &cc}
+	services.CreatePointGroup(&pg5)
+	pg6 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "männliche Tiere, über 730 Tage alt", PointGroupCode:1124, ControlCategory: &cc}
+	services.CreatePointGroup(&pg6)
+	pg7 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "männliche Tiere, über 365 bis 730 Tage alt", PointGroupCode:1129, ControlCategory: &cc}
+	services.CreatePointGroup(&pg7)
+	pg8 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "männliche Tiere, über 160 bis 365 Tage alt", PointGroupCode:1143, ControlCategory: &cc}
+	services.CreatePointGroup(&pg8)
+	pg9 := models.PointGroup{PointGroupId:"A2", Abbreviation:"Rinder - andere Kühe", PointGroup: "männliche Tiere, bis 160 Tage alt", PointGroupCode:1144, ControlCategory: &cc}
+	services.CreatePointGroup(&pg9)
 }
 
 func Seed_RAUS_Weidetiere() {
