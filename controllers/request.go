@@ -31,8 +31,10 @@ func (this *RequestController) Post() {
 	}
 	request.User = user
 
-	services.CreateRequest(request, ethereum.GetAuth(user.Address))
-	// TODO Validiation
+	err = services.CreateRequest(request, ethereum.GetAuth(user.Address))
+	if err != nil {
+		this.CustomAbort(500, err.Error())
+	}
 	this.ServeJSON()
 }
 
@@ -153,6 +155,34 @@ func (this *RequestController) AddInspection() {
 		this.CustomAbort(500, err.Error())
 	}
 	this.Data["json"] = inspection
+	this.ServeJSON()
+}
+
+// @Title Update GVE
+// @Description Update GVE of request
+// @Param	body		body 	models.Request	true		"body for requestion content"
+// @Success 200 {object} models.Request
+// @Failure 403 :requestId is empty
+// @router /gve [put]
+func (this *RequestController) UpdateGVE() {
+	var request models.Request
+
+	json.Unmarshal(this.Ctx.Input.RequestBody, &request)
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+		err = services.SetGVE(&request)
+		if (err != nil ) {
+			this.CustomAbort(500, err.Error())
+		}
+	}
+
+	this.Data["json"] = request
 	this.ServeJSON()
 }
 

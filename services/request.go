@@ -9,13 +9,15 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"math/big"
 	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
+	"github.com/scmo/apayment-backend/services/tvd"
 )
 
 func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
 	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
-		beego.Critical("Failed to deploy new token contract: ", err)
+		beego.Error("Failed to deploy new token contract: ", err)
+		return err
 	}
 	beego.Info("Contract pending deploy: ", address.String())
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
@@ -115,7 +117,7 @@ func GetAllRequestsForInspectionByInspectorId(inspectorId int64) []*models.Reque
 	return requests
 }
 
-func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
+func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) error {
 	// Add to DB
 	o := orm.NewOrm()
 	o.Update(request, "Inspector")
@@ -124,6 +126,7 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 	requestContract, err := getRequestByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return err
 	}
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
@@ -131,9 +134,11 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) {
 
 	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.Address))
 	if err != nil {
-		beego.Critical("Failed to update name: ", err)
+		beego.Error("Failed to update request (add inspector): ", err)
+		return err
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+	return err
 }
 
 // Add inspection Lacks to Request
@@ -150,7 +155,7 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
 	for _, lack := range inspection.Lacks {
-		beego.Debug("Add Lack", lack.LackId, lack.Points)
+		beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
 		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
 		if err != nil {
 			beego.Critical("Failed to update name: ", err)
@@ -158,6 +163,32 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		}
 		beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 	}
+	return err
+}
+
+func SetGVE(request *models.Request) (error) {
+	ethereumController := ethereum.GetEthereumController()
+	gves, err := tvd.GetNumberOfGVE(request.User.TVD, beego.AppConfig.String("agate_username"), beego.AppConfig.String("agate_password"))
+	if ( err != nil ) {
+		beego.Error("Failed to get GVE. ", err)
+		return err
+	}
+	requestContract, err := getRequestByAddress(request.Address)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return err
+	}
+	session := getRequestContractSession(requestContract)
+	session.TransactOpts.From = ethereumController.Auth.From
+	session.TransactOpts.Signer = ethereumController.Auth.Signer
+
+	tx, err := session.SetGVE(gves[1110], gves[1150], gves[1128], gves[1141], gves[1142], gves[1124], gves[1129], gves[1143], gves[1144])
+	if (err != nil) {
+		beego.Critical("Failed to update GVE: ", err)
+		return err
+	}
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
 	return err
 }
 
@@ -208,8 +239,8 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	if err != nil {
 		beego.Error("Failed to instantiate a Token contract: ", err)
 	}
-
 }
+
 func setInspector(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	if (request.Inspector != nil) {
 		inspectorAddress, err := session.InspectorAddress()
@@ -217,6 +248,8 @@ func setInspector(request *models.Request, session *directpaymentrequest.Request
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
 		if (inspectorAddress.String() != request.Inspector.Address) {
+			beego.Info("Blockchain: ", inspectorAddress.String())
+			beego.Info("DB: ", request.Inspector.Address)
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
 	}
@@ -264,6 +297,8 @@ func setLacksInspected(request *models.Request, session *directpaymentrequest.Re
 
 	request.ContributionsWithLacks = contributions
 }
+
+
 
 // Function adds a Contribution to a slice of contributions if
 // contribution does not exist yet in the slice, if contribution exist,

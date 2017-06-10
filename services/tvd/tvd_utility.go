@@ -46,7 +46,7 @@ func GetUserCattleLivestock(userTvd int32, agateUsername string, agatePassword s
 	return cattleLivestockV2Response, nil
 }
 
-func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (map[uint16]int, error) {
+func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (map[uint16]uint16, error) {
 
 	a1 := 0 // a1 1110    Milchkühe
 	a2 := 0 // a2 1150   andere Kühe
@@ -91,16 +91,16 @@ func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (
 			beego.Error("No category defined")
 		}
 	}
-	return map[uint16]int{
-		1110: a1,
-		1150: a2,
-		1128: a3,
-		1141: a4,
-		1142: a5,
-		1124: a6,
-		1129: a7,
-		1143: a8,
-		1144: a9,
+	return map[uint16]uint16{
+		1110: uint16(a1),
+		1150: uint16(a2),
+		1128: uint16(a3),
+		1141: uint16(a4),
+		1142: uint16(a5),
+		1124: uint16(a6),
+		1129: uint16(a7),
+		1143: uint16(a8),
+		1144: uint16(a9),
 	}, nil
 };
 
