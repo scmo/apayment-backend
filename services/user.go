@@ -11,6 +11,8 @@ import (
 	"context"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
+	"math/big"
+	"github.com/ethereum/go-ethereum/params"
 )
 
 func CreateUser(u *models.User) error {
@@ -66,17 +68,24 @@ func addUserToRBAC(address string, role string) {
 		rbacContract.AddInspector(ethereumController.Auth, common.HexToAddress(address))
 	case "Admin":
 		rbacContract.AddAdmin(ethereumController.Auth, common.HexToAddress(address))
+	case "Canton":
+		rbacContract.AddCantonEmployee(ethereumController.Auth, common.HexToAddress(address))
 	default:
-		beego.Error("Unknown role.")
+		beego.Error("Unknown role - address was not added to the RoleBasedAccessControl")
 	}
-
 }
 
 func createNewEthereumAccount() (string, error) {
 	ethereumController := ethereum.GetEthereumController()
 	account, err := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
 	if beego.BConfig.RunMode == "dev" {
-		ethereum.SendEther("0x88f1e48e11864bfc4685f9f9d8b79b18450764ef", account.Address.String(), 1)
+		amountEther := 0.5
+		amount := new(big.Float).Mul(big.NewFloat(amountEther), big.NewFloat(params.Ether))
+		amountWei := new(big.Int)
+		amount.Int(amountWei)
+		//beego.Debug(reflect.TypeOf(amount))
+		//amount := new(big.Int).Mul(big.NewInt(amountEther), big.NewInt(params.Ether))
+		ethereum.SendWei("0x88f1e48e11864bfc4685f9f9d8b79b18450764ef", account.Address.String(), amountWei)
 		//addEthers(account.Address.String())
 	}
 
