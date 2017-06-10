@@ -181,6 +181,13 @@ func init() {
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
+		beego.ControllerComments{
+			Method: "UpdateGVE",
+			Router: `/gve`,
+			AllowHTTPMethods: []string{"put"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
 			Method: "Post",
