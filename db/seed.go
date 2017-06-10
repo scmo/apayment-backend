@@ -169,8 +169,8 @@ func Seed_Users() {
 
 	roles := make([]*models.Role, 1)
 	roles[0] = &farmer
-	services.CreateUser(&models.User{Username:"farmer1", Password:"farmer1", Firstname: "Florian", Lastname:"Meisterhans", Roles: roles})
-	services.CreateUser(&models.User{Username:"farmer2", Password:"farmer2", Firstname: "Max", Lastname:"Keller", Roles: roles})
+	services.CreateUser(&models.User{Username:"farmer1", Password:"farmer1", Firstname: "Florian", Lastname:"Meisterhans", TVD: 1015010, Roles: roles })
+	services.CreateUser(&models.User{Username:"farmer2", Password:"farmer2", Firstname: "Max", Lastname:"Keller", TVD: 1015010, Roles: roles})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &inspector
@@ -179,6 +179,10 @@ func Seed_Users() {
 	roles = make([]*models.Role, 1)
 	roles[0] = &admin
 	services.CreateUser(&models.User{Username:"admin", Password:"admin", Firstname: "Admin", Lastname: "Admin", Roles: roles})
+
+	roles = make([]*models.Role, 1)
+	roles[0] = &canton
+	services.CreateUser(&models.User{Username:"canton", Password:"canton", Firstname: "Maria", Lastname: "Walder", Roles: roles})
 
 }
 
