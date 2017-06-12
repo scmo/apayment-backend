@@ -189,6 +189,8 @@ func SetGVE(request *models.Request) (error) {
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 
+	setGVE(request, session)
+
 	return err
 }
 
