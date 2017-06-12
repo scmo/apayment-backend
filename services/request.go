@@ -12,9 +12,9 @@ import (
 	"github.com/scmo/apayment-backend/services/tvd"
 )
 
-func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
+func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, r.User.Id, getContributionCodes(&r), r.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, request.User.Id, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -22,10 +22,10 @@ func CreateRequest(r models.Request, auth *bind.TransactOpts) error {
 	beego.Info("Contract pending deploy: ", address.String())
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 
-	r.Address = address.String()
+	request.Address = address.String()
 
 	o := orm.NewOrm()
-	_, err = o.Insert(&r)
+	_, err = o.Insert(request)
 	if err != nil {
 		beego.Error("Failed to insert new Request: ", err)
 	}

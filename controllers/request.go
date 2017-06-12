@@ -31,8 +31,14 @@ func (this *RequestController) Post() {
 	}
 	request.User = user
 
-	err = services.CreateRequest(request, ethereum.GetAuth(user.Address))
+	err = services.CreateRequest(&request, ethereum.GetAuth(user.Address))
 	if err != nil {
+		this.CustomAbort(500, err.Error())
+	}
+
+	// Update GVE for the request
+	err = services.SetGVE(&request)
+	if (err != nil ) {
 		this.CustomAbort(500, err.Error())
 	}
 	this.ServeJSON()
@@ -175,7 +181,7 @@ func (this *RequestController) UpdateGVE() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) || user.Address == request.User.Address) {
 		err = services.SetGVE(&request)
 		if (err != nil ) {
 			this.CustomAbort(500, err.Error())
