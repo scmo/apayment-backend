@@ -8,7 +8,7 @@ import (
 )
 
 func GetPointGroupCodes() []uint16 {
-	return []uint16{1110, 1150, 1123, 1128, 1141, 1142, 1124, 1129, 1143, 1144};
+	return []uint16{1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144};
 }
 
 func GetUserCattleLivestock(userTvd int32, agateUsername string, agatePassword string) (*GetCattleLivestockV2Response, error) {
