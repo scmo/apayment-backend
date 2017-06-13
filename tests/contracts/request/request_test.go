@@ -122,12 +122,12 @@ func Test_UpdateBTSGVE(t *testing.T) {
 			So(err, ShouldEqual, nil)
 		})
 		Convey("GVE should be 1", func() {
-			gve, _ := requestContract.GetBTSGVE(nil, 1110)
-			So(gve, ShouldEqual, 1)
+			gve, _ := requestContract.PointGroups(nil, 1110)
+			So(gve.Gve, ShouldEqual, 1)
 		})
 		Convey("GVE should be 2", func() {
-			gve, _ := requestContract.GetBTSGVE(nil, 1150)
-			So(gve, ShouldEqual, 2)
+			gve, _ := requestContract.PointGroups(nil, 1150)
+			So(gve.Gve, ShouldEqual, 2)
 		})
 	})
 }
@@ -153,13 +153,58 @@ func TestCalculateBTS(t *testing.T) {
 			So(err, ShouldEqual, nil)
 		})
 		Convey("1128 gets no directpayment", func() {
-			amount1128, _ := requestContract.PointGroups(nil, 1128)
-			So(amount1128.BtsTotal, ShouldEqual, 0)
+			dpVars, _ := requestContract.PointGroups(nil, 1128)
+			So(dpVars.BtsTotal, ShouldEqual, 0)
 		})
 		Convey("1141 should get 297", func() {
-			amount1141, _ := requestContract.PointGroups(nil, 1141)
-			So((amount1141.BtsTotal - amount1141.BtsDeduction) / 100, ShouldEqual, 297)
+			dpVars, _ := requestContract.PointGroups(nil, 1141)
+			So((dpVars.BtsTotal - dpVars.BtsDeduction) / 100, ShouldEqual, 297)
 		})
+	})
+}
+
+func Test_AddPayment(t *testing.T) {
+	beego.Trace("Test: Store Payment")
+
+	_, err := requestContract.AddPayment(systemAuth, systemAuth.From, big.NewInt(999999))
+	sim.Commit()
+	_, err = requestContract.AddPayment(systemAuth, systemAuth.From, big.NewInt(792295555555322795))
+	sim.Commit()
+	if (err != nil) {
+		beego.Error("Error while adding payment to request")
+		t.Failed()
+	}
+	Convey("Subject: Adding Payment to Request", t, func() {
+		Convey("No error", func() {
+			So(err, ShouldEqual, nil)
+		})
+	})
+
+	Convey("Subject: Reading Payment from Request", t, func() {
+		i := 0;
+		for (i >= 0) {
+			timestamp, err := requestContract.PaymentList(nil, big.NewInt(int64(i)))
+			i++
+			if (err != nil) {
+				i = -1
+			} else {
+				payment, err := requestContract.Payments(nil, timestamp)
+				Convey("No error with timestamp " + timestamp.String(), func() {
+					So(err, ShouldEqual, nil)
+				})
+				Convey("Payment with timestmap " + timestamp.String() + " is from the system", func() {
+					So(systemAuth.From.String(), ShouldEqual, payment.From.String())
+				})
+				Convey("Amount with timestmap " + timestamp.String() + " should be", func() {
+					if (i == 1) {
+						So(payment.Amount.Cmp(big.NewInt(999999)), ShouldEqual, 0) // Cmp: 0 if x == y
+					}
+					if (i == 2) {
+						So(payment.Amount.Cmp(big.NewInt(792295555555322795)), ShouldEqual, 0) // Cmp: 0 if x == y
+					}
+				})
+			}
+		}
 	})
 }
 
