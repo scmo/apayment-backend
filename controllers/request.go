@@ -192,3 +192,37 @@ func (this *RequestController) UpdateGVE() {
 	this.ServeJSON()
 }
 
+
+// @Title Pay DirectPayment
+// @Description Update GVE of request
+// @Param	body		body 	models.Request	true		"body for requestion content"
+// @Success 200 {object} models.Request
+// @router /pay [post]
+func (this *RequestController) Pay() {
+
+	var r models.Request
+	json.Unmarshal(this.Ctx.Input.RequestBody, &r)
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) == false ) {
+		this.CustomAbort(401, "Unauthorized")
+	}
+
+	request := services.GetRequestById(r.Id)
+
+	beego.Debug("lets make the payment")
+	//if ( len(request.Payments) == 0 ) {
+	//	beego.Debug("make first payment")
+	//} else if ( len(request.Payments) == 1 ) {
+	//	beego.Debug("make second payment")
+	//} else if ( len(request.Payments) == 2 ) {
+	//	beego.Debug("make third payment")
+	//}
+	this.Data["json"] = request
+	this.ServeJSON()
+}

@@ -72,9 +72,6 @@ func GetRequestById(requestId int64) *models.Request {
 		beego.Error("Failed to instantiate a Token contract: %v", err)
 	}
 	assignRequest(&request, requestContract)
-
-	// load control categories
-
 	return &request
 }
 
@@ -194,6 +191,23 @@ func SetGVE(request *models.Request) (error) {
 	return err
 }
 
+func AddPayment(request *models.Request, from common.Address, amount uint64) (error) {
+	ethereumController := ethereum.GetEthereumController()
+
+	requestContract, err := getRequestByAddress(request.Address)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return err
+	}
+	session := getRequestContractSession(requestContract)
+	session.TransactOpts.From = ethereumController.Auth.From
+	session.TransactOpts.Signer = ethereumController.Auth.Signer
+
+	tx, err := session.AddPayment(from, new(big.Int).SetUint64(amount))
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+	return err
+}
+
 func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) (*directpaymentrequest.RequestContractSession) {
 	//ethereumController := ethereum.GetEthereumController()
 	requestContractSesssion := &directpaymentrequest.RequestContractSession{
@@ -238,6 +252,7 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	setLacksInspected(request, session)
 	setTimestamps(request, session)
 	setGVE(request, session)
+	setPayments(request, session)
 	request.Remark, err = session.Remark()
 	if err != nil {
 		beego.Error("Failed to instantiate a Token contract: ", err)
@@ -301,6 +316,25 @@ func setLacksInspected(request *models.Request, session *directpaymentrequest.Re
 	request.ContributionsWithLacks = contributions
 }
 
+func setPayments(request *models.Request, session *directpaymentrequest.RequestContractSession) {
+	request.Payments = make([]*models.Payment, 0)
+	i := 0;
+	for (i >= 0) {
+		timestamp, err := session.PaymentList(big.NewInt(int64(i)))
+		i++
+		if (err != nil) {
+			i = -1
+		} else {
+			payment, err := session.Payments(timestamp)
+			if (err != nil) {
+				beego.Error("Error while fetch Payment from request.", err)
+			}
+			request.Payments = append(request.Payments, &models.Payment{From:payment.From.String(), Amount:payment.Amount, Timestamp:payment.Timestamp})
+		}
+	}
+}
+
+// Function fetches GVE values from the smart contract and adds it to the 'request' model
 func setGVE(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	pointGroupCodes := tvd.GetPointGroupCodes()
 

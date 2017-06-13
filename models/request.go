@@ -5,6 +5,11 @@ import (
 	"math/big"
 )
 
+func init() {
+	// Register model
+	orm.RegisterModel(new(Request))
+}
+
 type Request struct {
 	Id                     int64 `json:"id"`
 	User                   *User `orm:"rel(fk)" json:"user"`
@@ -19,6 +24,7 @@ type Request struct {
 	ContributionsWithLacks []*Contribution `orm:"-" json:"contributionsWithLacks"`
 
 	GVE                    []*GVE `orm:"-" json:"gve"`
+	Payments               []*Payment `orm:"-" json:"payments"`
 }
 
 type GVE struct {
@@ -26,7 +32,8 @@ type GVE struct {
 	PointGroup *PointGroup `json:"pointGroup"`
 }
 
-func init() {
-	// Register model
-	orm.RegisterModel(new(Request))
+type Payment struct {
+	From      string `orm:"-" json:"from"`
+	Amount    *big.Int `json:"amount"`
+	Timestamp *big.Int `orm:"-" json:"timestamp"`
 }
