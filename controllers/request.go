@@ -7,6 +7,9 @@ import (
 	"github.com/scmo/apayment-backend/services"
 	"strconv"
 	"github.com/scmo/apayment-backend/ethereum"
+	"github.com/ethereum/go-ethereum/common"
+	"math/big"
+	"time"
 )
 
 // Operations about Contributions
@@ -35,12 +38,16 @@ func (this *RequestController) Post() {
 	if err != nil {
 		this.CustomAbort(500, err.Error())
 	}
+	go func() {
+		// wait till contract created
+		time.Sleep(time.Minute * 2)
+		// Update GVE for the request
+		err = services.SetGVE(&request)
+		if (err != nil ) {
+			this.CustomAbort(500, err.Error())
+		}
+	}()
 
-	// Update GVE for the request
-	err = services.SetGVE(&request)
-	if (err != nil ) {
-		this.CustomAbort(500, err.Error())
-	}
 	this.ServeJSON()
 }
 
@@ -215,14 +222,32 @@ func (this *RequestController) Pay() {
 
 	request := services.GetRequestById(r.Id)
 
-	beego.Debug("lets make the payment")
-	//if ( len(request.Payments) == 0 ) {
-	//	beego.Debug("make first payment")
-	//} else if ( len(request.Payments) == 1 ) {
-	//	beego.Debug("make second payment")
-	//} else if ( len(request.Payments) == 2 ) {
-	//	beego.Debug("make third payment")
-	//}
+	if ( len(request.Payments) == 0 ) {
+		beego.Debug("make first payment")
+		amount, err := services.GetFirstPaymentAmount(request)
+		if (err != nil) {
+			beego.Error("Error while getting first payment amount. ", err)
+			this.CustomAbort(500, err.Error())
+		}
+		amount.Div(amount, big.NewInt(2)) // 50% of the amount
+		err = services.Transfer(common.HexToAddress(user.Address), common.HexToAddress(request.User.Address), amount)
+		if err != nil {
+			beego.Debug("Error while transfer")
+			this.CustomAbort(500, err.Error())
+		}
+		err = services.AddPayment(request, common.HexToAddress(user.Address), amount)
+		if err != nil {
+			beego.Debug("Error while adding payment to smartcontract")
+			this.CustomAbort(500, err.Error())
+		}
+	} else if ( len(request.Payments) == 1 ) {
+		beego.Debug("make second payment")
+		services.AddPayment(request, common.HexToAddress(user.Address), big.NewInt(333))
+	} else if ( len(request.Payments) == 2 ) {
+		beego.Debug("make third payment")
+	}
+
+	request = services.GetRequestById(r.Id)
 	this.Data["json"] = request
 	this.ServeJSON()
 }
