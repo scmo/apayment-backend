@@ -14,7 +14,7 @@ import (
 
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, request.User.Id, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -191,9 +191,8 @@ func SetGVE(request *models.Request) (error) {
 	return err
 }
 
-func AddPayment(request *models.Request, from common.Address, amount uint64) (error) {
+func AddPayment(request *models.Request, from common.Address, amount *big.Int) (error) {
 	ethereumController := ethereum.GetEthereumController()
-
 	requestContract, err := getRequestByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
@@ -203,9 +202,29 @@ func AddPayment(request *models.Request, from common.Address, amount uint64) (er
 	session.TransactOpts.From = ethereumController.Auth.From
 	session.TransactOpts.Signer = ethereumController.Auth.Signer
 
-	tx, err := session.AddPayment(from, new(big.Int).SetUint64(amount))
+	tx, err := session.AddPayment(from, amount)
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 	return err
+}
+
+func GetFirstPaymentAmount(request *models.Request) (*big.Int, error) {
+	ethereumController := ethereum.GetEthereumController()
+
+	requestContract, err := getRequestByAddress(request.Address)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return nil, err
+	}
+	session := getRequestContractSession(requestContract)
+	session.TransactOpts.From = ethereumController.Auth.From
+	session.TransactOpts.Signer = ethereumController.Auth.Signer
+
+	amount, err := session.GetFirstPaymentAmount()
+	if err != nil {
+		beego.Error("Error while first payment amount: ", err)
+		return nil, err
+	}
+	return amount, err
 }
 
 func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) (*directpaymentrequest.RequestContractSession) {
@@ -238,25 +257,17 @@ func getRequestByAddress(address string) (*directpaymentrequest.RequestContract,
 
 func assignRequest(request *models.Request, requestContract *directpaymentrequest.RequestContract) {
 	session := getRequestContractSession(requestContract)
-
-	userId, err := session.UserId()
+	remark, err := session.Remark()
 	if err != nil {
-		beego.Error("Error while reading UserId from Contract: ", err)
+		beego.Error("Failed to instantiate a Token contract: ", err)
 	}
-	if (userId != request.User.Id) {
-		beego.Error("Request User and Contract UserId does not match!")
-	}
-
+	request.Remark = remark
 	setInspector(request, session)
 	setContributions(request, session)
 	setLacksInspected(request, session)
 	setTimestamps(request, session)
 	setGVE(request, session)
 	setPayments(request, session)
-	request.Remark, err = session.Remark()
-	if err != nil {
-		beego.Error("Failed to instantiate a Token contract: ", err)
-	}
 }
 
 func setInspector(request *models.Request, session *directpaymentrequest.RequestContractSession) {
@@ -333,6 +344,22 @@ func setPayments(request *models.Request, session *directpaymentrequest.RequestC
 		}
 	}
 }
+func setTimestamps(request *models.Request, session *directpaymentrequest.RequestContractSession) {
+
+	// Created
+	createdTimestamp, err := session.Created()
+	if err != nil {
+		beego.Error("Error while reading createdTimestamp from Contract: ", err)
+	}
+	request.Created = createdTimestamp
+
+	// Modified
+	modifiedTimestamp, err := session.Modified()
+	if err != nil {
+		beego.Error("Error while reading updatedTimestamp from Contract: ", err)
+	}
+	request.Modified = modifiedTimestamp
+}
 
 // Function fetches GVE values from the smart contract and adds it to the 'request' model
 func setGVE(request *models.Request, session *directpaymentrequest.RequestContractSession) {
@@ -399,19 +426,3 @@ func AddContributionToContributions(contributions []*models.Contribution, contri
 	return append(contributions, contribution)
 }
 
-func setTimestamps(request *models.Request, session *directpaymentrequest.RequestContractSession) {
-
-	// Created
-	createdTimestamp, err := session.Created()
-	if err != nil {
-		beego.Error("Error while reading createdTimestamp from Contract: ", err)
-	}
-	request.Created = createdTimestamp
-
-	// Modified
-	modifiedTimestamp, err := session.Modified()
-	if err != nil {
-		beego.Error("Error while reading updatedTimestamp from Contract: ", err)
-	}
-	request.Modified = modifiedTimestamp
-}
