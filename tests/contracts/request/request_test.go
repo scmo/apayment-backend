@@ -55,7 +55,7 @@ func TestDeployContract(t *testing.T) {
 	contributionCodes := []uint16{5416}
 	remark := "This is my remark"
 	beego.Trace("Test: ", "DeployContractRequest", "ContributionCodes: ", contributionCodes)
-	_, _, rc, err := directpaymentrequest.DeployRequestContract(farmerAuth, sim, 3, contributionCodes, remark, rbacAddress)
+	_, _, rc, err := directpaymentrequest.DeployRequestContract(farmerAuth, sim, contributionCodes, remark, rbacAddress)
 	sim.Commit()
 	requestContract = rc
 	Convey("Subject: Deploy Request-Contract\n", t, func() {
@@ -85,8 +85,8 @@ func TestSetInspector(t *testing.T) {
 	})
 }
 
-func TestAddLacks(t *testing.T) {
-	beego.Trace("Test: ", "AddLacks", "ContributionCode: ", 5416)
+func _TestAddLacks(t *testing.T) {
+	beego.Trace("Test: ", "AddLack", "ContributionCode: ", 5416)
 	_, err := requestContract.AddLack(farmerAuth, 5416, "cat", 1110, "controlPoint", 1, 10)
 	sim.Commit()
 	Convey("Subject: Add Inspection Lack with wrong User\n", t, func() {
@@ -114,6 +114,41 @@ func TestAddLacks(t *testing.T) {
 	})
 }
 
+func TestAddNewLacks(t *testing.T) {
+	beego.Trace("Test: ", "AddLacks", "ContributionCode: ", 5416)
+	contributionCodes := make([]uint16, 0)
+	controlCategories := make([]int64, 0)
+	pointGroupCodes := make([]uint16, 0)
+	controlPointIds := make([]int64, 0)
+	lackIds := make([]int64, 0)
+	points := make([]uint8, 0)
+
+	contributionCodes = append(contributionCodes, 5416, 5416)
+	controlCategories = append(controlCategories, 4, 5)
+	pointGroupCodes = append(pointGroupCodes, 1110, 1110)
+	controlPointIds = append(controlPointIds, 3, 4)
+	lackIds = append(lackIds, 2, 3)
+	points = append(points, 60, 10)
+	beego.Debug(contributionCodes)
+	_, err := requestContract.AddLacks(inspectorAuth, contributionCodes, controlCategories, pointGroupCodes, controlPointIds, lackIds, points)
+	if (err != nil ) {
+		beego.Error("Error while adding lacks")
+		t.Failed()
+	}
+	sim.Commit()
+	Convey("Subject: Add Inspection Lack as an Inspector\n", t, func() {
+		Convey("No error", func() {
+			So(err, ShouldEqual, nil)
+		})
+		// Only the Inspector is allow to add a Lack
+		Convey("Number of Lacks should be 1", func() {
+			numLacks, _ := requestContract.NumLacks(nil)
+			beego.Debug(requestContract.NumLacks(nil))
+			So(numLacks.Cmp(big.NewInt(2)), ShouldEqual, 0) //  Cmp: 0 if x == y
+		})
+	})
+}
+
 func Test_UpdateBTSGVE(t *testing.T) {
 	_, err := requestContract.SetGVE(adminAuth, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 	sim.Commit()
@@ -132,7 +167,7 @@ func Test_UpdateBTSGVE(t *testing.T) {
 	})
 }
 
-func TestCalculateBTS(t *testing.T) {
+func _TestCalculateBTS(t *testing.T) {
 	beego.Trace("Test: ", "Calculate BTS", 5416)
 
 	// Add some more lacks

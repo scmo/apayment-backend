@@ -28,15 +28,9 @@ contract mortal {
 
 
 contract Request is mortal {
-
-  int64 public userId;
-
   address public inspectorAddress;
-
   uint16[] public contributionCodes;
-
   string public remark;
-
 
   RBAC rbac;
 
@@ -49,14 +43,23 @@ contract Request is mortal {
   uint8 points;
   }
 
+  struct LackNew {
+  uint16 contributionCode;
+  int64 controlCategoryId;
+  uint16 pointGroupCode;
+  int64 controlPointId;
+  int64 lackId;
+  uint8 points;
+  }
+
   uint public numLacks;
 
   mapping (uint => Lack) public lacks;
 
-  function Request(int64 _userId, uint16[] _contributionCodes, string _remark, address rbacAddress) public {
+  mapping (uint => LackNew) public newLacks;
+
+  function Request(uint16[] _contributionCodes, string _remark, address rbacAddress) public {
     rbac = RBAC(rbacAddress);
-    //    m.sendToken(receiver, amount);
-    userId = _userId;
     contributionCodes = _contributionCodes;
     remark = _remark;
     setCreated();
@@ -80,6 +83,14 @@ contract Request is mortal {
     }
   }
 
+  function addLacks(uint16[] _contributionCodes, int64[] _controlCategoryIds, uint16[] _pointGroupCodes, int64[] _controlPointIds, int64[] _lackIds, uint8[] _points) {
+    //    require(msg.sender == inspectorAddress);
+    for (uint16 i = 0; i < _contributionCodes.length; i++) {
+      uint lacksIndex = numLacks++;
+      newLacks[lacksIndex] = LackNew(_contributionCodes[i], _controlCategoryIds[i], _pointGroupCodes[i], _controlPointIds[i], _lackIds[i], _points[i]);
+    }
+    //  numLacks = _contributionCodes[0];
+  }
 
   /* ==============================
     Calculate Direct Payment amount
@@ -137,6 +148,8 @@ contract Request is mortal {
 
     btsPointGroup = pointGroups[1144];
     btsPointGroup.gve = _gve1144;
+
+    calculateBTS();
   }
 
   //  function getBTSGVE(uint16 _pointGroupCode) constant returns (uint16) {
@@ -160,6 +173,15 @@ contract Request is mortal {
     }
   }
 
+  function getFirstPaymentAmount() constant returns (uint256) {
+    uint32 amount = 0;
+    for (uint16 i = 0; i < pointGroupCodes.length; i++) {
+      CalcVariables calcVar = pointGroups[pointGroupCodes[i]];
+      amount = amount + calcVar.btsTotal;
+    }
+    return amount;
+  }
+
   struct Payment {
   address from;
   //    address to;  // this is not necessary, since all payments go to the request owner
@@ -175,6 +197,7 @@ contract Request is mortal {
     uint timestamp = block.timestamp;
     payments[timestamp].from = _from;
     payments[timestamp].amount = _amount;
+    payments[timestamp].timestamp = timestamp;
     paymentList.push(timestamp);
   }
 
