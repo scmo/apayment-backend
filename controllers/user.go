@@ -62,15 +62,6 @@ func (this *UserController) GetAll() {
 	this.ServeJSON()
 }
 
-//// @Title GetAll Inspectors
-//// @Description get all Users with the Inspector Role
-//// @Success 200 {Object} models.User
-//// @router /inspectors [get]
-//func (u *UserController) GetAllInspectors() {
-//	u.Data["json"] = services.GetAllUsers()
-//	u.ServeJSON()
-//}
-
 // @Title Get my Profile
 // @Description get user based on JWT Token
 // @Success 200 {object} models.User

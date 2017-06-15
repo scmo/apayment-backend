@@ -83,10 +83,7 @@ func createNewEthereumAccount() (string, error) {
 		amount := new(big.Float).Mul(big.NewFloat(amountEther), big.NewFloat(params.Ether))
 		amountWei := new(big.Int)
 		amount.Int(amountWei)
-		//beego.Debug(reflect.TypeOf(amount))
-		//amount := new(big.Int).Mul(big.NewInt(amountEther), big.NewInt(params.Ether))
 		ethereum.SendWei("0x88f1e48e11864bfc4685f9f9d8b79b18450764ef", account.Address.String(), amountWei)
-		//addEthers(account.Address.String())
 	}
 
 	return account.Address.String(), err
@@ -191,7 +188,7 @@ func setEtherBalance(user *models.User) {
 func setAPaymentTokenBalance(user *models.User) {
 	balance, err := GetBalanceOf(common.HexToAddress(user.Address))
 	if (err != nil) {
-		beego.Debug("Error while getting balance", err)
+		beego.Error("Error while getting balance", err)
 	}
 	user.APaymentTokenBalance = balance
 }
