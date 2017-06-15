@@ -14,7 +14,6 @@ import (
 
 	"context"
 	"github.com/ethereum/go-ethereum"
-	"strings"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"github.com/scmo/apayment-backend/smart-contracts/apayment-token"
@@ -42,14 +41,11 @@ func Init() {
 		beego.Critical("Failed to connect to the Ethereum client: ", err)
 	}
 
-	auth, err := bind.NewTransactor(strings.NewReader(beego.AppConfig.String("systemAccount")), beego.AppConfig.String("systemAccountPassword"))
-	if err != nil {
-		beego.Critical("Failed to create authorized transactor: ", err)
-	}
-
 	// Keystore to administrate accounts
 	ks := keystore.NewKeyStore(pathToEthereum + "keystore", keystore.LightScryptN, keystore.LightScryptP)
-	ethereumController = EthereumController{Auth:auth, Client:client, Keystore: ks}
+	ethereumController = EthereumController{Auth:nil, Client:client, Keystore: ks}
+	auth := GetAuth(beego.AppConfig.String("systemAccountAddress"))
+	ethereumController.Auth = auth
 
 	deployRoleBasedAccessControlContract()
 	deployAPaymentTokenContract()
@@ -82,12 +78,10 @@ func deployAPaymentTokenContract() {
 }
 
 func createNewEthereumAccount() {
-
 	account, _ := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
-
-	beego.Debug(account.Address.String())
-	beego.Debug(common.HexToAddress(account.Address.String()).String())
-	beego.Debug(common.StringToAddress(account.Address.String()).String())
+	beego.Info(account.Address.String())
+	beego.Info(common.HexToAddress(account.Address.String()).String())
+	beego.Info(common.StringToAddress(account.Address.String()).String())
 }
 
 func SendWei(from string, to string, amount *big.Int) {
