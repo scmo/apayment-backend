@@ -120,6 +120,8 @@ func GetAllUsers() ([]*models.User) {
 	o.QueryTable(new(models.User)).All(&users)
 	for _, user := range users {
 		o.LoadRelated(user, "Roles")
+		setEtherBalance(user)
+		setAPaymentTokenBalance(user)
 	}
 	return users
 }
@@ -153,6 +155,7 @@ func GetUserById(_id int64) (*models.User, error) {
 	}
 	o.LoadRelated(&user, "Roles")
 	setEtherBalance(&user)
+	setAPaymentTokenBalance(&user)
 	return &user, nil
 }
 
@@ -170,6 +173,7 @@ func GetUserByUsername(_username string) (*models.User, error) {
 	o.LoadRelated(&user, "Roles")
 
 	setEtherBalance(&user)
+	setAPaymentTokenBalance(&user)
 	return &user, nil
 }
 
@@ -182,6 +186,14 @@ func setEtherBalance(user *models.User) {
 	}
 	balance, err := ethereumController.Client.BalanceAt(ctx, common.HexToAddress(user.Address), latestBlock.Number())
 	user.EthereumBalance = balance
+}
+
+func setAPaymentTokenBalance(user *models.User) {
+	balance, err := GetBalanceOf(common.HexToAddress(user.Address))
+	if (err != nil) {
+		beego.Debug("Error while getting balance", err)
+	}
+	user.APaymentTokenBalance = balance
 }
 
 func CountUsers() (int64, error) {
