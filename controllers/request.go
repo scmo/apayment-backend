@@ -40,7 +40,7 @@ func (this *RequestController) Post() {
 	}
 	go func() {
 		// wait till contract created
-		time.Sleep(time.Minute * 2)
+		time.Sleep(time.Minute * 1)
 		// Update GVE for the request
 		err = services.SetGVE(&request)
 		if (err != nil ) {
