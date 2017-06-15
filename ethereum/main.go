@@ -126,12 +126,16 @@ func SendWei(from string, to string, amount *big.Int) {
 
 func GetAuth(address string) *bind.TransactOpts {
 	account, err := ethereumController.Keystore.Find(accounts.Account{Address: common.HexToAddress(address)})
-
 	if ( err != nil ) {
 		beego.Error("Error find: ", err)
 	}
 	dat, err := ioutil.ReadFile(account.URL.Path)
-	auth, err := bind.NewTransactor(bytes.NewReader(dat), beego.AppConfig.String("userAccountPassword"))
+
+	password := beego.AppConfig.String("userAccountPassword")
+	if ( address == beego.AppConfig.String("systemAccountAddress")) {
+		password = beego.AppConfig.String("systemAccountPassword")
+	}
+	auth, err := bind.NewTransactor(bytes.NewReader(dat), password)
 	if err != nil {
 		beego.Critical("Failed  to create authorized transactor: ", err)
 	}
