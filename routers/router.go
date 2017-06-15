@@ -63,6 +63,11 @@ func init() {
 				&controllers.PlantTypeController{},
 			),
 		),
+		beego.NSNamespace("/apaymenttoken",
+			beego.NSInclude(
+				&controllers.APaymentTokenController{},
+			),
+		),
 		beego.NSNamespace("/ping",
 			beego.NSInclude(
 				&controllers.PingController{},
