@@ -77,7 +77,6 @@ func (this *UserController) Profile() {
 	this.ServeJSON()
 }
 
-
 // @Title Get full Profile
 // @Description get full user pofile, inc plant etc based on JWT Token
 // @Success 200 {object} models.User
@@ -193,4 +192,3 @@ func (u *UserController) Logout() {
 	u.Data["json"] = "logout success"
 	u.ServeJSON()
 }
-
