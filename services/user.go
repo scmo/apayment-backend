@@ -174,6 +174,24 @@ func GetUserByUsername(_username string) (*models.User, error) {
 	return &user, nil
 }
 
+func GetUserByAddress(address string) (*models.User, error) {
+	o := orm.NewOrm()
+	user := models.User{Address: address}
+	err := o.Read(&user, "Address")
+	if err == orm.ErrNoRows {
+		beego.Error("No result found.")
+		return nil, err
+	} else if err == orm.ErrMissPK {
+		beego.Error("No primary key found.")
+		return nil, err
+	}
+	o.LoadRelated(&user, "Roles")
+
+	setEtherBalance(&user)
+	setAPaymentTokenBalance(&user)
+	return &user, nil
+}
+
 func setEtherBalance(user *models.User) {
 	ethereumController := ethereum.GetEthereumController()
 	ctx := context.Background()
