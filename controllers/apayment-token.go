@@ -46,3 +46,29 @@ func (this *APaymentTokenController) Transfer() {
 	}
 	this.ServeJSON()
 }
+
+
+// @Title Get Transactions
+// @Description get all transactions
+// @Success 200 {Object} models.APaymentTokenTransaction
+// @router /transactions [get]
+func (this *APaymentTokenController) GetAllTransactions() {
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	if ( (user.HasRole("Admin") || user.HasRole("Canton") ) == false ) {
+		this.CustomAbort(401, "Unauthorized")
+	}
+
+	transactions, err := services.GetTransactions()
+	if (err != nil) {
+		beego.Error("Error while getting transactions. ", err)
+		this.CustomAbort(500, err.Error())
+	}
+	this.Data["json"] = transactions
+	this.ServeJSON()
+}
