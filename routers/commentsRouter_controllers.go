@@ -13,6 +13,13 @@ func init() {
 			AllowHTTPMethods: []string{"post"},
 			Params: nil})
 
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"],
+		beego.ControllerComments{
+			Method: "GetAllTransactions",
+			Router: `/transactions`,
+			AllowHTTPMethods: []string{"get"},
+			Params: nil})
+
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"],
 		beego.ControllerComments{
 			Method: "Post",
