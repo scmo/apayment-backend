@@ -68,6 +68,7 @@ func deployAPaymentTokenContract() {
 		if (err != nil) {
 			beego.Critical("tokenSupply not found. ", err)
 		}
+
 		address, _, _, err := apaymenttoken.DeployAPaymentTokenContract(ethereumController.Auth, ethereumController.Client, big.NewInt(int64(tokenSupply)))
 		if err != nil {
 			beego.Critical("Error while deploying APaymentTokenContract: ", err)
