@@ -58,7 +58,7 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 	for _, tx := range etherScanResult.Result {
 		isError, err := strconv.ParseBool(tx.IsError)
 		if ( err != nil) {
-			beego.Debug("Error while converting isError (string) to int. ", err)
+			beego.Error("Error while converting isError (string) to int. ", err)
 			return transactions, err
 		}
 		if (isError) {
