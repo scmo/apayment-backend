@@ -6,7 +6,6 @@ import (
 	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
 	"github.com/scmo/apayment-backend/services"
-	"github.com/ethereum/go-ethereum/common"
 )
 
 // Operations about APaymentToken
@@ -39,7 +38,8 @@ func (this *APaymentTokenController) Transfer() {
 	aPaymentTokenTransfer.From = beego.AppConfig.String("systemAccountAddress")
 	beego.Debug(aPaymentTokenTransfer)
 
-	err = services.Transfer(common.HexToAddress(aPaymentTokenTransfer.From), common.HexToAddress(aPaymentTokenTransfer.To), aPaymentTokenTransfer.Amount)
+	err = services.Transfer(&aPaymentTokenTransfer)
+	//err = services.Transfer(common.HexToAddress(aPaymentTokenTransfer.From), common.HexToAddress(aPaymentTokenTransfer.To), aPaymentTokenTransfer.Amount)
 	if (err != nil ) {
 		beego.Error("Error while tranfering tokens. ", err)
 		this.CustomAbort(500, err.Error())

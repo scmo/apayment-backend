@@ -14,7 +14,7 @@ import (
 	"strconv"
 )
 
-func Transfer(sender common.Address, dst common.Address, amount *big.Int) (error) {
+func Transfer(aPaymentTokenTransfer *models.APaymentTokenTransfer) (error) {
 	ethereumController := ethereum.GetEthereumController()
 	token, err := apaymenttoken.NewAPaymentTokenContract(common.HexToAddress(beego.AppConfig.String("apaymentTokenContract")), ethereumController.Client)
 	if (err != nil ) {
@@ -22,7 +22,8 @@ func Transfer(sender common.Address, dst common.Address, amount *big.Int) (error
 		return err
 
 	}
-	tx, err := token.Transfer(ethereum.GetAuth(sender.String()), dst, amount)
+	tx, err := token.TransferWithMessage(ethereum.GetAuth(aPaymentTokenTransfer.From), common.HexToAddress(aPaymentTokenTransfer.To), aPaymentTokenTransfer.Amount, []byte(aPaymentTokenTransfer.Message))
+	//tx, err := token.Transfer(ethereum.GetAuth(transfer.From), dst, amount)
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -30,6 +31,23 @@ func Transfer(sender common.Address, dst common.Address, amount *big.Int) (error
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
 	return err
 }
+
+//func Transfer_old(sender common.Address, dst common.Address, amount *big.Int) (error) {
+//	ethereumController := ethereum.GetEthereumController()
+//	token, err := apaymenttoken.NewAPaymentTokenContract(common.HexToAddress(beego.AppConfig.String("apaymentTokenContract")), ethereumController.Client)
+//	if (err != nil ) {
+//		beego.Critical("Failed to instantiate a APaymentTokenContract contract:", err)
+//		return err
+//
+//	}
+//	tx, err := token.Transfer(ethereum.GetAuth(sender.String()), dst, amount)
+//	if err != nil {
+//		beego.Error("Failed to deploy new token contract: ", err)
+//		return err
+//	}
+//	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+//	return err
+//}
 
 func GetBalanceOf(address common.Address) (*big.Int, error) {
 	ethereumController := ethereum.GetEthereumController()
@@ -55,7 +73,11 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 		return transactions, err
 	}
 
-	for _, tx := range etherScanResult.Result {
+	for i, tx := range etherScanResult.Result {
+		// skip contract creation transaction
+		if ( i == 0) {
+			continue
+		}
 		isError, err := strconv.ParseBool(tx.IsError)
 		if ( err != nil) {
 			beego.Error("Error while converting isError (string) to int. ", err)
@@ -64,7 +86,7 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 		if (isError) {
 			continue
 		}
-		dst, amount, err := parseInput(tx.Input)
+		dst, amount, msg, err := parseInput(tx.Input)
 		if (err != nil) {
 			beego.Error("Error while parsing transaction input. ", err)
 			return transactions, err
@@ -84,7 +106,7 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 			beego.Error("Error while getting User by Address. ", err)
 			continue
 		}
-		transactions = append(transactions, &models.APaymentTokenTransaction{From: from, To: to, Amount: &amount, Timestamp:tx.Timestamp})
+		transactions = append(transactions, &models.APaymentTokenTransaction{From: from, To: to, Amount: &amount, Timestamp:tx.Timestamp, Message: msg})
 	}
 	return transactions, err
 }
@@ -122,12 +144,12 @@ func fetchTransaction() (models.EtherScanTransactionResult, error) {
 	return result, err
 }
 
-func parseInput(input string) (string, big.Int, error) {
+func parseInput(input string) (string, big.Int, string, error) {
 	//methodID := input[0:10]
 	paramsInput := input[10:]
 	dstInput := paramsInput[0:64]
-	amountInput := paramsInput[64:]
-
+	amountInput := paramsInput[64:128]
+	msgInput := paramsInput[128:]
 	//Get destination
 	dst := "0x" + dstInput[len(dstInput) - 40:]
 	beego.Debug(dst)
@@ -135,9 +157,27 @@ func parseInput(input string) (string, big.Int, error) {
 	amountBytes, err := hex.DecodeString(amountInput[len(amountInput) - 16:])
 	if ( err != nil ) {
 		beego.Error("Failed to decode hex to bytes. ", err)
-		return dst, big.Int{}, err
+		return dst, big.Int{}, "", err
 	}
 	amount := big.Int{}
 	amount.SetBytes(amountBytes)
-	return dst, amount, err
+
+	// Get Message
+	//msgLengthHex := msgInput[0:64]
+	//msgLengthBytes, err := hex.DecodeString(msgLengthHex[len(msgLengthHex) - 16:])
+	//if ( err != nil ) {
+	//	beego.Error("Failed to decode hex to bytes. ", err)
+	//	return dst, big.Int{}, err
+	//}
+	//msgLength := big.Int{}
+	//msgLength.SetBytes(msgLengthBytes)
+
+	msgInput = msgInput[128:]
+	msgBytes, err := hex.DecodeString(msgInput)
+	if ( err != nil ) {
+		beego.Error("Failed to decode hex to string. ", err)
+		return dst, big.Int{}, "", err
+	}
+	msg := string(msgBytes)
+	return dst, amount, msg, err
 }

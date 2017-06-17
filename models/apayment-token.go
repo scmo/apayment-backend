@@ -3,9 +3,10 @@ package models
 import "math/big"
 
 type APaymentTokenTransfer struct {
-	From   string           `json:"from"`
-	To     string           `json:"to"`
-	Amount *big.Int         `json:"amount"`
+	From    string          `json:"from"`
+	To      string          `json:"to"`
+	Amount  *big.Int        `json:"amount"`
+	Message string                `json:"message"`
 }
 
 type APaymentTokenTransaction struct {
@@ -17,8 +18,8 @@ type APaymentTokenTransaction struct {
 }
 
 type EtherScanTransactionResult struct {
-	Status  string  `json:"status"`
-	Message string  `json:"message"`
+	Status  string                `json:"status"`
+	Message string                `json:"message"`
 	Result  []*EtherScanTransaction `json:"result"`
 }
 

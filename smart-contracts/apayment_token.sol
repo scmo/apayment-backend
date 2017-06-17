@@ -49,6 +49,10 @@ contract APaymentToken is ERC20, DPMath {
     return _approvals[src][guy];
   }
 
+  function transferWithMessage(address dst, uint amount, bytes message) returns (bool) {
+    return transfer(dst, amount);
+  }
+
   function transfer(address dst, uint amount) returns (bool) {
     assert(_balances[msg.sender] >= amount);
 
