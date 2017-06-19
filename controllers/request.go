@@ -7,7 +7,6 @@ import (
 	"github.com/scmo/apayment-backend/services"
 	"strconv"
 	"github.com/scmo/apayment-backend/ethereum"
-	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 	"time"
 )
@@ -64,7 +63,7 @@ func (this *RequestController) Get() {
 	if err != nil {
 		beego.Error(err)
 	}
-	this.Data["json"] = services.GetRequestById(requestId)
+	this.Data["json"] = services.GetRequestById(requestId, true)
 	this.ServeJSON()
 }
 
@@ -220,8 +219,12 @@ func (this *RequestController) Pay() {
 		this.CustomAbort(401, "Unauthorized")
 	}
 
-	request := services.GetRequestById(r.Id)
+	request := services.GetRequestById(r.Id, true)
 
+	apaymentTransfer := &models.APaymentTokenTransfer{
+		From:user.Address,
+		To: request.User.Address,
+	}
 	if ( len(request.Payments) == 0 ) {
 		beego.Debug("make first payment")
 		amount, err := services.GetFirstPaymentAmount(request)
@@ -230,24 +233,22 @@ func (this *RequestController) Pay() {
 			this.CustomAbort(500, err.Error())
 		}
 		amount.Div(amount, big.NewInt(2)) // 50% of the amount
-		err = services.Transfer(common.HexToAddress(user.Address), common.HexToAddress(request.User.Address), amount)
+
+		apaymentTransfer.Amount = amount
+		apaymentTransfer.Message = "First Payment"
+		err = services.Transfer(apaymentTransfer, request.Address)
 		if err != nil {
-			beego.Debug("Error while transfer")
-			this.CustomAbort(500, err.Error())
-		}
-		err = services.AddPayment(request, common.HexToAddress(user.Address), amount)
-		if err != nil {
-			beego.Debug("Error while adding payment to smartcontract")
+			beego.Debug("Error while transfer", err)
 			this.CustomAbort(500, err.Error())
 		}
 	} else if ( len(request.Payments) == 1 ) {
 		beego.Debug("make second payment")
-		services.AddPayment(request, common.HexToAddress(user.Address), big.NewInt(333))
+		//services.AddPayment(request, common.HexToAddress(user.Address), big.NewInt(333))
 	} else if ( len(request.Payments) == 2 ) {
 		beego.Debug("make third payment")
 	}
 
-	request = services.GetRequestById(r.Id)
+	//request = services.GetRequestById(r.Id)
 	this.Data["json"] = request
 	this.ServeJSON()
 }

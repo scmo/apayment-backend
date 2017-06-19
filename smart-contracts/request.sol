@@ -182,23 +182,5 @@ contract Request is mortal {
     return amount;
   }
 
-  struct Payment {
-  address from;
-  //    address to;  // this is not necessary, since all payments go to the request owner
-  uint256 amount;
-  uint timestamp;
-  }
-
-  mapping (uint256 => Payment) public payments;
-
-  uint[] public paymentList;
-
-  function AddPayment(address _from, uint256 _amount){
-    uint timestamp = block.timestamp;
-    payments[timestamp].from = _from;
-    payments[timestamp].amount = _amount;
-    payments[timestamp].timestamp = timestamp;
-    paymentList.push(timestamp);
-  }
 
 }

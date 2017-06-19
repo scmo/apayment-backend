@@ -32,14 +32,13 @@ func (this *APaymentTokenController) Transfer() {
 	}
 
 	if ( !user.HasRole("Admin") ) {
-		this.CustomAbort(404, err.Error())
+		this.CustomAbort(404, "Unauthorization")
 	}
 
 	aPaymentTokenTransfer.From = beego.AppConfig.String("systemAccountAddress")
 	beego.Debug(aPaymentTokenTransfer)
 
-	err = services.Transfer(&aPaymentTokenTransfer)
-	//err = services.Transfer(common.HexToAddress(aPaymentTokenTransfer.From), common.HexToAddress(aPaymentTokenTransfer.To), aPaymentTokenTransfer.Amount)
+	err = services.Transfer(&aPaymentTokenTransfer, "")
 	if (err != nil ) {
 		beego.Error("Error while tranfering tokens. ", err)
 		this.CustomAbort(500, err.Error())

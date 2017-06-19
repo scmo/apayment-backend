@@ -37,11 +37,11 @@ func GetAllRequests() []*models.Request {
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).RelatedSel().All(&requests)
 	for _, request := range requests {
-		requestContract, err := getRequestByAddress(request.Address)
+		requestContract, err := getRequestContractByAddress(request.Address)
 		if err != nil {
 			beego.Error("Failed to instantiate a Token contract: %v", err)
 		}
-		assignRequest(request, requestContract)
+		assignRequest(request, requestContract, false)
 	}
 	return requests
 }
@@ -51,27 +51,30 @@ func GetAllRequestsByUserId(userId int64) []*models.Request {
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).Filter("user", userId).RelatedSel().All(&requests)
 	for _, request := range requests {
-		requestContract, err := getRequestByAddress(request.Address)
+		requestContract, err := getRequestContractByAddress(request.Address)
 		if err != nil {
 			beego.Error("Failed to instantiate a Token contract: %v", err)
 		}
-		assignRequest(request, requestContract)
+		assignRequest(request, requestContract, false)
 	}
 	return requests
 }
 
-func GetRequestById(requestId int64) *models.Request {
+func GetRequestById(requestId int64, smartContract bool) *models.Request {
 	o := orm.NewOrm()
 	var request models.Request
 	err := o.QueryTable(new(models.Request)).Filter("Id", requestId).RelatedSel().One(&request)
 	if err != nil {
 		beego.Error("Error while fetching Request.", err)
 	}
-	requestContract, err := getRequestByAddress(request.Address)
-	if err != nil {
-		beego.Error("Failed to instantiate a Token contract: %v", err)
+	if ( smartContract) {
+		requestContract, err := getRequestContractByAddress(request.Address)
+		if err != nil {
+			beego.Error("Failed to instantiate a Token contract: %v", err)
+		}
+		assignRequest(&request, requestContract, true)
 	}
-	assignRequest(&request, requestContract)
+
 	return &request
 }
 
@@ -82,8 +85,17 @@ func GetRequestAddressById(requestId int64) string {
 	if err != nil {
 		beego.Error("Error while fetching Request.", err)
 	}
-
 	return request.Address
+}
+
+func GetRequestIdByAddress(requestAddress string) int64 {
+	o := orm.NewOrm()
+	var request models.Request
+	err := o.QueryTable(new(models.Request)).Filter("Address", requestAddress).RelatedSel().One(&request)
+	if err != nil {
+		beego.Error("Error while fetching Request.", err)
+	}
+	return request.Id
 }
 
 func GetAllRequestsForInspection() []*models.Request {
@@ -91,11 +103,11 @@ func GetAllRequestsForInspection() []*models.Request {
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).Filter("inspector__isnull", false).RelatedSel().All(&requests)
 	for _, request := range requests {
-		requestContract, err := getRequestByAddress(request.Address)
+		requestContract, err := getRequestContractByAddress(request.Address)
 		if err != nil {
 			beego.Error("Failed to instantiate a Token contract: %v", err)
 		}
-		assignRequest(request, requestContract)
+		assignRequest(request, requestContract, false)
 	}
 	return requests
 }
@@ -105,11 +117,11 @@ func GetAllRequestsForInspectionByInspectorId(inspectorId int64) []*models.Reque
 	var requests []*models.Request
 	o.QueryTable(new(models.Request)).Filter("inspector", inspectorId).RelatedSel().All(&requests)
 	for _, request := range requests {
-		requestContract, err := getRequestByAddress(request.Address)
+		requestContract, err := getRequestContractByAddress(request.Address)
 		if err != nil {
 			beego.Error("Failed to instantiate a Token contract: %v", err)
 		}
-		assignRequest(request, requestContract)
+		assignRequest(request, requestContract, false)
 	}
 	return requests
 }
@@ -120,7 +132,7 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) err
 	o.Update(request, "Inspector")
 
 	// Add to the SmartContract
-	requestContract, err := getRequestByAddress(request.Address)
+	requestContract, err := getRequestContractByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return err
@@ -142,7 +154,7 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) err
 func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) error {
 	requestAddress := GetRequestAddressById(inspection.RequestId)
 	// Add to the SmartContract
-	requestContract, err := getRequestByAddress(requestAddress)
+	requestContract, err := getRequestContractByAddress(requestAddress)
 
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
@@ -170,7 +182,7 @@ func SetGVE(request *models.Request) (error) {
 		beego.Error("Failed to get GVE. ", err)
 		return err
 	}
-	requestContract, err := getRequestByAddress(request.Address)
+	requestContract, err := getRequestContractByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return err
@@ -191,26 +203,26 @@ func SetGVE(request *models.Request) (error) {
 	return err
 }
 
-func AddPayment(request *models.Request, from common.Address, amount *big.Int) (error) {
-	ethereumController := ethereum.GetEthereumController()
-	requestContract, err := getRequestByAddress(request.Address)
-	if err != nil {
-		beego.Error("Error while fetching RequestContract by Address: ", err)
-		return err
-	}
-	session := getRequestContractSession(requestContract)
-	session.TransactOpts.From = ethereumController.Auth.From
-	session.TransactOpts.Signer = ethereumController.Auth.Signer
-
-	tx, err := session.AddPayment(from, amount)
-	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
-	return err
-}
+//func AddPayment(request *models.Request, from common.Address, amount *big.Int) (error) {
+//	ethereumController := ethereum.GetEthereumController()
+//	requestContract, err := getRequestByAddress(request.Address)
+//	if err != nil {
+//		beego.Error("Error while fetching RequestContract by Address: ", err)
+//		return err
+//	}
+//	session := getRequestContractSession(requestContract)
+//	session.TransactOpts.From = ethereumController.Auth.From
+//	session.TransactOpts.Signer = ethereumController.Auth.Signer
+//
+//	tx, err := session.AddPayment(from, amount)
+//	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+//	return err
+//}
 
 func GetFirstPaymentAmount(request *models.Request) (*big.Int, error) {
 	ethereumController := ethereum.GetEthereumController()
 
-	requestContract, err := getRequestByAddress(request.Address)
+	requestContract, err := getRequestContractByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return nil, err
@@ -250,12 +262,12 @@ func getContributionCodes(request *models.Request) []uint16 {
 	return codes
 }
 
-func getRequestByAddress(address string) (*directpaymentrequest.RequestContract, error) {
+func getRequestContractByAddress(address string) (*directpaymentrequest.RequestContract, error) {
 	ethereumController := ethereum.GetEthereumController()
 	return directpaymentrequest.NewRequestContract(common.HexToAddress(address), ethereumController.Client)
 }
 
-func assignRequest(request *models.Request, requestContract *directpaymentrequest.RequestContract) {
+func assignRequest(request *models.Request, requestContract *directpaymentrequest.RequestContract, full bool) {
 	session := getRequestContractSession(requestContract)
 	remark, err := session.Remark()
 	if err != nil {
@@ -263,11 +275,13 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	}
 	request.Remark = remark
 	setInspector(request, session)
-	setContributions(request, session)
-	setLacksInspected(request, session)
 	setTimestamps(request, session)
-	setGVE(request, session)
-	setPayments(request, session)
+	if (full) {
+		setContributions(request, session)
+		setLacksInspected(request, session)
+		setGVE(request, session)
+		setPayments(request)
+	}
 }
 
 func setInspector(request *models.Request, session *directpaymentrequest.RequestContractSession) {
@@ -327,23 +341,10 @@ func setLacksInspected(request *models.Request, session *directpaymentrequest.Re
 	request.ContributionsWithLacks = contributions
 }
 
-func setPayments(request *models.Request, session *directpaymentrequest.RequestContractSession) {
-	request.Payments = make([]*models.Payment, 0)
-	i := 0;
-	for (i >= 0) {
-		timestamp, err := session.PaymentList(big.NewInt(int64(i)))
-		i++
-		if (err != nil) {
-			i = -1
-		} else {
-			payment, err := session.Payments(timestamp)
-			if (err != nil) {
-				beego.Error("Error while fetch Payment from request.", err)
-			}
-			request.Payments = append(request.Payments, &models.Payment{From:payment.From.String(), Amount:payment.Amount, Timestamp:payment.Timestamp})
-		}
-	}
+func setPayments(request *models.Request) {
+	request.Payments = GetTransactionForRequest(request.Address)
 }
+
 func setTimestamps(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 
 	// Created

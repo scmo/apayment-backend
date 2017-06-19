@@ -24,16 +24,16 @@ type Request struct {
 	ContributionsWithLacks []*Contribution `orm:"-" json:"contributionsWithLacks"`
 
 	GVE                    []*GVE `orm:"-" json:"gve"`
-	Payments               []*Payment `orm:"-" json:"payments"`
+	Payments               []*APaymentTokenTransaction `orm:"-" json:"payments"`
 }
 
 type GVE struct {
 	Amount     uint16 `json:"amount"`
 	PointGroup *PointGroup `json:"pointGroup"`
 }
-
-type Payment struct {
-	From      string `orm:"-" json:"from"`
-	Amount    *big.Int `json:"amount"`
-	Timestamp *big.Int `orm:"-" json:"timestamp"`
-}
+//
+//type Payment struct {
+//	From      string `orm:"-" json:"from"`
+//	Amount    *big.Int `json:"amount"`
+//	Timestamp *big.Int `orm:"-" json:"timestamp"`
+//}
