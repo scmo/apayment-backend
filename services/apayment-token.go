@@ -68,16 +68,16 @@ func GetBalanceOf(address common.Address) (*big.Int, error) {
 }
 func GetTransactionForRequest(requestAddress string) ([]*models.APaymentTokenTransaction) {
 	transactions, err := GetTransactions()
+	requestTransaction := make([]*models.APaymentTokenTransaction, 0)
 	if ( err != nil) {
 		beego.Error("Error while fetch transactions. ", err)
 	}
-	for i, tx := range transactions {
-		if (tx.Request == nil || tx.Request.Address != requestAddress) {
-			beego.Info("remove from slice")
-			transactions = append(transactions[:i], transactions[i + 1:]...)
+	for _, tx := range transactions {
+		if (tx.Request != nil && tx.Request.Address == requestAddress) {
+			requestTransaction = append(requestTransaction, tx)
 		}
 	}
-	return transactions
+	return requestTransaction
 }
 
 func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
