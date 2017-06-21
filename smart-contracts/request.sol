@@ -29,7 +29,9 @@ contract mortal {
 
 contract Request is mortal {
   address public inspectorAddress;
+
   uint16[] public contributionCodes;
+
   string public remark;
 
   RBAC rbac;
@@ -58,11 +60,12 @@ contract Request is mortal {
 
   mapping (uint => LackNew) public newLacks;
 
-  function Request(uint16[] _contributionCodes, string _remark, address rbacAddress) public {
-    rbac = RBAC(rbacAddress);
+  function Request(uint16[] _contributionCodes, string _remark, uint16[9] gves) public {
+    rbac = RBAC("0x0a3C03F7dE1CeFc9284358503225a0F269a4d868");
     contributionCodes = _contributionCodes;
     remark = _remark;
-    setCreated();
+    setGVE(gves[0], gves[1], gves[2], gves[3], gves[4], gves[5], gves[6], gves[7], gves[8]);
+    //    setCreated();
   }
 
   function setInspectorId(address _inspectorAddress){
@@ -117,11 +120,19 @@ contract Request is mortal {
   uint16 gve;
   uint16 points;
   uint16 btsPoints;
-  uint32 btsTotal;
-  uint32 btsDeduction;
+  uint256 btsTotal;
+  uint256 btsDeduction;
   }
 
-  function setGVE(uint16 _gve1110, uint16 _gve1150, uint16 _gve1128, uint16 _gve1141, uint16 _gve1142, uint16 _gve1124, uint16 _gve1129, uint16 _gve1143, uint16 _gve1144) {
+  function setGVE(uint16 _gve1110,
+  uint16 _gve1150,
+  uint16 _gve1128,
+  uint16 _gve1141,
+  uint16 _gve1142,
+  uint16 _gve1124,
+  uint16 _gve1129,
+  uint16 _gve1143,
+  uint16 _gve1144) {
     CalcVariables btsPointGroup = pointGroups[1110];
     btsPointGroup.gve = _gve1110;
 
@@ -164,23 +175,23 @@ contract Request is mortal {
   function calculateBTS() {
     for (uint16 i = 0; i < pointGroupCodes.length; i++) {
       CalcVariables btsPointGroup = pointGroups[pointGroupCodes[i]];
-      if (pointGroupCodes[i] != 1142 || pointGroupCodes[i] != 1144) {
+      //      btsPointGroup.btsTotal =  uint256(btsPointGroup.gve) * 9000;
+      if ((pointGroupCodes[i] == 1142 || pointGroupCodes[i] == 1144) == false) {
         if (btsPointGroup.btsPoints < 110) {
-          btsPointGroup.btsTotal = 9000 * btsPointGroup.gve;
-          btsPointGroup.btsDeduction = (btsPointGroup.btsPoints - 10) * (9000 / 100);
+          btsPointGroup.btsTotal = uint256(btsPointGroup.gve) * 9000;
+          //btsPointGroup.btsDeduction = (btsPointGroup.btsPoints - 10) * (9000 / 100);
         }
       }
     }
   }
 
   function getFirstPaymentAmount() constant returns (uint256) {
-    uint32 amount = 0;
+    uint256 amount = 0;
     for (uint16 i = 0; i < pointGroupCodes.length; i++) {
       CalcVariables calcVar = pointGroups[pointGroupCodes[i]];
       amount = amount + calcVar.btsTotal;
     }
     return amount;
   }
-
 
 }

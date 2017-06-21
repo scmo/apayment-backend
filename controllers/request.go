@@ -8,7 +8,6 @@ import (
 	"strconv"
 	"github.com/scmo/apayment-backend/ethereum"
 	"math/big"
-	"time"
 )
 
 // Operations about Contributions
@@ -37,15 +36,15 @@ func (this *RequestController) Post() {
 	if err != nil {
 		this.CustomAbort(500, err.Error())
 	}
-	go func() {
-		// wait till contract created
-		time.Sleep(time.Minute * 1)
-		// Update GVE for the request
-		err = services.SetGVE(&request)
-		if (err != nil ) {
-			this.CustomAbort(500, err.Error())
-		}
-	}()
+	//go func() {
+	//	// wait till contract created
+	//	time.Sleep(time.Minute * 1)
+	//	// Update GVE for the request
+	//	err = services.SetGVE(&request)
+	//	if (err != nil ) {
+	//		this.CustomAbort(500, err.Error())
+	//	}
+	//}()
 
 	this.ServeJSON()
 }
@@ -228,6 +227,7 @@ func (this *RequestController) Pay() {
 	if ( len(request.Payments) == 0 ) {
 		beego.Debug("make first payment")
 		amount, err := services.GetFirstPaymentAmount(request)
+		beego.Info("GetFirstPaymentAmount: ", amount)
 		if (err != nil) {
 			beego.Error("Error while getting first payment amount. ", err)
 			this.CustomAbort(500, err.Error())

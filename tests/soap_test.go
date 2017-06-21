@@ -133,7 +133,7 @@ func _Test_GetFarmer(t *testing.T) {
 	beego.Debug(getFarmersResponse)
 }
 
-func _Test_GetPersonAddress(t *testing.T) {
+func Test_GetPersonAddress(t *testing.T) {
 
 	auth := tvd.BasicAuth{
 		Login: beego.AppConfig.String("agate_username"),

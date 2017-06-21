@@ -58,6 +58,7 @@ func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (
 	a8 := 0 // a8 1143   männliche Tiere, über 160 bis 365 Tage alt
 	a9 := 0 // a9 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
 
+
 	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, agateUsername, agatePassword)
 	if (err != nil) {
 		beego.Error("Error while fetching CattleLiveStockV2: ", err)

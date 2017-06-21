@@ -14,7 +14,19 @@ import (
 
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
+	// TODO: Uncomment this when TVD is again up
+	//gvesMap, err := tvd.GetNumberOfGVE(request.User.TVD, beego.AppConfig.String("agate_username"), beego.AppConfig.String("agate_password"))
+	//if ( err != nil ) {
+	//	beego.Error("Failed to get GVE. ", err)
+	//	return err
+	//}
+	//var gvesList [9]uint16
+	//for  i, value := range gvesMap {
+	//	gvesList[i] = value
+	//}
+	gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
+
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, gvesList)
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
