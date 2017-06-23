@@ -153,7 +153,7 @@ func AddInspectorToRequest(request *models.Request, auth *bind.TransactOpts) err
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
 
-	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.Address))
+	tx, err := session.SetInspectorId(common.HexToAddress(request.Inspector.EtherumAddress))
 	if err != nil {
 		beego.Error("Failed to update request (add inspector): ", err)
 		return err
@@ -189,7 +189,7 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 
 func SetGVE(request *models.Request) (error) {
 	ethereumController := ethereum.GetEthereumController()
-	gves, err := tvd.GetNumberOfGVE(request.User.TVD, beego.AppConfig.String("agate_username"), beego.AppConfig.String("agate_password"))
+	gves, err := tvd.GetNumberOfGVE(request.User.TVD)
 	if ( err != nil ) {
 		beego.Error("Failed to get GVE. ", err)
 		return err
@@ -302,9 +302,9 @@ func setInspector(request *models.Request, session *directpaymentrequest.Request
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
-		if (inspectorAddress.String() != request.Inspector.Address) {
+		if (inspectorAddress.String() != request.Inspector.EtherumAddress) {
 			beego.Info("Blockchain: ", inspectorAddress.String())
-			beego.Info("DB: ", request.Inspector.Address)
+			beego.Info("DB: ", request.Inspector.EtherumAddress)
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
 		}
 	}
