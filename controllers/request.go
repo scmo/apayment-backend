@@ -32,7 +32,7 @@ func (this *RequestController) Post() {
 	}
 	request.User = user
 
-	err = services.CreateRequest(&request, ethereum.GetAuth(user.Address))
+	err = services.CreateRequest(&request, ethereum.GetAuth(user.EtherumAddress))
 	if err != nil {
 		this.CustomAbort(500, err.Error())
 	}
@@ -133,7 +133,7 @@ func (this *RequestController) AddInspector() {
 
 	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
 		//requests = services.GetAllRequests()
-		services.AddInspectorToRequest(&request, ethereum.GetAuth(user.Address))
+		services.AddInspectorToRequest(&request, ethereum.GetAuth(user.EtherumAddress))
 	} else {
 		this.CustomAbort(401, "Unauthorized")
 	}
@@ -161,7 +161,7 @@ func (this *RequestController) AddInspection() {
 	} else {
 		this.CustomAbort(401, "Unauthorized")
 	}
-	err = services.AddLacksToRequest(&inspection, ethereum.GetAuth(user.Address))
+	err = services.AddLacksToRequest(&inspection, ethereum.GetAuth(user.EtherumAddress))
 	if err != nil {
 		this.CustomAbort(500, err.Error())
 	}
@@ -186,7 +186,7 @@ func (this *RequestController) UpdateGVE() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) || user.Address == request.User.Address) {
+	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) || user.EtherumAddress == request.User.EtherumAddress) {
 		err = services.SetGVE(&request)
 		if (err != nil ) {
 			this.CustomAbort(500, err.Error())
@@ -221,8 +221,8 @@ func (this *RequestController) Pay() {
 	request := services.GetRequestById(r.Id, true)
 
 	apaymentTransfer := &models.APaymentTokenTransfer{
-		From:user.Address,
-		To: request.User.Address,
+		From:user.EtherumAddress,
+		To: request.User.EtherumAddress,
 	}
 	if ( len(request.Payments) == 0 ) {
 		beego.Debug("make first payment")
