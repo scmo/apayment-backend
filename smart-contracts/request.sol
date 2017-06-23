@@ -60,12 +60,12 @@ contract Request is mortal {
 
   mapping (uint => LackNew) public newLacks;
 
-  function Request(uint16[] _contributionCodes, string _remark, uint16[9] gves) public {
+  function Request(uint16[] _contributionCodes, string _remark) public {
     rbac = RBAC("0x0a3C03F7dE1CeFc9284358503225a0F269a4d868");
     contributionCodes = _contributionCodes;
     remark = _remark;
-    setGVE(gves[0], gves[1], gves[2], gves[3], gves[4], gves[5], gves[6], gves[7], gves[8]);
-    //    setCreated();
+    //setGVE(gves[0], gves[1], gves[2], gves[3], gves[4], gves[5], gves[6], gves[7], gves[8]);
+    setCreated();
   }
 
   function setInspectorId(address _inspectorAddress){
