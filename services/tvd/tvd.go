@@ -1918,7 +1918,7 @@ type SearchPoultryBarnInNotification struct {
 }
 
 type GetAnimalHusbandryDetailRequest struct {
-	XMLName   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailRequest"`
+	XMLName   xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailRequest"`
 
 	*BaseRequest
 
@@ -1926,13 +1926,13 @@ type GetAnimalHusbandryDetailRequest struct {
 }
 
 type GetAnimalHusbandryDetailResult struct {
-	XMLName                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResult"`
+	XMLName          xml.Name // `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResult"`
 
-	Result                   *ProcessingResult                                 `xml:"Result,omitempty"`
-	PostData                 *HusbandryResult                                  `xml:"PostData,omitempty"`
-	IsActive                 bool                                              `xml:"IsActive,omitempty"`
-	MunicipalityName         string                                            `xml:"MunicipalityName,omitempty"`
-	CantonShortname          string                                            `xml:"CantonShortname,omitempty"`
+	Result           *ProcessingResult                                 `xml:"Result,omitempty"`
+	PostData         *HusbandryResult                                  `xml:"PostData,omitempty"`
+	IsActive         bool                                              `xml:"IsActive,omitempty"`
+	MunicipalityName string                                            `xml:"MunicipalityName,omitempty"`
+	CantonShortname  string                                            `xml:"CantonShortname,omitempty"`
 	CoordinateX              int32                                             `xml:"CoordinateX,omitempty"`
 	CoordinateY              int32                                             `xml:"CoordinateY,omitempty"`
 	Altitude                 int32                                             `xml:"Altitude,omitempty"`
@@ -3363,49 +3363,49 @@ type TranslatedEnumTypeOfEnumPoultryUsageReason struct {
 }
 
 type TranslatedEnumTypeOfEnumAnimalHusbandryType struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryType"`
+	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryType"`
 
 	EnumValue            *EnumAnimalHusbandryType `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                   `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse"`
+	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse"`
 
 	EnumValue            *EnumAnimalHusbandryTypeOfUse `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                        `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumZone struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumZone"`
+	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumZone"`
 
 	EnumValue            *EnumZone `xml:"EnumValue,omitempty"`
 	RequestedTranslation string    `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumArea struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumArea"`
+	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumArea"`
 
 	EnumValue            *EnumArea `xml:"EnumValue,omitempty"`
 	RequestedTranslation string    `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumPigCategory struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPigCategory"`
+	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPigCategory"`
 
 	EnumValue            *EnumPigCategory `xml:"EnumValue,omitempty"`
 	RequestedTranslation string           `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumOrderStatus struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumOrderStatus"`
+	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumOrderStatus"`
 
 	EnumValue            *EnumOrderStatus `xml:"EnumValue,omitempty"`
 	RequestedTranslation string           `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumCattleRace struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumCattleRace"`
+	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumCattleRace"`
 
 	EnumValue            *EnumCattleRace `xml:"EnumValue,omitempty"`
 	RequestedTranslation string          `xml:"RequestedTranslation,omitempty"`
@@ -4058,7 +4058,7 @@ func (service *AnimalTracingPortType) GetPoultryBarnInNotifications(request *Get
 
 func (service *AnimalTracingPortType) GetAnimalHusbandryDetail(request *GetAnimalHusbandryDetail) (*GetAnimalHusbandryDetailResponse, error) {
 	response := new(GetAnimalHusbandryDetailResponse)
-	err := service.client.Call("", request, response)
+	err := service.client.Call("http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetAnimalHusbandryDetail", request, response)
 	if err != nil {
 		return nil, err
 	}
@@ -4264,7 +4264,6 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}) erro
 	if err := encoder.Flush(); err != nil {
 		return err
 	}
-
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
 		return err

@@ -11,18 +11,14 @@ func GetPointGroupCodes() []uint16 {
 	return []uint16{1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144};
 }
 
-func GetUserCattleLivestock(userTvd int32, agateUsername string, agatePassword string) (*GetCattleLivestockV2Response, error) {
-	auth := BasicAuth{
-		Login: agateUsername,
-		Password: agatePassword,
-	}
-	animalTracingPortType := NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
+func GetUserCattleLivestock(userTvd int32) (*GetCattleLivestockV2Response, error) {
+	animalTracingPortType := NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, getAuth())
 
 	workingFocus := []WorkingFocus{}
 	workingFocus = append(workingFocus, WorkingFocus{
 		WorkingFocusType: 3,
 		TVDNumber: userTvd,
-		MandateGiver: agateUsername,
+		MandateGiver:  beego.AppConfig.String("agate_username"),
 	})
 
 	workingFocusArray := WorkingFocusArray{
@@ -46,7 +42,7 @@ func GetUserCattleLivestock(userTvd int32, agateUsername string, agatePassword s
 	return cattleLivestockV2Response, nil
 }
 
-func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (map[uint16]uint16, error) {
+func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
 
 	a1 := 0 // a1 1110    Milchkühe
 	a2 := 0 // a2 1150   andere Kühe
@@ -59,7 +55,7 @@ func GetNumberOfGVE(userTvd int32, agateUsername string, agatePassword string) (
 	a9 := 0 // a9 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
 
 
-	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, agateUsername, agatePassword)
+	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd)
 	if (err != nil) {
 		beego.Error("Error while fetching CattleLiveStockV2: ", err)
 	}
@@ -162,4 +158,50 @@ func getAgeInDays(cattleLiveStockDataItem *CattleLivestockDataV2) (uint32, error
 		return 0, err
 	}
 	return uint32(time.Now().Sub(birthdate).Hours() / 24), nil
+}
+
+func GetPersonAddressFromTVD() (*PersonAddressResult, error) {
+	animalTracingPortType := NewAnimalTracingPortType(beego.AppConfig.String("animalTracingURL"), true, getAuth())
+
+	request := GetPersonAddress{
+		Action:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetPersonAddress",
+		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
+		PLCID:2055,
+		PAgateNumber: beego.AppConfig.String("agate_username"),
+	}
+
+	response, err := animalTracingPortType.GetPersonAddress(&request)
+	if err != nil {
+		return nil, err
+	}
+	return response.GetPersonAddressResult, err
+}
+
+func GetAnimalHusbandryDetailFromTVD(userTVD int32) (*GetAnimalHusbandryDetailResult, error) {
+	animalTracingPortType := NewAnimalTracingPortType(beego.AppConfig.String("animalTracingURL"), true, getAuth())
+	getAnimalHusbandryDetailRequest := new(GetAnimalHusbandryDetailRequest)
+	getAnimalHusbandryDetailRequest.BaseRequest = getBaseRequest()
+	getAnimalHusbandryDetailRequest.TVDNumber = userTVD
+
+	request := GetAnimalHusbandryDetail{
+		PGetAnimalHusbandryDetailRequest: getAnimalHusbandryDetailRequest,
+	}
+	response, err := animalTracingPortType.GetAnimalHusbandryDetail(&request)
+	if (err != nil) {
+		return nil, err
+	}
+	return response.GetAnimalHusbandryDetailResult, err
+}
+
+func getAuth() (*BasicAuth) {
+	return &BasicAuth{
+		Login: beego.AppConfig.String("agate_username"),
+		Password: beego.AppConfig.String("agate_password"),
+	}
+}
+func getBaseRequest() (*BaseRequest) {
+	return &BaseRequest{
+		LCID: 2055,
+		ManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
+	}
 }
