@@ -379,9 +379,10 @@ func Seed_RAUS_Weidetiere() {
 	// A4 = Rinder - weibliche Tiere, über 160-365 Tage alt
 	pg4 := models.PointGroup{PointGroupId:"A4", Abbreviation:"Rinder - weibliche Tiere, über 160-365 Tage alt", PointGroup: "weibliche Tiere über 160 - 365 Tage alt", PointGroupCode:1141, ControlCategory: &cc}
 	services.CreatePointGroup(&pg4)
-	//
-	//pg5 := models.PointGroup{PointGroupId:"A5", Abbreviation:"Rinder - andere Kühe", PointGroup: "weibliche Tiere bis 160 Tage alt", PointGroupCode:1142, ControlCategory: &cc}
-	//services.CreatePointGroup(&pg5)
+
+	// A5 - Rinder - weibliche Tiere, bis 160 Tage alt
+	pg5 := models.PointGroup{PointGroupId:"A5", Abbreviation:"Rinder - weibliche Tiere, bis 160 Tage alt", PointGroup: "weibliche Tiere bis 160 Tage alt", PointGroupCode:1142, ControlCategory: &cc}
+	services.CreatePointGroup(&pg5)
 
 	// A6 - Rinder - männliche Tiere, über 730 Tage alt
 	pg6 := models.PointGroup{PointGroupId:"A6", Abbreviation:"Rinder - männliche Tiere, über 730 Tage alt", PointGroup: "männliche Tiere, über 730 Tage alt", PointGroupCode:1124, ControlCategory: &cc}
@@ -394,6 +395,10 @@ func Seed_RAUS_Weidetiere() {
 	// A8 - Rinder - männliche Tiere, über 160-365 Tage alt
 	pg8 := models.PointGroup{PointGroupId:"A8", Abbreviation:"Rinder - männliche Tiere, über 160-365 Tage alt", PointGroup: "männliche Tiere, über 160 bis 365 Tage alt", PointGroupCode:1143, ControlCategory: &cc}
 	services.CreatePointGroup(&pg8)
+
+	// A9 - Rinder - männliche Tiere, bis 160 Tage alt
+	pg9 := models.PointGroup{PointGroupId:"A8", Abbreviation:"Rinder - männliche Tiere, bis 160 Tage alt", PointGroup: "männliche Tiere, bis 160 Tage alt", PointGroupCode:1144, ControlCategory: &cc}
+	services.CreatePointGroup(&pg9)
 }
 
 func Seed_Users() {
