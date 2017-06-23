@@ -24,9 +24,9 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	//for  i, value := range gvesMap {
 	//	gvesList[i] = value
 	//}
-	gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
+	//gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
 
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, gvesList)
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark)
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -289,9 +289,9 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	setInspector(request, session)
 	setTimestamps(request, session)
 	if (full) {
+		setGVE(request, session)
 		setContributions(request, session)
 		setLacksInspected(request, session)
-		setGVE(request, session)
 		setPayments(request)
 	}
 }
@@ -316,6 +316,7 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 	index := big.NewInt(0)
 	for next {
 		code, err := session.ContributionCodes(index)
+		beego.Debug(code)
 		if err != nil {
 			next = false
 		}
@@ -324,11 +325,25 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 			if err != nil {
 				beego.Error("Error getting Contribution", err)
 			}
+			// remove unnecessary pointGroups
+			for _, gve := range request.GVE {
+				pointGroupCode := gve.PointGroup.PointGroupCode
+				if (gve.Amount == 0) {
+					for _, cc := range contribution.ControlCategories {
+						for i, pg := range cc.PointGroups {
+							if pg.PointGroupCode == pointGroupCode {
+								beego.Debug("remvoe")
+								cc.PointGroups = append(cc.PointGroups[:i], cc.PointGroups[i + 1:]...)
+								break
+							}
+						}
+					}
+				}
+			}
 			request.Contributions = append(request.Contributions, contribution)
 		}
 		index.Add(index, big.NewInt(1))
 	}
-
 }
 
 func setLacksInspected(request *models.Request, session *directpaymentrequest.RequestContractSession) {
