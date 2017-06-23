@@ -43,7 +43,7 @@ func GetAllPointGroupByCode(_code uint16) (*models.PointGroup, error) {
 	pointGroup := models.PointGroup{PointGroupCode: _code}
 	err := o.Read(&pointGroup, "PointGroupCode")
 	if err == orm.ErrNoRows {
-		beego.Error("No result found.")
+		beego.Error("No result found. ProintGroupCode: ", _code)
 		return nil, err
 	} else if err == orm.ErrMissPK {
 		beego.Error("No primary key found.")
