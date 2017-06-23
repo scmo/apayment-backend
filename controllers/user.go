@@ -77,20 +77,6 @@ func (this *UserController) Profile() {
 	this.ServeJSON()
 }
 
-// @Title Get full Profile
-// @Description get full user pofile, inc plant etc based on JWT Token
-// @Success 200 {object} models.User
-// @Failure 404
-// @router /fullprofile [get]
-func (this *UserController) FullProfile() {
-	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
-	user, err := services.GetUserByUsername(claims.Subject)
-	if err != nil {
-		this.CustomAbort(404, err.Error())
-	}
-	this.Data["json"] = user
-	this.ServeJSON()
-}
 
 // @Title Get
 // @Description get user by uid
