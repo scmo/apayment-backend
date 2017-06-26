@@ -7,12 +7,13 @@ import (
 	"golang.org/x/crypto/bcrypt"
 	"errors"
 	"github.com/scmo/apayment-backend/ethereum"
-	"net/http"
 	"context"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"math/big"
 	"github.com/ethereum/go-ethereum/params"
+	"github.com/scmo/apayment-backend/services/tvd"
+	"github.com/ethereum/go-ethereum/core/types"
 )
 
 func CreateUser(u *models.User) error {
@@ -30,7 +31,7 @@ func CreateUser(u *models.User) error {
 			beego.Error("Creating Ethereum Account ", err.Error())
 			return err
 		}
-		u.Address = accountAddress
+		u.EtherumAddress = accountAddress
 	}
 
 	_, err = o.Insert(u)
@@ -47,7 +48,7 @@ func CreateUser(u *models.User) error {
 			return err
 		}
 		_, err := m2m.Add(rolePtr)
-		addUserToRBAC(u.Address, rolePtr.Name)
+		addUserToRBAC(u.EtherumAddress, rolePtr.Name)
 		if err != nil {
 			beego.Error("Many2Many Add ", err.Error())
 			return err
@@ -61,18 +62,24 @@ func addUserToRBAC(address string, role string) {
 	if err != nil {
 		beego.Error("Error while creating a new instace of RBAC")
 	}
+	tx := new(types.Transaction)
 	switch role {
 	case "Farmer":
-		rbacContract.AddFarmer(ethereumController.Auth, common.HexToAddress(address))
+		tx, err = rbacContract.AddFarmer(ethereumController.Auth, common.HexToAddress(address))
 	case "Inspector":
-		rbacContract.AddInspector(ethereumController.Auth, common.HexToAddress(address))
+		tx, err = rbacContract.AddInspector(ethereumController.Auth, common.HexToAddress(address))
 	case "Admin":
-		rbacContract.AddAdmin(ethereumController.Auth, common.HexToAddress(address))
+		tx, err = rbacContract.AddAdmin(ethereumController.Auth, common.HexToAddress(address))
 	case "Canton":
-		rbacContract.AddCantonEmployee(ethereumController.Auth, common.HexToAddress(address))
+		tx, err = rbacContract.AddCantonEmployee(ethereumController.Auth, common.HexToAddress(address))
 	default:
 		beego.Error("Unknown role - address was not added to the RoleBasedAccessControl")
 	}
+	if ( err != nil) {
+		beego.Critical("Error while adding User to RBAC.", err)
+	}
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
 }
 
 func createNewEthereumAccount() (string, error) {
@@ -83,20 +90,9 @@ func createNewEthereumAccount() (string, error) {
 		amount := new(big.Float).Mul(big.NewFloat(amountEther), big.NewFloat(params.Ether))
 		amountWei := new(big.Int)
 		amount.Int(amountWei)
-		ethereum.SendWei("0x88f1e48e11864bfc4685f9f9d8b79b18450764ef", account.Address.String(), amountWei)
+		ethereum.SendWei(beego.AppConfig.String("systemAccountAddress"), account.Address.String(), amountWei)
 	}
-
 	return account.Address.String(), err
-}
-
-func addEthers(address string) {
-	faucetURL := "http://faucet.ropsten.be:3001/donate/" + address
-	beego.Info(faucetURL)
-	resp, err := http.Get(faucetURL)
-	if err != nil {
-		beego.Error("Error while calling faucet. ", err)
-	}
-	beego.Info("Calling faucet. Response Code: ", resp.Status)
 }
 
 func CheckLogin(_username string, _password string) (models.User, error) {
@@ -151,6 +147,7 @@ func GetUserById(_id int64) (*models.User, error) {
 		return nil, err
 	}
 	o.LoadRelated(&user, "Roles")
+	setTVD(&user)
 	setEtherBalance(&user)
 	setAPaymentTokenBalance(&user)
 	return &user, nil
@@ -168,7 +165,7 @@ func GetUserByUsername(_username string) (*models.User, error) {
 		return nil, err
 	}
 	o.LoadRelated(&user, "Roles")
-
+	setTVD(&user)
 	setEtherBalance(&user)
 	setAPaymentTokenBalance(&user)
 	return &user, nil
@@ -176,7 +173,7 @@ func GetUserByUsername(_username string) (*models.User, error) {
 
 func GetUserByAddress(address string) (*models.User, error) {
 	o := orm.NewOrm()
-	user := models.User{Address: address}
+	user := models.User{EtherumAddress: address}
 	err := o.Read(&user, "Address")
 	if err == orm.ErrNoRows {
 		beego.Error("No result found.")
@@ -192,6 +189,22 @@ func GetUserByAddress(address string) (*models.User, error) {
 	return &user, nil
 }
 
+func setTVD(user *models.User) {
+	//personAddressResult, err := tvd.GetPersonAddressFromTVD()
+	//if (err != nil ){
+	//	beego.Error("Error while fetching PersonAddress from TVD. ", err)
+	//}
+	//user.PersonAddressResult = personAddressResult
+	if user.TVD == 0 {
+		return
+	}
+	animalHusbandryDetailResult, err := tvd.GetAnimalHusbandryDetailFromTVD(user.TVD)
+	if (err != nil ) {
+		beego.Error("Error while fetching AnimalHusbandryDetail from TVD. ", err)
+	}
+	user.AnimalHusbandryDetailResult = animalHusbandryDetailResult
+}
+
 func setEtherBalance(user *models.User) {
 	ethereumController := ethereum.GetEthereumController()
 	ctx := context.Background()
@@ -199,12 +212,12 @@ func setEtherBalance(user *models.User) {
 	if err != nil {
 		beego.Critical("Failed to get latest block: ", err)
 	}
-	balance, err := ethereumController.Client.BalanceAt(ctx, common.HexToAddress(user.Address), latestBlock.Number())
+	balance, err := ethereumController.Client.BalanceAt(ctx, common.HexToAddress(user.EtherumAddress), latestBlock.Number())
 	user.EthereumBalance = balance
 }
 
 func setAPaymentTokenBalance(user *models.User) {
-	balance, err := GetBalanceOf(common.HexToAddress(user.Address))
+	balance, err := GetBalanceOf(common.HexToAddress(user.EtherumAddress))
 	if (err != nil) {
 		beego.Error("Error while getting balance", err)
 	}
