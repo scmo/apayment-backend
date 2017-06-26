@@ -421,8 +421,8 @@ func Seed_Users() {
 
 	roles := make([]*models.Role, 1)
 	roles[0] = &farmer
-	services.CreateUser(&models.User{Username:"farmer1", Password:"farmer1", Firstname: "Florian", Lastname:"Meisterhans", TVD: 1015010, Roles: roles })
-	services.CreateUser(&models.User{Username:"farmer2", Password:"farmer2", Firstname: "Max", Lastname:"Keller", TVD: 1015010, Roles: roles})
+	services.CreateUser(&models.User{Username:"farmer1", Password:"farmer1", TVD: 1015010, Roles: roles })
+	services.CreateUser(&models.User{Username:"farmer2", Password:"farmer2", TVD: 1015010, Roles: roles})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &inspector
