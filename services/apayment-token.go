@@ -13,6 +13,7 @@ import (
 	"encoding/hex"
 	"strconv"
 	"errors"
+	"github.com/scmo/apayment-backend/services/tvd"
 )
 
 func Transfer(aPaymentTokenTransfer *models.APaymentTokenTransfer, requestAddress string) (error) {
@@ -105,7 +106,8 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 			beego.Error("Error while parsing transaction input. ", err)
 			return transactions, err
 		}
-		from := &models.User{Firstname: "aPayment", Lastname:"System"}
+		//from := &models.User{Firstname: "aPayment", Lastname:"System"}
+		from := &models.User{AnimalHusbandryDetailResult: &tvd.GetAnimalHusbandryDetailResult{PostData: &tvd.HusbandryResult{Name:"aPayment System"}}}
 		if (tx.From != beego.AppConfig.String("systemAccountAddress")) {
 			from, err = GetUserByAddress(tx.From)
 			if (err != nil) {
