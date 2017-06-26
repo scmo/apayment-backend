@@ -22,7 +22,7 @@ type User struct {
 
 	PersonAddressResult         *tvd.PersonAddressResult `orm:"-" json:"personAddressResult"`
 	AnimalHusbandryDetailResult *tvd.GetAnimalHusbandryDetailResult  `orm:"-" json:"AnimalHusbandryDetailResult"`
-	TVD                         int32        `json: "tvd"`
+	TVD                         int32        `json:"tvd"`
 }
 
 func init() {
