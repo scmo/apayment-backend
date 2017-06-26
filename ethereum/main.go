@@ -29,9 +29,9 @@ var ethereumController EthereumController
 
 func Init() {
 	pathToEthereum := beego.AppConfig.String("ethereumRootPath")
-	if beego.BConfig.RunMode == "dev" {
-		pathToEthereum = pathToEthereum + "testnet/"
-	}
+	//if beego.BConfig.RunMode == "dev" {
+	//	pathToEthereum = pathToEthereum + "testnet/"
+	//}
 	pathToIPCEndpoint := pathToEthereum + "geth.ipc"
 
 	// Create an IPC based RPC connection to a remote node
@@ -53,6 +53,7 @@ func Init() {
 
 func deployRoleBasedAccessControlContract() {
 	if (beego.AppConfig.String("accessControlContract") == "" ) {
+		beego.Info("Deploy new RBAC Contract")
 		address, _, _, err := rbac.DeployRBACContract(ethereumController.Auth, ethereumController.Client)
 		if err != nil {
 			beego.Critical("Error while creating RBAC: ", err)
@@ -64,6 +65,7 @@ func deployRoleBasedAccessControlContract() {
 
 func deployAPaymentTokenContract() {
 	if (beego.AppConfig.String("apaymentTokenContract") == "" ) {
+		beego.Info("Deploy new aPayment Token Contract")
 		tokenSupply, err := beego.AppConfig.Int("tokenSupply")
 		if (err != nil) {
 			beego.Critical("tokenSupply not found. ", err)
@@ -78,13 +80,6 @@ func deployAPaymentTokenContract() {
 	}
 }
 
-func createNewEthereumAccount() {
-	account, _ := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
-	beego.Info(account.Address.String())
-	beego.Info(common.HexToAddress(account.Address.String()).String())
-	beego.Info(common.StringToAddress(account.Address.String()).String())
-}
-
 func SendWei(from string, to string, amount *big.Int) {
 	beego.Info("Send ether from: ", from, "to: ", to, "amount:", amount)
 	ctx := context.Background()
@@ -94,21 +89,18 @@ func SendWei(from string, to string, amount *big.Int) {
 		beego.Error("something wrong")
 		return
 	}
-
 	nonce, err := ethereumController.Client.PendingNonceAt(ctx, fromAccount.Address)
 	if err != nil {
 		beego.Critical("Failed to get nounce: ", err)
 	}
-
-	//estimateGas, err := ethereumController.Client.EstimateGas(ctx, ethereum.CallMsg{From: fromAccount.Address, To: common.StringToAddress(to), Value:amount, Data: nil})
 	estimateGas, err := ethereumController.Client.EstimateGas(ctx, ethereum.CallMsg{From: fromAccount.Address, Value:amount, Data: nil})
 	if err != nil {
 		beego.Critical("Failed to estimate gas: ", err)
 	}
 
 	tx := types.NewTransaction(nonce, common.HexToAddress(to), amount, estimateGas, big.NewInt(50000000000), nil)
-
-	tx, err = ethereumController.Keystore.SignTxWithPassphrase(fromAccount, beego.AppConfig.String("systemAccountPassword"), tx, big.NewInt(3))
+	chainId, err := beego.AppConfig.Int64("chainId")
+	tx, err = ethereumController.Keystore.SignTxWithPassphrase(fromAccount, beego.AppConfig.String("systemAccountPassword"), tx, big.NewInt(chainId))
 	if err != nil {
 		beego.Critical("Failed to Sign Transaction: ", err)
 	}
@@ -116,7 +108,6 @@ func SendWei(from string, to string, amount *big.Int) {
 	if err != nil {
 		beego.Critical("Failed to Send Transaction: ", err)
 	}
-
 }
 
 func GetAuth(address string) *bind.TransactOpts {
