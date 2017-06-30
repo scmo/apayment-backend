@@ -1,19 +1,19 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
-	"github.com/astaxie/beego/orm"
-	"github.com/astaxie/beego"
-	"golang.org/x/crypto/bcrypt"
-	"errors"
-	"github.com/scmo/apayment-backend/ethereum"
 	"context"
+	"errors"
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/scmo/apayment-backend/smart-contracts/rbac"
-	"math/big"
-	"github.com/ethereum/go-ethereum/params"
-	"github.com/scmo/apayment-backend/services/tvd"
 	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/params"
+	"github.com/scmo/apayment-backend/ethereum"
+	"github.com/scmo/apayment-backend/models"
+	"github.com/scmo/apayment-backend/services/tvd"
+	"github.com/scmo/apayment-backend/smart-contracts/rbac"
+	"golang.org/x/crypto/bcrypt"
+	"math/big"
 )
 
 func CreateUser(u *models.User) error {
@@ -25,7 +25,7 @@ func CreateUser(u *models.User) error {
 	}
 	u.Password = hash
 
-	if (beego.BConfig.RunMode != "test") {
+	if beego.BConfig.RunMode != "test" {
 		accountAddress, err := createNewEthereumAccount()
 		if err != nil {
 			beego.Error("Creating Ethereum Account ", err.Error())
@@ -75,7 +75,7 @@ func addUserToRBAC(address string, role string) {
 	default:
 		beego.Error("Unknown role - address was not added to the RoleBasedAccessControl")
 	}
-	if ( err != nil) {
+	if err != nil {
 		beego.Critical("Error while adding User to RBAC.", err)
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
@@ -85,13 +85,14 @@ func addUserToRBAC(address string, role string) {
 func createNewEthereumAccount() (string, error) {
 	ethereumController := ethereum.GetEthereumController()
 	account, err := ethereumController.Keystore.NewAccount(beego.AppConfig.String("userAccountPassword"))
-	if beego.BConfig.RunMode == "dev" {
-		amountEther := 0.5
-		amount := new(big.Float).Mul(big.NewFloat(amountEther), big.NewFloat(params.Ether))
-		amountWei := new(big.Int)
-		amount.Int(amountWei)
-		ethereum.SendWei(beego.AppConfig.String("systemAccountAddress"), account.Address.String(), amountWei)
-	}
+	// TODO: Uncomment for production
+	//if beego.BConfig.RunMode == "dev" {
+	amountEther := 0.5
+	amount := new(big.Float).Mul(big.NewFloat(amountEther), big.NewFloat(params.Ether))
+	amountWei := new(big.Int)
+	amount.Int(amountWei)
+	ethereum.SendWei(beego.AppConfig.String("systemAccountAddress"), account.Address.String(), amountWei)
+	//}
 	return account.Address.String(), err
 }
 
@@ -104,15 +105,16 @@ func CheckLogin(_username string, _password string) (models.User, error) {
 		return user, errors.New("Wrong password")
 	}
 	o.LoadRelated(&user, "Roles")
-	return user, err;
+	return user, err
 }
 
-func GetAllUsers() ([]*models.User) {
+func GetAllUsers() []*models.User {
 	o := orm.NewOrm()
 	var users []*models.User
 	o.QueryTable(new(models.User)).All(&users)
 	for _, user := range users {
 		o.LoadRelated(user, "Roles")
+		setTVD(user)
 		setEtherBalance(user)
 		setAPaymentTokenBalance(user)
 	}
@@ -171,10 +173,10 @@ func GetUserByUsername(_username string) (*models.User, error) {
 	return &user, nil
 }
 
-func GetUserByAddress(address string) (*models.User, error) {
+func GetUserByAddress(etherumAddress string) (*models.User, error) {
 	o := orm.NewOrm()
-	user := models.User{EtherumAddress: address}
-	err := o.Read(&user, "Address")
+	user := models.User{EtherumAddress: etherumAddress}
+	err := o.Read(&user, "etherum_address")
 	if err == orm.ErrNoRows {
 		beego.Error("No result found.")
 		return nil, err
@@ -183,7 +185,7 @@ func GetUserByAddress(address string) (*models.User, error) {
 		return nil, err
 	}
 	o.LoadRelated(&user, "Roles")
-
+	setTVD(&user)
 	setEtherBalance(&user)
 	setAPaymentTokenBalance(&user)
 	return &user, nil
@@ -199,7 +201,7 @@ func setTVD(user *models.User) {
 		return
 	}
 	animalHusbandryDetailResult, err := tvd.GetAnimalHusbandryDetailFromTVD(user.TVD)
-	if (err != nil ) {
+	if err != nil {
 		beego.Error("Error while fetching AnimalHusbandryDetail from TVD. ", err)
 	}
 	user.AnimalHusbandryDetailResult = animalHusbandryDetailResult
@@ -218,7 +220,7 @@ func setEtherBalance(user *models.User) {
 
 func setAPaymentTokenBalance(user *models.User) {
 	balance, err := GetBalanceOf(common.HexToAddress(user.EtherumAddress))
-	if (err != nil) {
+	if err != nil {
 		beego.Error("Error while getting balance", err)
 	}
 	user.APaymentTokenBalance = balance

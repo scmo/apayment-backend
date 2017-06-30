@@ -1,15 +1,15 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego"
-	"github.com/scmo/apayment-backend/ethereum"
 	"github.com/astaxie/beego/orm"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"math/big"
-	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/scmo/apayment-backend/ethereum"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services/tvd"
+	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
+	"math/big"
 )
 
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
@@ -26,7 +26,7 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	//}
 	//gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
 
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark)
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -74,12 +74,14 @@ func GetAllRequestsByUserId(userId int64) []*models.Request {
 
 func GetRequestById(requestId int64, smartContract bool) *models.Request {
 	o := orm.NewOrm()
+
 	var request models.Request
 	err := o.QueryTable(new(models.Request)).Filter("Id", requestId).RelatedSel().One(&request)
 	if err != nil {
 		beego.Error("Error while fetching Request.", err)
 	}
-	if ( smartContract) {
+	setTVD(request.User)
+	if smartContract {
 		requestContract, err := getRequestContractByAddress(request.Address)
 		if err != nil {
 			beego.Error("Failed to instantiate a Token contract: %v", err)
@@ -187,10 +189,10 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 	return err
 }
 
-func SetGVE(request *models.Request) (error) {
+func SetGVE(request *models.Request) error {
 	ethereumController := ethereum.GetEthereumController()
 	gves, err := tvd.GetNumberOfGVE(request.User.TVD)
-	if ( err != nil ) {
+	if err != nil {
 		beego.Error("Failed to get GVE. ", err)
 		return err
 	}
@@ -204,7 +206,7 @@ func SetGVE(request *models.Request) (error) {
 	session.TransactOpts.Signer = ethereumController.Auth.Signer
 
 	tx, err := session.SetGVE(gves[1110], gves[1150], gves[1128], gves[1141], gves[1142], gves[1124], gves[1129], gves[1143], gves[1144])
-	if (err != nil) {
+	if err != nil {
 		beego.Critical("Failed to update GVE: ", err)
 		return err
 	}
@@ -251,11 +253,11 @@ func GetFirstPaymentAmount(request *models.Request) (*big.Int, error) {
 	return amount, err
 }
 
-func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) (*directpaymentrequest.RequestContractSession) {
+func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) *directpaymentrequest.RequestContractSession {
 	//ethereumController := ethereum.GetEthereumController()
 	requestContractSesssion := &directpaymentrequest.RequestContractSession{
-		Contract:requestContract,
-		CallOpts:bind.CallOpts{Pending:true},
+		Contract: requestContract,
+		CallOpts: bind.CallOpts{Pending: true},
 		//TransactOpts:bind.TransactOpts{
 		//	From: ethereumController.Auth.From,
 		//	Signer: ethereumController.Auth.Signer,
@@ -288,7 +290,7 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 	request.Remark = remark
 	setInspector(request, session)
 	setTimestamps(request, session)
-	if (full) {
+	if full {
 		setGVE(request, session)
 		setContributions(request, session)
 		setLacksInspected(request, session)
@@ -297,12 +299,12 @@ func assignRequest(request *models.Request, requestContract *directpaymentreques
 }
 
 func setInspector(request *models.Request, session *directpaymentrequest.RequestContractSession) {
-	if (request.Inspector != nil) {
+	if request.Inspector != nil {
 		inspectorAddress, err := session.InspectorAddress()
 		if err != nil {
 			beego.Error("Error while reading InspectorId from Contract: ", err)
 		}
-		if (inspectorAddress.String() != request.Inspector.EtherumAddress) {
+		if inspectorAddress.String() != request.Inspector.EtherumAddress {
 			beego.Info("Blockchain: ", inspectorAddress.String())
 			beego.Info("DB: ", request.Inspector.EtherumAddress)
 			beego.Error("Request Inspector Id and Contract InspectorId does not match!")
@@ -328,7 +330,7 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 			// remove unnecessary pointGroups
 			for _, gve := range request.GVE {
 				pointGroupCode := gve.PointGroup.PointGroupCode
-				if (gve.Amount == 0) {
+				if gve.Amount == 0 {
 					for _, cc := range contribution.ControlCategories {
 						for i, pg := range cc.PointGroups {
 							if pg.PointGroupCode == pointGroupCode {
@@ -346,7 +348,7 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 }
 
 func setLacksInspected(request *models.Request, session *directpaymentrequest.RequestContractSession) {
-	contributions := make([] *models.Contribution, 0)
+	contributions := make([]*models.Contribution, 0)
 	numLack, err := session.NumLacks()
 	if err != nil {
 		beego.Error("Error getting NumLacks", err)
@@ -394,7 +396,7 @@ func setGVE(request *models.Request, session *directpaymentrequest.RequestContra
 
 	for i := range pointGroupCodes {
 		requestGVE, err := session.PointGroups(pointGroupCodes[i])
-		if ( err != err ) {
+		if err != err {
 			beego.Critical("Error get GVE", err)
 		}
 		pointGroup, err := GetAllPointGroupByCode(pointGroupCodes[i])
@@ -402,6 +404,7 @@ func setGVE(request *models.Request, session *directpaymentrequest.RequestContra
 		request.GVE = append(request.GVE, &gve)
 	}
 }
+
 // Function adds a Contribution to a slice of contributions if
 // contribution does not exist yet in the slice, if contribution exist,
 // it checks if the contribution alreayd contains the ControlCategory and so on...
@@ -452,4 +455,3 @@ func AddContributionToContributions(contributions []*models.Contribution, contri
 	}
 	return append(contributions, contribution)
 }
-

@@ -1,15 +1,15 @@
 package rbac
 
 import (
+	"github.com/astaxie/beego"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/core"
-	"math/big"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/astaxie/beego"
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
+	. "github.com/smartystreets/goconvey/convey"
+	"math/big"
+	"testing"
 )
 
 var farmerAuth *bind.TransactOpts
@@ -35,9 +35,9 @@ func init() {
 	systemAuth = bind.NewKeyedTransactor(key)
 
 	sim = backends.NewSimulatedBackend(core.GenesisAlloc{
-		farmerAuth.From: {Balance: big.NewInt(10000000000)},
-		adminAuth.From: {Balance: big.NewInt(10000000000)},
-		systemAuth.From: {Balance: big.NewInt(10000000000)},
+		farmerAuth.From:    {Balance: big.NewInt(10000000000)},
+		adminAuth.From:     {Balance: big.NewInt(10000000000)},
+		systemAuth.From:    {Balance: big.NewInt(10000000000)},
 		inspectorAuth.From: {Balance: big.NewInt(10000000000)},
 	})
 

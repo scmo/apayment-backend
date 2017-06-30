@@ -1,11 +1,11 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
-func CreateLack(l *models.Lack) error  {
+func CreateLack(l *models.Lack) error {
 	o := orm.NewOrm()
 	_, err := o.Insert(l)
 	return err
@@ -17,7 +17,7 @@ func CreateMultiLacks(lacks []models.Lack) error {
 	return err
 }
 
-func GetAllLacks() ([]*models.Lack) {
+func GetAllLacks() []*models.Lack {
 	o := orm.NewOrm()
 	var lacks []*models.Lack
 	o.QueryTable(new(models.Lack)).All(&lacks)

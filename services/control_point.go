@@ -1,17 +1,17 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
-func CreateControlPoint(cp *models.ControlPoint) error  {
+func CreateControlPoint(cp *models.ControlPoint) error {
 	o := orm.NewOrm()
 	_, err := o.Insert(cp)
 	return err
 }
 
-func GetAllControlPoints() ([]*models.ControlPoint) {
+func GetAllControlPoints() []*models.ControlPoint {
 	o := orm.NewOrm()
 	var controlPoints []*models.ControlPoint
 	o.QueryTable(new(models.ControlPoint)).All(&controlPoints)

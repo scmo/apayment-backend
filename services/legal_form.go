@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreateLegalForm(lf *models.LegalForm) error {
@@ -11,7 +11,7 @@ func CreateLegalForm(lf *models.LegalForm) error {
 	return err
 }
 
-func GetAllLegalForms() ([]*models.LegalForm) {
+func GetAllLegalForms() []*models.LegalForm {
 	o := orm.NewOrm()
 	var legalforms []*models.LegalForm
 	o.QueryTable(new(models.LegalForm)).All(&legalforms)

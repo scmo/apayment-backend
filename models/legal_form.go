@@ -3,8 +3,8 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type LegalForm struct {
-	Id   int64 `json:"id"`
-	Code uint8 `json:"code"`
+	Id   int64  `json:"id"`
+	Code uint8  `json:"code"`
 	Name string `json:"name"`
 }
 

@@ -11,9 +11,9 @@ import (
 	"github.com/scmo/apayment-backend/controllers"
 
 	"github.com/astaxie/beego"
-	"strings"
 	"github.com/astaxie/beego/context"
 	"github.com/scmo/apayment-backend/services"
+	"strings"
 )
 
 func init() {
@@ -89,8 +89,3 @@ var HandleJWT = func(ctx *context.Context) {
 	}
 	ctx.Abort(401, "unauthorized")
 }
-
-
-
-
-

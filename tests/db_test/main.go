@@ -18,14 +18,13 @@ func Setup() {
 	dataSource := "port=9032 user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 	//dataSource := "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 
-
 	travis_env := os.Getenv("TRAVIS")
 	if len(travis_env) > 0 {
 		travis, err := strconv.ParseBool(travis_env)
 		if err != nil {
 			beego.Error("Error while parsing boolean: ", err)
 		}
-		if ( travis == true ) {
+		if travis == true {
 			dataSource = "user=postgres password=test123456 dbname=db_apayment_test sslmode=disable"
 		}
 	}

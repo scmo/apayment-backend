@@ -1,19 +1,18 @@
 package services
 
 import (
-	"time"
-	"github.com/scmo/apayment-backend/models"
-	"github.com/dgrijalva/jwt-go"
-	"github.com/astaxie/beego"
 	"errors"
+	"github.com/astaxie/beego"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/scmo/apayment-backend/models"
 	"strings"
+	"time"
 )
 
-func IssueToken(user *models.User) (map[string]string) {
-
+func IssueToken(user *models.User) map[string]string {
 
 	var roles []string
-	for _, role  := range user.Roles{
+	for _, role := range user.Roles {
 		roles = append(roles, role.Name)
 	}
 	//Expires the token and cookie in 1 hour
@@ -21,10 +20,10 @@ func IssueToken(user *models.User) (map[string]string) {
 	claims := models.Claim{
 		roles,
 		jwt.StandardClaims{
-			Subject: user.Username,
-			ExpiresAt:expireToken,
-			Issuer:"localhost:9000",
-			IssuedAt:time.Now().Unix(),
+			Subject:   user.Username,
+			ExpiresAt: expireToken,
+			Issuer:    "localhost:9000",
+			IssuedAt:  time.Now().Unix(),
 		}}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -34,7 +33,7 @@ func IssueToken(user *models.User) (map[string]string) {
 }
 
 // middleware to protect private pages
-func Validate(signedTokenWithBearer string) (bool) {
+func Validate(signedTokenWithBearer string) bool {
 	signedToken, err := stripBearerPrefixFromTokenString(signedTokenWithBearer)
 	if err != nil {
 		beego.Error("Error while stripBearerPrefixFromTokenString.", err.Error())
@@ -58,8 +57,7 @@ func Validate(signedTokenWithBearer string) (bool) {
 	return false
 }
 
-
-func ParseToken(signedTokenWithBearer string) (models.Claim, error){
+func ParseToken(signedTokenWithBearer string) (models.Claim, error) {
 	claims := models.Claim{}
 
 	signedToken, err := stripBearerPrefixFromTokenString(signedTokenWithBearer)
@@ -84,7 +82,6 @@ func ParseToken(signedTokenWithBearer string) (models.Claim, error){
 	}
 	return claims, errors.New("Error while Parsing token")
 }
-
 
 // Strips 'Bearer ' prefix from bearer token string
 func stripBearerPrefixFromTokenString(tok string) (string, error) {

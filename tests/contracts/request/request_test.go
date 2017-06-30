@@ -2,16 +2,16 @@ package request
 
 import (
 	"github.com/astaxie/beego"
-	"testing"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
-	"github.com/ethereum/go-ethereum/core"
-	"math/big"
-	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	"github.com/ethereum/go-ethereum/common"
-	. "github.com/smartystreets/goconvey/convey"
+	"github.com/ethereum/go-ethereum/core"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
+	"github.com/scmo/apayment-backend/smart-contracts/rbac"
+	. "github.com/smartystreets/goconvey/convey"
+	"math/big"
+	"testing"
 )
 
 var farmerAuth *bind.TransactOpts
@@ -37,9 +37,9 @@ func init() {
 	systemAuth = bind.NewKeyedTransactor(key)
 
 	sim = backends.NewSimulatedBackend(core.GenesisAlloc{
-		farmerAuth.From: {Balance: big.NewInt(10000000000)},
-		adminAuth.From: {Balance: big.NewInt(10000000000)},
-		systemAuth.From: {Balance: big.NewInt(10000000000)},
+		farmerAuth.From:    {Balance: big.NewInt(10000000000)},
+		adminAuth.From:     {Balance: big.NewInt(10000000000)},
+		systemAuth.From:    {Balance: big.NewInt(10000000000)},
 		inspectorAuth.From: {Balance: big.NewInt(10000000000)},
 	})
 	ra, _, rbacContract, _ := rbac.DeployRBACContract(systemAuth, sim)
@@ -72,6 +72,7 @@ func TestDeployContract(t *testing.T) {
 	})
 
 }
+
 //
 //func TestSetInspector(t *testing.T) {
 //	beego.Trace("Test: ", "SetInspectorId", "InspectorId: ", inspectorAuth.From.String())

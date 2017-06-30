@@ -3,15 +3,15 @@ package models
 import "github.com/astaxie/beego/orm"
 
 type PointGroup struct {
-	Id              int64             `json:"id"`
-	PointGroupId    string            `json:"pointGroupId"`
-	Abbreviation    string            `json:"abbreviation"`
-	PointGroup      string            `json:"pointGroup"`
-	PointGroupCode  uint16        `json:"pointGroupCode"`
+	Id              int64  `json:"id"`
+	PointGroupId    string `json:"pointGroupId"`
+	Abbreviation    string `json:"abbreviation"`
+	PointGroup      string `json:"pointGroup"`
+	PointGroupCode  uint16 `json:"pointGroupCode"`
 	//Condition
 	//Type
-	ControlCategory *ControlCategory  `orm:"rel(fk);null" json:"-"`
-	ControlPoints   []*ControlPoint   `orm:"reverse(many)" json:"controlPoints"`
+	ControlCategory *ControlCategory `orm:"rel(fk);null" json:"-"`
+	ControlPoints   []*ControlPoint  `orm:"reverse(many)" json:"controlPoints"`
 }
 
 func init() {

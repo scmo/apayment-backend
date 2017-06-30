@@ -1,8 +1,8 @@
 package db
 
 import (
-	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	_ "github.com/lib/pq"
 )
 
@@ -31,7 +31,6 @@ func Init() {
 	// Log every SQL Query
 	orm.Debug = db_log_verbose
 
-
 	// Populate DB
 
 	Seed_LegalForm()
@@ -42,4 +41,3 @@ func Init() {
 	Seed_Contributions()
 	Seed_ControlPoints()
 }
-

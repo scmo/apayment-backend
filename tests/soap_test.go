@@ -1,14 +1,14 @@
 package test
 
 import (
-	"testing"
-	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
+	_ "github.com/scmo/apayment-backend/routers"
+	"testing"
 
-	"path/filepath"
-	"runtime"
 	"github.com/scmo/apayment-backend/services/tvd"
 	. "github.com/smartystreets/goconvey/convey"
+	"path/filepath"
+	"runtime"
 	"strconv"
 )
 
@@ -20,14 +20,14 @@ func init() {
 
 func Test_TvdVersion(t *testing.T) {
 	auth := tvd.BasicAuth{
-		Login: beego.AppConfig.String("agate_username"),
-		Password:beego.AppConfig.String("agate_password"),
+		Login:    beego.AppConfig.String("agate_username"),
+		Password: beego.AppConfig.String("agate_password"),
 	}
 	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
 
 	versionRequest := tvd.Version{
-		PManufacturerKey:beego.AppConfig.String("tvd_manufacturerKey"),
-		Action:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/Version",
+		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
+		Action:           "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/Version",
 	}
 	versionResponse, err := animalTracingPortType.Version(&versionRequest)
 
@@ -43,36 +43,36 @@ func Test_TvdVersion(t *testing.T) {
 
 func Test_SetCategory(t *testing.T) {
 	cowA1 := tvd.CattleLivestockDataV2{
-		Gender: "1",
-		BirthDate: "2016-04-05T00:00:00",
+		Gender:           "1",
+		BirthDate:        "2016-04-05T00:00:00",
 		FirstCalvingDate: "2017-02-05T00:00:00",
 	}
 	cowA3 := tvd.CattleLivestockDataV2{
-		Gender: "1",
+		Gender:    "1",
 		BirthDate: "2016-04-05T00:00:00",
 	}
 	cowA4 := tvd.CattleLivestockDataV2{
-		Gender: "1",
+		Gender:    "1",
 		BirthDate: "2016-12-26T00:00:00",
 	}
 	cowA5 := tvd.CattleLivestockDataV2{
-		Gender: "1",
+		Gender:    "1",
 		BirthDate: "2017-06-05T00:00:00",
 	}
 	cowA6 := tvd.CattleLivestockDataV2{
-		Gender: "2",
+		Gender:    "2",
 		BirthDate: "2004-10-05T00:00:00",
 	}
 	cowA7 := tvd.CattleLivestockDataV2{
-		Gender: "2",
+		Gender:    "2",
 		BirthDate: "2016-04-05T00:00:00",
 	}
 	cowA8 := tvd.CattleLivestockDataV2{
-		Gender: "2",
+		Gender:    "2",
 		BirthDate: "2016-12-26T00:00:00",
 	}
 	cowA9 := tvd.CattleLivestockDataV2{
-		Gender: "2",
+		Gender:    "2",
 		BirthDate: "2017-06-05T00:00:00",
 	}
 
@@ -114,20 +114,20 @@ func Test_SetCategory(t *testing.T) {
 
 func _Test_GetFarmer(t *testing.T) {
 	auth := tvd.BasicAuth{
-		Login: beego.AppConfig.String("agate_username"),
-		Password:beego.AppConfig.String("agate_password"),
+		Login:    beego.AppConfig.String("agate_username"),
+		Password: beego.AppConfig.String("agate_password"),
 	}
 	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
 
 	agate_username, _ := strconv.ParseInt(beego.AppConfig.String("agate_username"), 8, 32)
 	getFarmersRequest := tvd.GetFarmers{
 		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
-		PLCID: 2055,
-		PTVDNumber: int32(agate_username),
+		PLCID:            2055,
+		PTVDNumber:       int32(agate_username),
 	}
 
 	getFarmersResponse, err := animalTracingPortType.GetFarmers(&getFarmersRequest)
-	if (err != nil) {
+	if err != nil {
 		beego.Error("Failed to fetch info about the farmber: ", err)
 	}
 	beego.Debug(getFarmersResponse)
@@ -136,20 +136,20 @@ func _Test_GetFarmer(t *testing.T) {
 func Test_GetPersonAddress(t *testing.T) {
 
 	auth := tvd.BasicAuth{
-		Login: beego.AppConfig.String("agate_username"),
-		Password:beego.AppConfig.String("agate_password"),
+		Login:    beego.AppConfig.String("agate_username"),
+		Password: beego.AppConfig.String("agate_password"),
 	}
 	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
 
 	getPersonAddressRequest := tvd.GetPersonAddress{
-		Action: "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetPersonAddress",
+		Action:           "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetPersonAddress",
 		PManufacturerKey: "bebc4e6a-2477-4ec6-8837-d503a87e85f2",
-		PLCID: 2055,
-		PAgateNumber: beego.AppConfig.String("agate_username"),
+		PLCID:            2055,
+		PAgateNumber:     beego.AppConfig.String("agate_username"),
 	}
 
 	resp, err := animalTracingPortType.GetPersonAddress(&getPersonAddressRequest)
-	if (err != nil) {
+	if err != nil {
 		beego.Error("Failed to fetch info about the person: ", err)
 	}
 	beego.Debug(resp.GetPersonAddressResult.PostAddress)

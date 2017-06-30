@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 
-	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services"
 )
 
@@ -12,7 +12,6 @@ import (
 type APaymentTokenController struct {
 	beego.Controller
 }
-
 
 // @Title Creates a new APayment Token Transfer
 // @Description Endpoint to transfer APayment Token from the System Account to the selected account
@@ -31,21 +30,19 @@ func (this *APaymentTokenController) Transfer() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( !user.HasRole("Admin") ) {
+	if !user.HasRole("Admin") {
 		this.CustomAbort(404, "Unauthorization")
 	}
 
 	aPaymentTokenTransfer.From = beego.AppConfig.String("systemAccountAddress")
-	beego.Debug(aPaymentTokenTransfer)
 
 	err = services.Transfer(&aPaymentTokenTransfer, "")
-	if (err != nil ) {
+	if err != nil {
 		beego.Error("Error while tranfering tokens. ", err)
 		this.CustomAbort(500, err.Error())
 	}
 	this.ServeJSON()
 }
-
 
 // @Title Get Transactions
 // @Description get all transactions
@@ -59,12 +56,12 @@ func (this *APaymentTokenController) GetAllTransactions() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( (user.HasRole("Admin") || user.HasRole("Canton") ) == false ) {
+	if (user.HasRole("Admin") || user.HasRole("Canton")) == false {
 		this.CustomAbort(401, "Unauthorized")
 	}
 
 	transactions, err := services.GetTransactions()
-	if (err != nil) {
+	if err != nil {
 		beego.Error("Error while getting transactions. ", err)
 		this.CustomAbort(500, err.Error())
 	}

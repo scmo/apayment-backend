@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
-	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreateContribution(c *models.Contribution) error {
@@ -12,7 +12,7 @@ func CreateContribution(c *models.Contribution) error {
 	return err
 }
 
-func GetAllContributions() ([]*models.Contribution) {
+func GetAllContributions() []*models.Contribution {
 	o := orm.NewOrm()
 	var contributions []*models.Contribution
 	o.QueryTable(new(models.Contribution)).All(&contributions)
@@ -69,13 +69,13 @@ func CountContributions() (int64, error) {
 
 func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribution {
 	o := orm.NewOrm()
-	contribution := models.Contribution{Code:iL.ContributionCode}
+	contribution := models.Contribution{Code: iL.ContributionCode}
 	err := o.Read(&contribution, "Code")
 	if err != nil {
 		beego.Error("Error while loading Contribution. (ContributionCode: ", iL.ContributionCode, ") Error:", err)
 		return &contribution
 	}
-	controlCategory := models.ControlCategory{ControlCategoryId:iL.ControlCategoryId, Contribution: &contribution}
+	controlCategory := models.ControlCategory{ControlCategoryId: iL.ControlCategoryId, Contribution: &contribution}
 	err = o.Read(&controlCategory, "ControlCategoryId")
 	if err != nil {
 		beego.Error("Error while loading ControlCategory. (ControlCategoryId: ", iL.ControlCategoryId, ") Error:", err)
@@ -83,7 +83,7 @@ func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribu
 	}
 	contribution.ControlCategories = append(contribution.ControlCategories, &controlCategory)
 
-	pointGroup := models.PointGroup{PointGroupCode:iL.PointGroupCode, ControlCategory: &controlCategory}
+	pointGroup := models.PointGroup{PointGroupCode: iL.PointGroupCode, ControlCategory: &controlCategory}
 	err = o.Read(&pointGroup, "PointGroupCode")
 	if err != nil {
 		beego.Error("Error while loading PointGroup. (PointGroupCode: ", iL.PointGroupCode, ") Error:", err)
@@ -99,7 +99,7 @@ func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribu
 	}
 	pointGroup.ControlPoints = append(pointGroup.ControlPoints, &controlPoint)
 
-	lack := models.Lack{Id:iL.LackId, ControlPoint:&controlPoint}
+	lack := models.Lack{Id: iL.LackId, ControlPoint: &controlPoint}
 	err = o.Read(&lack)
 	if err != nil {
 		beego.Error("Error while loading Lack. (Lackid:", iL.LackId, ") Error:", err)

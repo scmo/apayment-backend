@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
-	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreateControlCategory(cc *models.ControlCategory) error {
@@ -12,7 +12,7 @@ func CreateControlCategory(cc *models.ControlCategory) error {
 	return err
 }
 
-func GetAllControlCategories() ([]*models.ControlCategory) {
+func GetAllControlCategories() []*models.ControlCategory {
 	o := orm.NewOrm()
 	var controlCategories []*models.ControlCategory
 	o.QueryTable(new(models.ControlCategory)).All(&controlCategories)

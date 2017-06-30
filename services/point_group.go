@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
-	"github.com/astaxie/beego/orm"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreatePointGroup(pc *models.PointGroup) error {
@@ -12,7 +12,7 @@ func CreatePointGroup(pc *models.PointGroup) error {
 	return err
 }
 
-func GetAllPointGroups() ([]*models.PointGroup) {
+func GetAllPointGroups() []*models.PointGroup {
 	o := orm.NewOrm()
 	var pointGroups []*models.PointGroup
 	o.QueryTable(new(models.PointGroup)).All(&pointGroups)

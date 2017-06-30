@@ -1,15 +1,15 @@
 package test
 
 import (
+	"encoding/json"
+	"github.com/astaxie/beego"
+	_ "github.com/scmo/apayment-backend/routers"
+	. "github.com/smartystreets/goconvey/convey"
 	"net/http"
 	"net/http/httptest"
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
-	_ "github.com/scmo/apayment-backend/routers"
-	"github.com/astaxie/beego"
-	"encoding/json"
 	"path/filepath"
 	"runtime"
+	"testing"
 )
 
 func init() {
@@ -25,7 +25,6 @@ func TestPing(t *testing.T) {
 	beego.BeeApp.Handlers.ServeHTTP(w, r)
 
 	beego.Trace("testing", "TestPing", "Code:", w.Code, "Response:", w.Body.String())
-
 
 	Convey("Subject: Test Ping Endpoint\n", t, func() {
 		Convey("Status Code Should Be 200", func() {

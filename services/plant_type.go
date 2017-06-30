@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"github.com/astaxie/beego/orm"
+	"github.com/scmo/apayment-backend/models"
 )
 
 func CreatePlantType(pt *models.PlantType) error {
@@ -11,7 +11,7 @@ func CreatePlantType(pt *models.PlantType) error {
 	return err
 }
 
-func GetAllPlantTypes() ([]*models.PlantType) {
+func GetAllPlantTypes() []*models.PlantType {
 	o := orm.NewOrm()
 	var plantTypes []*models.PlantType
 	o.QueryTable(new(models.PlantType)).All(&plantTypes)

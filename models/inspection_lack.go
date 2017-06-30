@@ -6,5 +6,5 @@ type InspectionLack struct {
 	PointGroupCode    uint16 `json:"pointGroupCode"`
 	ControlPointId    string `json:"controlPointId"`
 	LackId            int64  `json:"lackId"`
-	Points            uint8 `json:"points"`
+	Points            uint8  `json:"points"`
 }

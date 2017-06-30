@@ -9,7 +9,6 @@ type LegalFormController struct {
 	beego.Controller
 }
 
-
 // @Title GetAll
 // @Description get all LegalForms
 // @Success 200 {Object} models.LegalForm

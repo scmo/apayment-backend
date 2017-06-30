@@ -1,15 +1,15 @@
 package test
 
 import (
-	"runtime"
-	"path/filepath"
-	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/astaxie/beego"
-	"testing"
-	. "github.com/smartystreets/goconvey/convey"
+	"github.com/scmo/apayment-backend/models"
+	_ "github.com/scmo/apayment-backend/routers"
 	"github.com/scmo/apayment-backend/services"
 	"github.com/scmo/apayment-backend/tests/db_test"
-	"github.com/scmo/apayment-backend/models"
+	. "github.com/smartystreets/goconvey/convey"
+	"path/filepath"
+	"runtime"
+	"testing"
 )
 
 func init() {
@@ -21,24 +21,24 @@ func init() {
 }
 
 func TestAddLackToContributions(t *testing.T) {
-	contributions := make([] *models.Contribution, 0)
-	iLack := models.InspectionLack{ContributionCode:5416, ControlCategoryId:"12.01_2017", PointGroupCode:1110, ControlPointId:"01", LackId:1}
+	contributions := make([]*models.Contribution, 0)
+	iLack := models.InspectionLack{ContributionCode: 5416, ControlCategoryId: "12.01_2017", PointGroupCode: 1110, ControlPointId: "01", LackId: 1}
 	contribution := services.GetContributionByInspectionLack(&iLack)
 	contributions = services.AddContributionToContributions(contributions, contribution)
 
-	iLack = models.InspectionLack{ContributionCode:5416, ControlCategoryId:"12.01_2017", PointGroupCode:1150, ControlPointId:"01", LackId:7}
+	iLack = models.InspectionLack{ContributionCode: 5416, ControlCategoryId: "12.01_2017", PointGroupCode: 1150, ControlPointId: "01", LackId: 7}
 	contribution = services.GetContributionByInspectionLack(&iLack)
 	contributions2 := services.AddContributionToContributions(contributions, contribution)
 
-	iLack = models.InspectionLack{ContributionCode:5416, ControlCategoryId:"12.01_2017", PointGroupCode:1110, ControlPointId:"02", LackId:4}
+	iLack = models.InspectionLack{ContributionCode: 5416, ControlCategoryId: "12.01_2017", PointGroupCode: 1110, ControlPointId: "02", LackId: 4}
 	contribution = services.GetContributionByInspectionLack(&iLack)
 	contributions3 := services.AddContributionToContributions(contributions, contribution)
 
-	iLack = models.InspectionLack{ContributionCode:5416, ControlCategoryId:"12.01_2017", PointGroupCode:1110, ControlPointId:"01", LackId:2}
+	iLack = models.InspectionLack{ContributionCode: 5416, ControlCategoryId: "12.01_2017", PointGroupCode: 1110, ControlPointId: "01", LackId: 2}
 	contribution = services.GetContributionByInspectionLack(&iLack)
 	contributions4 := services.AddContributionToContributions(contributions, contribution)
 
-	iLack = models.InspectionLack{ContributionCode:5417, ControlCategoryId:"12.01_2017", PointGroupCode:1110, ControlPointId:"01", LackId:28}
+	iLack = models.InspectionLack{ContributionCode: 5417, ControlCategoryId: "12.01_2017", PointGroupCode: 1110, ControlPointId: "01", LackId: 28}
 	contribution = services.GetContributionByInspectionLack(&iLack)
 	contributions5 := services.AddContributionToContributions(contributions, contribution)
 
@@ -63,6 +63,3 @@ func TestAddLackToContributions(t *testing.T) {
 		})
 	})
 }
-
-
-

@@ -2,15 +2,15 @@ package request
 
 import (
 	"github.com/astaxie/beego"
-	"testing"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind/backends"
 	"github.com/ethereum/go-ethereum/core"
-	"math/big"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
 	"github.com/scmo/apayment-backend/smart-contracts/rbac"
 	. "github.com/smartystreets/goconvey/convey"
-	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
+	"math/big"
+	"testing"
 )
 
 func init() {
@@ -27,9 +27,9 @@ func init() {
 	systemAuth = bind.NewKeyedTransactor(key)
 
 	sim = backends.NewSimulatedBackend(core.GenesisAlloc{
-		farmerAuth.From: {Balance: big.NewInt(10000000000)},
-		adminAuth.From: {Balance: big.NewInt(10000000000)},
-		systemAuth.From: {Balance: big.NewInt(10000000000)},
+		farmerAuth.From:    {Balance: big.NewInt(10000000000)},
+		adminAuth.From:     {Balance: big.NewInt(10000000000)},
+		systemAuth.From:    {Balance: big.NewInt(10000000000)},
 		inspectorAuth.From: {Balance: big.NewInt(10000000000)},
 	})
 	ra, _, rbacContract, _ := rbac.DeployRBACContract(systemAuth, sim)
@@ -61,12 +61,12 @@ func Test_DeployContract(t *testing.T) {
 
 	// SET GVE
 	requestContract.SetGVE(farmerAuth, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-	sim.Commit();
+	sim.Commit()
 }
 
 func Test_CalcTotal(t *testing.T) {
 	requestContract.SetGVE(farmerAuth, 29, 0, 18, 21, 0, 0, 5, 9, 1)
-	sim.Commit();
+	sim.Commit()
 
 	Convey("Subject: CalcVariable 1110\n", t, func() {
 		cv, _ := requestContract.PointGroups(nil, 1110)
@@ -115,7 +115,7 @@ func T_est_FirstPaymentAmount(t *testing.T) {
 	})
 	// SET GVE
 	requestContract.SetGVE(farmerAuth, 1, 0, 0, 0, 0, 0, 0, 0, 0)
-	sim.Commit();
+	sim.Commit()
 	Convey("Subject: Calculation of first payment amount with 1110 = 1\n", t, func() {
 		amount, _ := requestContract.GetFirstPaymentAmount(nil)
 		Convey("Amount should be 9000", func() {
@@ -125,15 +125,13 @@ func T_est_FirstPaymentAmount(t *testing.T) {
 	})
 	// SET GVE
 	requestContract.SetGVE(farmerAuth, 1, 1, 1, 1, 1, 1, 1, 1, 1)
-	sim.Commit();
+	sim.Commit()
 	Convey("Subject: Calculation of first payment amount with every GVE cat = 1\n", t, func() {
 		amount, _ := requestContract.GetFirstPaymentAmount(nil)
 		Convey("Amount should be 9000", func() {
 			So(amount.Cmp(big.NewInt(63000)), ShouldEqual, 0)
 		})
 	})
-
-
 
 	//Convey("Subject: Calculation of first payment amount with every GVE cat = 1\n", t, func() {
 	//	amount, _ := requestContract.GetFirstPaymentAmount(nil)
@@ -143,6 +141,4 @@ func T_est_FirstPaymentAmount(t *testing.T) {
 	//	//})
 	//})
 
-
 }
-

@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
+	"github.com/scmo/apayment-backend/models"
 
 	"github.com/astaxie/beego"
 	"github.com/scmo/apayment-backend/services"
@@ -43,14 +43,14 @@ func (this *UserController) GetAll() {
 	if err != nil {
 		this.CustomAbort(404, err.Error())
 	}
-	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+	if user.HasRole("Admin") || user.HasRole("Canton") {
 		role := this.Ctx.Input.Query("role")
-		if ( role == "Inspector" ) {
+		if role == "Inspector" {
 			this.Data["json"], err = services.GetAllUsersByRole(role)
 			if err != nil {
 				beego.Error("Error while fetching users by Role", err)
 			}
-		} else if (1 != 1) {
+		} else if 1 != 1 {
 			// maybe another condition
 		} else {
 			this.Data["json"] = services.GetAllUsers()
@@ -76,7 +76,6 @@ func (this *UserController) Profile() {
 	this.Data["json"] = user
 	this.ServeJSON()
 }
-
 
 // @Title Get
 // @Description get user by uid

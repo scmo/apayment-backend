@@ -1,13 +1,13 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
-	"github.com/scmo/apayment-backend/models"
 	"encoding/json"
-	"github.com/scmo/apayment-backend/services"
-	"strconv"
+	"github.com/astaxie/beego"
 	"github.com/scmo/apayment-backend/ethereum"
+	"github.com/scmo/apayment-backend/models"
+	"github.com/scmo/apayment-backend/services"
 	"math/big"
+	"strconv"
 )
 
 // Operations about Contributions
@@ -79,9 +79,9 @@ func (this *RequestController) GetAll() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if (user.HasRole("Farmer")) {
+	if user.HasRole("Farmer") {
 		requests = services.GetAllRequestsByUserId(user.Id)
-	} else if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+	} else if user.HasRole("Admin") || user.HasRole("Canton") {
 		requests = services.GetAllRequests()
 	} else {
 		this.CustomAbort(401, "Unauthorized")
@@ -103,9 +103,9 @@ func (this *RequestController) GetAllForInspection() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if (user.HasRole("Inspector")) {
+	if user.HasRole("Inspector") {
 		requests = services.GetAllRequestsForInspectionByInspectorId(user.Id)
-	} else if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+	} else if user.HasRole("Admin") || user.HasRole("Canton") {
 		requests = services.GetAllRequestsForInspection()
 	} else {
 		this.CustomAbort(401, "Unauthorized")
@@ -114,7 +114,6 @@ func (this *RequestController) GetAllForInspection() {
 	this.Data["json"] = requests
 	this.ServeJSON()
 }
-
 
 // @Title Add Inspector
 // @Description add Inspector to Requestion
@@ -131,7 +130,7 @@ func (this *RequestController) AddInspector() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( user.HasRole("Admin") || user.HasRole("Canton")) {
+	if user.HasRole("Admin") || user.HasRole("Canton") {
 		//requests = services.GetAllRequests()
 		services.AddInspectorToRequest(&request, ethereum.GetAuth(user.EtherumAddress))
 	} else {
@@ -156,7 +155,7 @@ func (this *RequestController) AddInspection() {
 	if err != nil {
 		this.CustomAbort(404, err.Error())
 	}
-	if ( user.HasRole("Admin") || user.HasRole("Inspector")) {
+	if user.HasRole("Admin") || user.HasRole("Inspector") {
 		//inspection.InspectorId = user.Id
 	} else {
 		this.CustomAbort(401, "Unauthorized")
@@ -186,9 +185,9 @@ func (this *RequestController) UpdateGVE() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) || user.EtherumAddress == request.User.EtherumAddress) {
+	if (user.HasRole("Admin") || user.HasRole("Canton")) || user.EtherumAddress == request.User.EtherumAddress {
 		err = services.SetGVE(&request)
-		if (err != nil ) {
+		if err != nil {
 			this.CustomAbort(500, err.Error())
 		}
 	}
@@ -196,7 +195,6 @@ func (this *RequestController) UpdateGVE() {
 	this.Data["json"] = request
 	this.ServeJSON()
 }
-
 
 // @Title Pay DirectPayment
 // @Description Update GVE of request
@@ -214,21 +212,21 @@ func (this *RequestController) Pay() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if ( ( user.HasRole("Admin") || user.HasRole("Canton") ) == false ) {
+	if (user.HasRole("Admin") || user.HasRole("Canton")) == false {
 		this.CustomAbort(401, "Unauthorized")
 	}
 
 	request := services.GetRequestById(r.Id, true)
 
 	apaymentTransfer := &models.APaymentTokenTransfer{
-		From:user.EtherumAddress,
-		To: request.User.EtherumAddress,
+		From: user.EtherumAddress,
+		To:   request.User.EtherumAddress,
 	}
-	if ( len(request.Payments) == 0 ) {
+	if len(request.Payments) == 0 {
 		beego.Debug("make first payment")
 		amount, err := services.GetFirstPaymentAmount(request)
 		beego.Info("GetFirstPaymentAmount: ", amount)
-		if (err != nil) {
+		if err != nil {
 			beego.Error("Error while getting first payment amount. ", err)
 			this.CustomAbort(500, err.Error())
 		}
@@ -241,10 +239,10 @@ func (this *RequestController) Pay() {
 			beego.Debug("Error while transfer", err)
 			this.CustomAbort(500, err.Error())
 		}
-	} else if ( len(request.Payments) == 1 ) {
+	} else if len(request.Payments) == 1 {
 		beego.Debug("make second payment")
 		//services.AddPayment(request, common.HexToAddress(user.Address), big.NewInt(333))
-	} else if ( len(request.Payments) == 2 ) {
+	} else if len(request.Payments) == 2 {
 		beego.Debug("make third payment")
 	}
 

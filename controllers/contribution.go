@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"github.com/astaxie/beego"
 	"encoding/json"
+	"github.com/astaxie/beego"
 	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services"
 )
