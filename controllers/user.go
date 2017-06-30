@@ -155,7 +155,7 @@ func (this *UserController) Login() {
 	var user models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &user)
 	var err error
-
+	beego.Debug(user)
 	if user.Username != "" {
 		user, err = services.CheckLoginWithUsername(user.Username, user.Password)
 	} else if user.Email != "" {

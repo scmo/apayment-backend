@@ -10,7 +10,7 @@ type User struct {
 	Id                          int64                               `json:"id"`
 	Username                    string                              `orm:"unique" json:"username"`
 	Password                    string                              `json:"password"`
-	Email                       string                              `orm:"unique" json:"username"`
+	Email                       string                              `orm:"unique" json:"email"`
 	Roles                       []*Role                             `orm:"rel(m2m)" json:"roles"`
 	JwtToken                    string                              `orm:"-" json:"token"`
 	EtherumAddress              string                              `json:"etherumAddress"`

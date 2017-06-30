@@ -415,20 +415,20 @@ func Seed_Users() {
 
 	roles := make([]*models.Role, 1)
 	roles[0] = &farmer
-	services.CreateUser(&models.User{Username: "farmer1", Password: "farmer1", TVD: 1015010, Roles: roles})
-	services.CreateUser(&models.User{Username: "farmer2", Password: "farmer2", TVD: 1015010, Roles: roles})
+	services.CreateUser(&models.User{Username: "farmer1", Password: "farmer1", TVD: 1015010, Roles: roles, Email: "farmer1@apayment.ch"})
+	services.CreateUser(&models.User{Username: "farmer2", Password: "farmer2", TVD: 1015010, Roles: roles, Email: "farmer2@apayment.ch"})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &inspector
-	services.CreateUser(&models.User{Username: "inspect", Password: "inspect", Firstname: "Inspector", Lastname: "Gadget", Roles: roles})
+	services.CreateUser(&models.User{Username: "inspect", Password: "inspect", Firstname: "Inspector", Lastname: "Gadget", Roles: roles, Email: "inspect@apayment.ch"})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &admin
-	services.CreateUser(&models.User{Username: "admin", Password: "admin", Firstname: "Admin", Lastname: "Admin", Roles: roles})
+	services.CreateUser(&models.User{Username: "admin", Password: "admin", Firstname: "Admin", Lastname: "Admin", Roles: roles, Email: "admin@apayment.ch"})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &canton
-	services.CreateUser(&models.User{Username: "canton", Password: "canton", Firstname: "Maria", Lastname: "Walder", Roles: roles})
+	services.CreateUser(&models.User{Username: "canton", Password: "canton", Firstname: "Maria", Lastname: "Walder", Roles: roles, Email: "canton@apayment.ch"})
 
 }
 
