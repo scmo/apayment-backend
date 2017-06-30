@@ -154,8 +154,16 @@ func (this *UserController) Register() {
 func (this *UserController) Login() {
 	var user models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &user)
+	var err error
 
-	user, err := services.CheckLogin(user.Username, user.Password)
+	if user.Username != "" {
+		user, err = services.CheckLoginWithUsername(user.Username, user.Password)
+	} else if user.Email != "" {
+		user, err = services.CheckLoginWithEmail(user.Email, user.Password)
+	} else {
+		this.CustomAbort(401, "No username / email provided")
+	}
+
 	if err != nil {
 		// TODO: Return appropiate Errer, when 'no row found'
 		beego.Error("CheckLogin ", err.Error())

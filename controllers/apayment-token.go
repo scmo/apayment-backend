@@ -56,7 +56,7 @@ func (this *APaymentTokenController) GetAllTransactions() {
 		this.CustomAbort(404, err.Error())
 	}
 
-	if (user.HasRole("Admin") || user.HasRole("Canton")) == false {
+	if user.HasRole("Admin") || user.HasRole("Canton") == false {
 		this.CustomAbort(401, "Unauthorized")
 	}
 

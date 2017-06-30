@@ -96,11 +96,23 @@ func createNewEthereumAccount() (string, error) {
 	return account.Address.String(), err
 }
 
-func CheckLogin(_username string, _password string) (models.User, error) {
+func CheckLoginWithUsername(_username string, _password string) (models.User, error) {
 	o := orm.NewOrm()
 
 	user := models.User{Username: _username}
 	err := o.Read(&user, "Username")
+	if checkPasswordHash(_password, user.Password) == false {
+		return user, errors.New("Wrong password")
+	}
+	o.LoadRelated(&user, "Roles")
+	return user, err
+}
+
+func CheckLoginWithEmail(_email string, _password string) (models.User, error) {
+	o := orm.NewOrm()
+
+	user := models.User{Email: _email}
+	err := o.Read(&user, "Email")
 	if checkPasswordHash(_password, user.Password) == false {
 		return user, errors.New("Wrong password")
 	}

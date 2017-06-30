@@ -7,19 +7,17 @@ import (
 )
 
 type User struct {
-	Id                          int64  `json:"id"`
-	Username                    string `orm:"unique" json:"username"`
-	Password                    string `json:"password"`
-
-	Roles                       []*Role  `orm:"rel(m2m)" json:"roles"`
-	JwtToken                    string   `orm:"-" json:"token"`
-	EtherumAddress              string   `json:"etherumAddress"`
-	EthereumBalance             *big.Int `orm:"-" json:"ethereumBalance"`
-	APaymentTokenBalance        *big.Int `orm:"-" json:"apaymentTokenBalance"`
-
-	Firstname                   string `json:"firstname"`
-	Lastname                    string `json:"lastname"`
-
+	Id                          int64                               `json:"id"`
+	Username                    string                              `orm:"unique" json:"username"`
+	Password                    string                              `json:"password"`
+	Email                       string                              `orm:"unique" json:"username"`
+	Roles                       []*Role                             `orm:"rel(m2m)" json:"roles"`
+	JwtToken                    string                              `orm:"-" json:"token"`
+	EtherumAddress              string                              `json:"etherumAddress"`
+	EthereumBalance             *big.Int                            `orm:"-" json:"ethereumBalance"`
+	APaymentTokenBalance        *big.Int                            `orm:"-" json:"apaymentTokenBalance"`
+	Firstname                   string                              `json:"firstname"`
+	Lastname                    string                              `json:"lastname"`
 	PersonAddressResult         *tvd.PersonAddressResult            `orm:"-" json:"personAddressResult"`
 	AnimalHusbandryDetailResult *tvd.GetAnimalHusbandryDetailResult `orm:"-" json:"AnimalHusbandryDetailResult"`
 	TVD                         int32                               `json:"tvd"`
