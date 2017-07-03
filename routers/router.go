@@ -73,6 +73,16 @@ func init() {
 				&controllers.RausController{},
 			),
 		),
+		beego.NSNamespace("/cow",
+			beego.NSInclude(
+				&controllers.CowController{},
+			),
+		),
+		beego.NSNamespace("/category",
+			beego.NSInclude(
+				&controllers.CategoryController{},
+			),
+		),
 		beego.NSNamespace("/ping",
 			beego.NSInclude(
 				&controllers.PingController{},

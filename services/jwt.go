@@ -16,7 +16,12 @@ func IssueToken(user *models.User) map[string]string {
 		roles = append(roles, role.Name)
 	}
 	//Expires the token and cookie in 1 hour
-	expireToken := time.Now().Add(time.Hour * 5).Unix()
+	expiryHour, err := beego.AppConfig.Int64("jwt_expiry_hour")
+	if err != nil {
+		beego.Critical("JWT Expiry Time not found")
+	}
+
+	expireToken := time.Now().Add(time.Duration(int64(time.Hour) * expiryHour)).Unix()
 	claims := models.Claim{
 		roles,
 		jwt.StandardClaims{

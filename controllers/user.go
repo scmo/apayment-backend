@@ -146,8 +146,7 @@ func (this *UserController) Register() {
 
 // @Title Login
 // @Description Logs user into the system
-// @Param	username		query 	string	true		"The username for login"
-// @Param	password		query 	string	true		"The password for login"
+// @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {string} login success
 // @Failure 403 user not exist
 // @router /login [post]

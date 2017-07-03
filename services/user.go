@@ -209,6 +209,8 @@ func setTVD(user *models.User) {
 	//	beego.Error("Error while fetching PersonAddress from TVD. ", err)
 	//}
 	//user.PersonAddressResult = personAddressResult
+
+	return
 	if user.TVD == 0 {
 		return
 	}
