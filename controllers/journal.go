@@ -1,16 +1,30 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/astaxie/beego"
+	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services"
 	"time"
 )
 
-// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJGYXJtZXIiXSwiZXhwIjoxNTM1MDc5MTk2LCJpYXQiOjE0OTkwODI3OTYsImlzcyI6ImxvY2FsaG9zdDo5MDAwIiwic3ViIjoiZmFybWVyMSJ9.HNlNd1NI8Oop0uS74FzbRE4Q-PqaH3nW5tCU82-VPP0
+// Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJGYXJtZXIiXSwiZXhwIjoxNTM1MDk4OTc4LCJpYXQiOjE0OTkxMDI1NzgsImlzcyI6ImxvY2FsaG9zdDo5MDAwIiwic3ViIjoiZmFybWVyMSJ9.HDN_TowtegvrblHCgC-Fp_AnkuYZmX82LApl_HipvkM
 
 // Operations about PointGroups
-type RausController struct {
+type JournalController struct {
 	beego.Controller
+}
+
+func (controller *JournalController) getUser() *models.User {
+	claims, err := services.ParseToken(controller.Ctx.Request.Header.Get("Authorization"))
+	if err != nil {
+		controller.CustomAbort(401, "Unauthorized")
+	}
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		controller.CustomAbort(404, err.Error())
+	}
+	return user
 }
 
 // @Title Get Monthly Stat
@@ -19,16 +33,9 @@ type RausController struct {
 // @Param   month     query   int8 true       "month"
 // @Param   year     query   int8 true       "year"
 // @router /monthlystats [get]
-func (this *RausController) GetMonthlyStats() {
+func (this *JournalController) GetMonthlyStats() {
 
-	claims, err := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
-	if err != nil {
-		this.CustomAbort(401, "Unauthorized")
-	}
-	user, err := services.GetUserByUsername(claims.Subject)
-	if err != nil {
-		this.CustomAbort(404, err.Error())
-	}
+	user := this.getUser()
 
 	month, err := this.GetInt("month")
 	if err != nil {
@@ -53,8 +60,17 @@ func (this *RausController) GetMonthlyStats() {
 
 // @Title Add Entry Journal
 // @Description Add new Entry to the Journal
+// @Param   Authorization     header   string true       "JWT token"
 // @Param   journalEntry     body   model.JournalEntry true       "JournalEntry"
-// @router /journal [post]
-func (this *RausController) AddJournalEntry() {
+// @router / [post]
+func (this *JournalController) AddJournalEntry() {
+	user := this.getUser()
 
+	var journalEntry models.JournalEntry
+	json.Unmarshal(this.Ctx.Input.RequestBody, &journalEntry)
+
+	beego.Debug(journalEntry)
+
+	this.Data["json"] = user
+	this.ServeJSON()
 }

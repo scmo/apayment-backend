@@ -37,7 +37,9 @@ func GetCategories(userTvd int32) ([]*models.Category, error) {
 		cow := models.Cow{}
 		cow.Name = cattleLivestockDataV2.Name
 		cow.Tvd = cattleLivestockDataV2.EarTagNumber
+		cow.Details = cattleLivestockDataV2
 		// TODO Journal
+		cow.GetLatestJournalEntry()
 
 		categoryCode, err := tvd.GetAnimalCategory(cattleLivestockDataV2)
 		if err != nil {
@@ -57,7 +59,8 @@ func getCategory(categories []*models.Category, categoryCode uint8) ([]*models.C
 			return categories, category
 		}
 	}
-	category := models.Category{Name: "Test", CategoryCode: categoryCode}
+	pointGroupNames := tvd.GetPointGroupName()
+	category := models.Category{Name: pointGroupNames[categoryCode-1], CategoryCode: categoryCode}
 	categories = append(categories, &category)
 	return categories, &category
 }
@@ -77,35 +80,3 @@ func IsCategoryExisting(name string, is_default bool) bool {
 	}
 	return true
 }
-
-/*
-func AddCategoryV2(farmId string, tvds []string, name string)(error){
-	var err error
-	var rows *sql.Rows
-
-	for i := 0; i < len(tvds); i++ {
-		rows, err = db.Query(	`DO
-					$do$
-					BEGIN
-					IF NOT EXISTS (select is_default from categories where tvd = '` + tvds[i] + `' and category = '` + name + `' and is_default = false)
-					THEN
-					INSERT INTO categories (tvd, category, added, is_default)
-					VALUES ('` + tvds[i] + `', '` + name + `', CURRENT_TIMESTAMP, false);
-					ELSE
-					END IF;
-					END
-					$do$`)
-
-		if err != nil {
-			log.Println(tvds[i])
-			log.Panic(err)
-			return  err
-		}
-	}
-	if rows != nil {
-		defer rows.Close()
-	}
-
-	return err
-}
-*/

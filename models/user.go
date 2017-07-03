@@ -18,7 +18,7 @@ type User struct {
 	APaymentTokenBalance        *big.Int                            `orm:"-" json:"apaymentTokenBalance"`
 	Firstname                   string                              `json:"firstname"`
 	Lastname                    string                              `json:"lastname"`
-	PersonAddressResult         *tvd.PersonAddressResult            `orm:"-" json:"personAddressResult"`
+	PersonAddressResult         *tvd.PersonAddressResult            `orm:"-" json:"agateDetails"`
 	AnimalHusbandryDetailResult *tvd.GetAnimalHusbandryDetailResult `orm:"-" json:"AnimalHusbandryDetailResult"`
 	TVD                         int32                               `json:"tvd"`
 }

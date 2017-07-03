@@ -64,6 +64,7 @@ func (this *UserController) GetAll() {
 
 // @Title Get my Profile
 // @Description get user based on JWT Token
+// @Param   Authorization     header   string true       "JWT token"
 // @Success 200 {object} models.User
 // @Failure 404
 // @router /profile [get]

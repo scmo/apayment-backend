@@ -8,317 +8,317 @@ func init() {
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"],
 		beego.ControllerComments{
-			Method: "Transfer",
-			Router: `/`,
+			Method:           "Transfer",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:APaymentTokenController"],
 		beego.ControllerComments{
-			Method: "GetAllTransactions",
-			Router: `/transactions`,
+			Method:           "GetAllTransactions",
+			Router:           `/transactions`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"],
 		beego.ControllerComments{
-			Method: "GetCategories",
-			Router: `/`,
+			Method:           "GetCategories",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"],
 		beego.ControllerComments{
-			Method: "AddCategory",
-			Router: `/`,
+			Method:           "AddCategory",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"],
 		beego.ControllerComments{
-			Method: "UpdateCategory",
-			Router: `/:categoryId`,
+			Method:           "UpdateCategory",
+			Router:           `/:categoryId`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CategoryController"],
 		beego.ControllerComments{
-			Method: "DeleteCategory",
-			Router: `/:categoryId`,
+			Method:           "DeleteCategory",
+			Router:           `/:categoryId`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"],
 		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:cid`,
+			Method:           "Get",
+			Router:           `/:cid`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ContributionController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlCategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlCategoryController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlCategoryController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlCategoryController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlPointController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlPointController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlPointController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ControlPointController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CowController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:CowController"],
 		beego.ControllerComments{
-			Method: "GetCows",
-			Router: `/`,
+			Method:           "GetCows",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"],
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:JournalController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:JournalController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "GetMonthlyStats",
+			Router:           `/monthlystats`,
+			AllowHTTPMethods: []string{"get"},
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:JournalController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:JournalController"],
+		beego.ControllerComments{
+			Method:           "AddJournalEntry",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
+			AllowHTTPMethods: []string{"post"},
+			Params:           nil})
+
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LackController"],
+		beego.ControllerComments{
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LegalFormController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:LegalFormController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:objectId`,
+			Method:           "Get",
+			Router:           `/:objectId`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "Put",
-			Router: `/:objectId`,
+			Method:           "Put",
+			Router:           `/:objectId`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:ObjectController"],
 		beego.ControllerComments{
-			Method: "Delete",
-			Router: `/:objectId`,
+			Method:           "Delete",
+			Router:           `/:objectId`,
 			AllowHTTPMethods: []string{"delete"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PingController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PingController"],
 		beego.ControllerComments{
-			Method: "Ping",
-			Router: `/`,
+			Method:           "Ping",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PlantTypeController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PlantTypeController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PointGroupController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PointGroupController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PointGroupController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:PointGroupController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
-	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RausController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RausController"],
+	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "GetMonthlyStats",
-			Router: `/monthlystats`,
-			AllowHTTPMethods: []string{"get"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RausController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RausController"],
-		beego.ControllerComments{
-			Method: "AddJournalEntry",
-			Router: `/journal`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
-			AllowHTTPMethods: []string{"post"},
-			Params: nil})
-
-	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
-		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:requestId`,
+			Method:           "Get",
+			Router:           `/:requestId`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "GetAllForInspection",
-			Router: `/inspection`,
+			Method:           "GetAllForInspection",
+			Router:           `/inspection`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "AddInspector",
-			Router: `/inspector`,
+			Method:           "AddInspector",
+			Router:           `/inspector`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "AddInspection",
-			Router: `/inspection`,
+			Method:           "AddInspection",
+			Router:           `/inspection`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "UpdateGVE",
-			Router: `/gve`,
+			Method:           "UpdateGVE",
+			Router:           `/gve`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:RequestController"],
 		beego.ControllerComments{
-			Method: "Pay",
-			Router: `/pay`,
+			Method:           "Pay",
+			Router:           `/pay`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Post",
-			Router: `/`,
+			Method:           "Post",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "GetAll",
-			Router: `/`,
+			Method:           "GetAll",
+			Router:           `/`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Profile",
-			Router: `/profile`,
+			Method:           "Profile",
+			Router:           `/profile`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Get",
-			Router: `/:uid`,
+			Method:           "Get",
+			Router:           `/:uid`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Put",
-			Router: `/:uid`,
+			Method:           "Put",
+			Router:           `/:uid`,
 			AllowHTTPMethods: []string{"put"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Delete",
-			Router: `/:uid`,
+			Method:           "Delete",
+			Router:           `/:uid`,
 			AllowHTTPMethods: []string{"delete"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Register",
-			Router: `/register`,
+			Method:           "Register",
+			Router:           `/register`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Login",
-			Router: `/login`,
+			Method:           "Login",
+			Router:           `/login`,
 			AllowHTTPMethods: []string{"post"},
-			Params: nil})
+			Params:           nil})
 
 	beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"] = append(beego.GlobalControllerRouter["github.com/scmo/apayment-backend/controllers:UserController"],
 		beego.ControllerComments{
-			Method: "Logout",
-			Router: `/logout`,
+			Method:           "Logout",
+			Router:           `/logout`,
 			AllowHTTPMethods: []string{"get"},
-			Params: nil})
+			Params:           nil})
 
 }

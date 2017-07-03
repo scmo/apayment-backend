@@ -11,6 +11,20 @@ func GetPointGroupCodes() []uint16 {
 	return []uint16{1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144}
 }
 
+func GetPointGroupName() []string {
+	return []string{
+		"Milchkühe",
+		"andere Kühe",
+		"weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung",
+		"weibliche Tiere über 160 - 365 Tage alt",
+		"weibliche Tiere bis 160 Tage alt",
+		"männliche Tiere, über 730 Tage alt",
+		"männliche Tiere, über 365 bis 730 Tage alt",
+		"männliche Tiere, über 160 bis 365 Tage alt",
+		"männliche Tiere, bis 160 Tage alt",
+	}
+}
+
 func GetUserCattleLivestock(userTvd int32) (*GetCattleLivestockV2Response, error) {
 	animalTracingPortType := NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, getAuth())
 

@@ -55,11 +55,8 @@ func GetMonthlyStats(userTvd int32, month int, year int) (models.MonthlyStats, e
 		// TODO: total Days outside
 
 		categoryStats.Cows = append(categoryStats.Cows, &cowStats)
-
-		//monthlyStats.CategoryStats = append(monthlyStats.CategoryStats, categoryStats)
+		categoryStats.NumberOfAnimals++
 	}
-
-	beego.Debug("done")
 	return monthlyStats, nil
 }
 
@@ -69,7 +66,7 @@ func addOrGetCategoryStats(monthlyStats *models.MonthlyStats, categoryCode uint8
 			return categoryStats
 		}
 	}
-	categoryStats := models.CategoryStats{CategoryCode: categoryCode, CategoryName: "A" + strconv.FormatUint(uint64(categoryCode), 8)}
+	categoryStats := models.CategoryStats{CategoryCode: categoryCode, CategoryName: "A" + strconv.FormatUint(uint64(categoryCode), 16), CategoryDescription: tvd.GetPointGroupName()[categoryCode-1]}
 	monthlyStats.CategoryStats = append(monthlyStats.CategoryStats, &categoryStats)
 	return &categoryStats
 }

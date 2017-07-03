@@ -33,8 +33,6 @@ func (this *CowController) GetCows() {
 		beego.Debug("get cows from category")
 	}
 
-	//Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyJGYXJtZXIiXSwiZXhwIjoxNDk4OTMwOTAxLCJpYXQiOjE0OTg5MTI5MDEsImlzcyI6ImxvY2FsaG9zdDo5MDAwIiwic3ViIjoiZmFybWVyMSJ9.mWvfkW2w2VHLfODMlgwJF4YPyg-E9ZIlExW31RaMaYs
-
 	cows, err := services.GetCowFromUser(user.TVD)
 	_ = cows
 

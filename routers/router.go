@@ -68,9 +68,9 @@ func init() {
 				&controllers.APaymentTokenController{},
 			),
 		),
-		beego.NSNamespace("/raus",
+		beego.NSNamespace("/journal",
 			beego.NSInclude(
-				&controllers.RausController{},
+				&controllers.JournalController{},
 			),
 		),
 		beego.NSNamespace("/cow",
