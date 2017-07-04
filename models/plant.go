@@ -12,11 +12,11 @@ type Plant struct {
 	YCoordinate       uint32     `json:"xCoordinate"`
 	PlantType         *PlantType `orm:"rel(fk);null" json:"plantType"`
 	MetersAboveTheSea int16      `json:"metersAboveTheSea"`
-							      // TODO:
-							      // Wenn Betriebsgemeinschaft, Anzahl Mitgliedsbetreibe eintragen
-							      // Mitglied einer Betriebszweiggemeinschft? Ja/Nein
-							      // Mitglied einer ÖLN Gemeinschaft? Ja/ Nein
-							      // Werden mehr als 50% der Arbeiten auf dem Betrieb durch eigene Arbeitskraefte durchgefurht? Ja/ Nein
+	// TODO:
+	// Wenn Betriebsgemeinschaft, Anzahl Mitgliedsbetreibe eintragen
+	// Mitglied einer Betriebszweiggemeinschft? Ja/Nein
+	// Mitglied einer ÖLN Gemeinschaft? Ja/ Nein
+	// Werden mehr als 50% der Arbeiten auf dem Betrieb durch eigene Arbeitskraefte durchgefurht? Ja/ Nein
 }
 
 func init() {

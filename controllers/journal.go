@@ -37,16 +37,16 @@ func (this *JournalController) GetMonthlyStats() {
 
 	user := this.getUser()
 
-	month, err := this.GetInt("month")
+	month, err := this.GetUint8("month")
 	if err != nil {
 		this.CustomAbort(400, "Month not sent")
 	}
-	year, err := this.GetInt("year")
+	year, err := this.GetUint16("year")
 	if err != nil {
 		this.CustomAbort(400, "Year not sent")
 	}
 
-	if month < 1 || month > 12 || year < 1900 || year > time.Now().Year() {
+	if month < 1 || month > 12 || year < 1900 || year > uint16(time.Now().Year()) {
 		this.CustomAbort(400, "Value not possible for one of the parameter. Year must be a 4 digit integer. Month parameter must be a interger between 1 and 31.")
 	}
 
@@ -69,7 +69,8 @@ func (this *JournalController) AddJournalEntry() {
 	var journalEntry models.JournalEntry
 	json.Unmarshal(this.Ctx.Input.RequestBody, &journalEntry)
 
-	beego.Debug(journalEntry)
+	journalEntry.SetDate()
+	services.AddJournalEntry(&journalEntry)
 
 	this.Data["json"] = user
 	this.ServeJSON()

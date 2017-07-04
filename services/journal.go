@@ -6,20 +6,32 @@ import (
 	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services/tvd"
 	"strconv"
-	"time"
 )
 
-func AddJournalEntry(tvds []int32, date time.Time, minutesOutside int, typeOfFieldLairage string) error {
+func AddJournalEntry(journalEntry *models.JournalEntry) error {
 	o := orm.NewOrm()
-	for _, tvd := range tvds {
-		//defaultCategory, err := getDefaultCategory(tvd)
-		journalEntry := models.JournalEntry{TVD: tvd, Date: date, MinutesOutside: minutesOutside}
-		_, err := o.Insert(journalEntry)
+	_, err := o.Insert(journalEntry)
+
+	if err != nil {
+		beego.Error("Insert JournalEntry. ", err.Error())
+		return err
+	}
+
+	m2m := o.QueryM2M(journalEntry, "TVDS")
+	for _, cow := range journalEntry.TVDS {
+		if _, id, err := o.ReadOrCreate(cow, "TVD"); err == nil {
+			cow.Id = id
+		} else {
+			beego.Error("ReadOrCreate by adding TVD to Journal ", err.Error())
+			return err
+		}
+		_, err := m2m.Add(cow)
 		if err != nil {
-			beego.Error("Error while adding JournalEntry")
+			beego.Error("Many2Many Add ", err.Error())
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -30,7 +42,7 @@ func GetJournal(tvd string) (*models.Journal, error) {
 	return journal, nil
 }
 
-func GetMonthlyStats(userTvd int32, month int, year int) (models.MonthlyStats, error) {
+func GetMonthlyStats(userTvd int32, month uint8, year uint16) (models.MonthlyStats, error) {
 	monthlyStats := models.MonthlyStats{Month: month, Year: year}
 
 	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd)
@@ -39,12 +51,11 @@ func GetMonthlyStats(userTvd int32, month int, year int) (models.MonthlyStats, e
 	}
 
 	for _, cattleLivestockDataV2 := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
-
 		cowStats := models.CowStats{
 			EarTagNumber: cattleLivestockDataV2.EarTagNumber,
 			Name:         cattleLivestockDataV2.Name,
 		}
-
+		cowStats.SetDayOutside(month, year)
 		categoryCode, err := tvd.GetAnimalCategory(cattleLivestockDataV2)
 		if err != nil {
 			beego.Critical(err.Error())
@@ -54,9 +65,10 @@ func GetMonthlyStats(userTvd int32, month int, year int) (models.MonthlyStats, e
 
 		// TODO: total Days outside
 
-		categoryStats.Cows = append(categoryStats.Cows, &cowStats)
+		categoryStats.CowsStats = append(categoryStats.CowsStats, &cowStats)
 		categoryStats.NumberOfAnimals++
 	}
+	monthlyStats.SetCategoryMinMaxDays()
 	return monthlyStats, nil
 }
 
@@ -66,7 +78,7 @@ func addOrGetCategoryStats(monthlyStats *models.MonthlyStats, categoryCode uint8
 			return categoryStats
 		}
 	}
-	categoryStats := models.CategoryStats{CategoryCode: categoryCode, CategoryName: "A" + strconv.FormatUint(uint64(categoryCode), 16), CategoryDescription: tvd.GetPointGroupName()[categoryCode-1]}
+	categoryStats := models.CategoryStats{CategoryCode: categoryCode, CategoryName: "A" + strconv.FormatUint(uint64(categoryCode), 16), CategoryDescription: tvd.GetPointGroupName()[categoryCode-1], NumberOfDaysRequired: 27}
 	monthlyStats.CategoryStats = append(monthlyStats.CategoryStats, &categoryStats)
 	return &categoryStats
 }

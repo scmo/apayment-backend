@@ -173,15 +173,15 @@ func parseInput(input string) (string, big.Int, string, string, error) {
 	msgStart := 128
 	if methodID == "0xd3088b52" {
 		requestAddressInput := paramsInput[128:192]
-		requestAddress = "0x" + requestAddressInput[len(requestAddressInput) - 40:]
+		requestAddress = "0x" + requestAddressInput[len(requestAddressInput)-40:]
 		msgStart = msgStart + 64
 	}
 	msgInput := paramsInput[msgStart:]
 	//requestAddressInput := paramsInput[192:]
 	//Get destination
-	dst := "0x" + dstInput[len(dstInput) - 40:]
+	dst := "0x" + dstInput[len(dstInput)-40:]
 	// Get Amount
-	amountBytes, err := hex.DecodeString(amountInput[len(amountInput) - 16:])
+	amountBytes, err := hex.DecodeString(amountInput[len(amountInput)-16:])
 	if err != nil {
 		beego.Error("Failed to decode hex to bytes. ", err)
 		return dst, big.Int{}, "", requestAddress, err

@@ -1,19 +1,22 @@
 package models
 
 import (
+	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
 	"github.com/scmo/apayment-backend/services/tvd"
 )
 
 type Cow struct {
+	Id                 int64                      `json:"id"`
 	Name               string                     `json:"name"`
-	Tvd                string                     `json:"tvd"`
-	Details            *tvd.CattleLivestockDataV2 `json:"details"`
-	Journal            *Journal                   `json:"journal"`
-	Farm_id            string                     `json:"farm_id,omitempty"`
-	Categories         []*Category                `json:"categories,omitempty"`
-	Added              string                     `json:"added,omitempty"`
-	MoreDetails        *tvd.CattleDetailData      `json:"moreDetails,omitempty"`
-	LatestJournalEntry *JournalEntry              `json:"latest_journal_entry,omitempty"`
+	TVD                string                     ` json:"tvd"`
+	Details            *tvd.CattleLivestockDataV2 `orm:"-" json:"details"`
+	Journal            []*JournalEntry            `orm:"-;reverse(many)" json:"journal"` // WHY IS THIS NEEDED?
+	Farm_id            string                     `orm:"-" json:"farm_id,omitempty"`
+	Categories         []*Category                `orm:"-" json:"categories,omitempty"`
+	Added              string                     `orm:"-" json:"added,omitempty"`
+	MoreDetails        *tvd.CattleDetailData      `orm:"-" json:"moreDetails,omitempty"`
+	LatestJournalEntry *JournalEntry              `orm:"-" json:"latest_journal_entry,omitempty"` // WHY IS THIS NEEDED?
 }
 
 type Category struct {
@@ -26,11 +29,20 @@ type Category struct {
 
 func init() {
 	// Register model
-	//orm.RegisterModel(new(Category), new(CowTVD))
+	orm.RegisterModel(new(Cow))
 }
 
 /*	FUNCTIONS	 */
 
-func (cow *Cow) GetLatestJournalEntry() {
-	cow.LatestJournalEntry = &JournalEntry{}
+func (cow *Cow) GetJournal() {
+	o := orm.NewOrm()
+	var journalEntries []*JournalEntry
+	_, err := o.QueryTable(new(JournalEntry)).Filter("TVDS__Cow__TVD", cow.TVD).OrderBy("-date").All(&journalEntries)
+	if err != nil {
+		beego.Error("Could not load JournalEntries.", err.Error())
+	}
+	cow.Journal = journalEntries
+	if len(journalEntries) > 0 {
+		cow.LatestJournalEntry = journalEntries[0]
+	}
 }

@@ -17,7 +17,7 @@ func GetCowFromUser(userTvd int32) ([]*models.Cow, error) {
 
 	for i := 0; i < len(getCattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem); i++ {
 		cow := new(models.Cow)
-		cow.Tvd = getCattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem[i].EarTagNumber
+		cow.TVD = getCattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem[i].EarTagNumber
 		cow.Name = getCattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem[i].Name
 		cow.Details = getCattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem[i]
 
@@ -36,10 +36,10 @@ func GetCategories(userTvd int32) ([]*models.Category, error) {
 	for _, cattleLivestockDataV2 := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
 		cow := models.Cow{}
 		cow.Name = cattleLivestockDataV2.Name
-		cow.Tvd = cattleLivestockDataV2.EarTagNumber
+		cow.TVD = cattleLivestockDataV2.EarTagNumber
 		cow.Details = cattleLivestockDataV2
-		// TODO Journal
-		cow.GetLatestJournalEntry()
+
+		cow.GetJournal()
 
 		categoryCode, err := tvd.GetAnimalCategory(cattleLivestockDataV2)
 		if err != nil {

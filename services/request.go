@@ -334,7 +334,7 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 					for _, cc := range contribution.ControlCategories {
 						for i, pg := range cc.PointGroups {
 							if pg.PointGroupCode == pointGroupCode {
-								cc.PointGroups = append(cc.PointGroups[:i], cc.PointGroups[i + 1:]...)
+								cc.PointGroups = append(cc.PointGroups[:i], cc.PointGroups[i+1:]...)
 								break
 							}
 						}

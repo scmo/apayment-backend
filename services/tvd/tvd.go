@@ -18,14 +18,14 @@ var _ xml.Name
 
 type Version struct {
 	//edited
-	XMLName          xml.Name `xml:"ns:Version"`
-	Action           string   `xml:"-"`
+	XMLName xml.Name `xml:"ns:Version"`
+	Action  string   `xml:"-"`
 
 	PManufacturerKey string `xml:"ns:p_ManufacturerKey,omitempty"`
 }
 
 type VersionResponse struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 VersionResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 VersionResponse"`
 
 	VersionResult string `xml:"VersionResult,omitempty"`
 }
@@ -33,17 +33,17 @@ type VersionResponse struct {
 type WritePigEntryMovementV2 struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementV2"`
 
-	Model   *WritePigEntryMovementV2Request `xml:"Model,omitempty"`
+	Model *WritePigEntryMovementV2Request `xml:"Model,omitempty"`
 }
 
 type WritePigEntryMovementV2Response struct {
-	XMLName                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementV2Response"`
 
 	WritePigEntryMovementV2Result *WriteMovementResult `xml:"WritePigEntryMovementV2Result,omitempty"`
 }
 
 type WritePigEntryMovement struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovement"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovement"`
 
 	PManufacturerKey          string    `xml:"p_ManufacturerKey,omitempty"`
 	PReportingTvdNumber       int32     `xml:"p_ReportingTvdNumber,omitempty"`
@@ -54,13 +54,13 @@ type WritePigEntryMovement struct {
 }
 
 type WritePigEntryMovementResponse struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementResponse"`
 
 	WritePigEntryMovementResult *WriteMovementResult `xml:"WritePigEntryMovementResult,omitempty"`
 }
 
 type WritePigSlaughterMovement struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigSlaughterMovement"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigSlaughterMovement"`
 
 	PManufacturerKey           string    `xml:"p_ManufacturerKey,omitempty"`
 	PReportingTvdNumber        int32     `xml:"p_ReportingTvdNumber,omitempty"`
@@ -77,13 +77,13 @@ type WritePigSlaughterMovement struct {
 }
 
 type WritePigSlaughterMovementResponse struct {
-	XMLName                         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigSlaughterMovementResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigSlaughterMovementResponse"`
 
 	WritePigSlaughterMovementResult *WriteMovementResult `xml:"WritePigSlaughterMovementResult,omitempty"`
 }
 
 type WriteGroupSlaughterMovement struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovement"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovement"`
 
 	PManufacturerKey          string    `xml:"p_ManufacturerKey,omitempty"`
 	PReportingTvdNumber       int32     `xml:"p_ReportingTvdNumber,omitempty"`
@@ -94,13 +94,13 @@ type WriteGroupSlaughterMovement struct {
 }
 
 type WriteGroupSlaughterMovementResponse struct {
-	XMLName                           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementResponse"`
 
 	WriteGroupSlaughterMovementResult *WriteMovementResult `xml:"WriteGroupSlaughterMovementResult,omitempty"`
 }
 
 type WriteGroupSlaughterMovementV2 struct {
-	XMLName                      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementV2"`
 
 	PManufacturerKey             string    `xml:"p_ManufacturerKey,omitempty"`
 	PReportingTvdNumber          int32     `xml:"p_ReportingTvdNumber,omitempty"`
@@ -113,13 +113,13 @@ type WriteGroupSlaughterMovementV2 struct {
 }
 
 type WriteGroupSlaughterMovementV2Response struct {
-	XMLName                             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteGroupSlaughterMovementV2Response"`
 
 	WriteGroupSlaughterMovementV2Result *WriteMovementResult `xml:"WriteGroupSlaughterMovementV2Result,omitempty"`
 }
 
 type GetEquidOwnershipList struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipList"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipList"`
 
 	PManufacturerKey           string                     `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                      int32                      `xml:"p_LCID,omitempty"`
@@ -127,13 +127,13 @@ type GetEquidOwnershipList struct {
 }
 
 type GetEquidOwnershipListResponse struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipListResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipListResponse"`
 
 	GetEquidOwnershipListResult *GetEquidOwnershipListResult `xml:"GetEquidOwnershipListResult,omitempty"`
 }
 
 type GetEquidLivestock struct {
-	XMLName                xml.Name `xml:"ns:GetEquidLivestock"`
+	XMLName xml.Name `xml:"ns:GetEquidLivestock"`
 
 	Action                 string                 `xml:"-"`
 	PManufacturerKey       string                 `xml:"ns:p_ManufacturerKey,omitempty"`
@@ -142,13 +142,13 @@ type GetEquidLivestock struct {
 }
 
 type GetEquidLivestockResponse struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidLivestockResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidLivestockResponse"`
 
 	GetEquidLivestockResult *GetEquidLivestockResult `xml:"GetEquidLivestockResult,omitempty"`
 }
 
 type WriteEquidRelocationNotification struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidRelocationNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidRelocationNotification"`
 
 	PManufacturerKey        string                  `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                   int32                   `xml:"p_LCID,omitempty"`
@@ -156,13 +156,13 @@ type WriteEquidRelocationNotification struct {
 }
 
 type WriteEquidRelocationNotificationResponse struct {
-	XMLName                                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidRelocationNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidRelocationNotificationResponse"`
 
 	WriteEquidRelocationNotificationResult *WriteNotificationResult `xml:"WriteEquidRelocationNotificationResult,omitempty"`
 }
 
 type WriteEquidAcquireOwnershipNotification struct {
-	XMLName                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidAcquireOwnershipNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidAcquireOwnershipNotification"`
 
 	PManufacturerKey              string                        `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                         int32                         `xml:"p_LCID,omitempty"`
@@ -170,13 +170,13 @@ type WriteEquidAcquireOwnershipNotification struct {
 }
 
 type WriteEquidAcquireOwnershipNotificationResponse struct {
-	XMLName                                      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidAcquireOwnershipNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidAcquireOwnershipNotificationResponse"`
 
 	WriteEquidAcquireOwnershipNotificationResult *WriteNotificationResult `xml:"WriteEquidAcquireOwnershipNotificationResult,omitempty"`
 }
 
 type WriteEquidCedeOwnershipNotification struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidCedeOwnershipNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidCedeOwnershipNotification"`
 
 	PManufacturerKey           string                     `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                      int32                      `xml:"p_LCID,omitempty"`
@@ -184,13 +184,13 @@ type WriteEquidCedeOwnershipNotification struct {
 }
 
 type WriteEquidCedeOwnershipNotificationResponse struct {
-	XMLName                                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidCedeOwnershipNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteEquidCedeOwnershipNotificationResponse"`
 
 	WriteEquidCedeOwnershipNotificationResult *WriteNotificationResult `xml:"WriteEquidCedeOwnershipNotificationResult,omitempty"`
 }
 
 type GetFarmers struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmers"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmers"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -198,13 +198,13 @@ type GetFarmers struct {
 }
 
 type GetFarmersResponse struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmersResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmersResponse"`
 
 	GetFarmersResult *PersonListResult `xml:"GetFarmersResult,omitempty"`
 }
 
 type GetFarmManager struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmManager"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmManager"`
 
 	Action           string `xml:"-"`
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
@@ -213,13 +213,13 @@ type GetFarmManager struct {
 }
 
 type GetFarmManagerResponse struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmManagerResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetFarmManagerResponse"`
 
 	GetFarmManagerResult *FarmManagerResult `xml:"GetFarmManagerResult,omitempty"`
 }
 
 type GetAnimalHusbandryAddress struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddress"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddress"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -227,13 +227,13 @@ type GetAnimalHusbandryAddress struct {
 }
 
 type GetAnimalHusbandryAddressResponse struct {
-	XMLName                         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressResponse"`
 
 	GetAnimalHusbandryAddressResult *AnimalHusbandryAddressResult `xml:"GetAnimalHusbandryAddressResult,omitempty"`
 }
 
 type GetAnimalHusbandryAddressV2 struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressV2"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -241,13 +241,13 @@ type GetAnimalHusbandryAddressV2 struct {
 }
 
 type GetAnimalHusbandryAddressV2Response struct {
-	XMLName                           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryAddressV2Response"`
 
 	GetAnimalHusbandryAddressV2Result *AnimalHusbandryAddressResultV2 `xml:"GetAnimalHusbandryAddressV2Result,omitempty"`
 }
 
 type GetCodes struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCodes"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCodes"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -255,13 +255,13 @@ type GetCodes struct {
 }
 
 type GetCodesResponse struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCodesResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCodesResponse"`
 
 	GetCodesResult *CodesResult `xml:"GetCodesResult,omitempty"`
 }
 
 type GetPersonAddress struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonAddress"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonAddress"`
 
 	Action           string `xml:"-"`
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
@@ -270,26 +270,26 @@ type GetPersonAddress struct {
 }
 
 type GetPersonAddressResponse struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonAddressResponse" json:"-"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonAddressResponse" json:"-"`
 
 	GetPersonAddressResult *PersonAddressResult `xml:"GetPersonAddressResult,omitempty"`
 }
 
 type GetPersonIdentifiers struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonIdentifiers"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonIdentifiers"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
 }
 
 type GetPersonIdentifiersResponse struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonIdentifiersResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPersonIdentifiersResponse"`
 
 	GetPersonIdentifiersResult *PersonIdentifiersResult `xml:"GetPersonIdentifiersResult,omitempty"`
 }
 
 type GetRegisteredGenera struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetRegisteredGenera"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetRegisteredGenera"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -297,13 +297,13 @@ type GetRegisteredGenera struct {
 }
 
 type GetRegisteredGeneraResponse struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetRegisteredGeneraResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetRegisteredGeneraResponse"`
 
 	GetRegisteredGeneraResult *GeneraResult `xml:"GetRegisteredGeneraResult,omitempty"`
 }
 
 type WriteCattleArrivalBatchNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleArrivalBatchNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleArrivalBatchNotification"`
 
 	PManufacturerKey string                  `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                   `xml:"p_LCID,omitempty"`
@@ -312,49 +312,49 @@ type WriteCattleArrivalBatchNotification struct {
 }
 
 type WriteCattleArrivalBatchNotificationResponse struct {
-	XMLName                                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleArrivalBatchNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleArrivalBatchNotificationResponse"`
 
 	WriteCattleArrivalBatchNotificationResult *WriteCattleBatchNotificationResult `xml:"WriteCattleArrivalBatchNotificationResult,omitempty"`
 }
 
 type WriteCattleDeceasedNotification struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeceasedNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeceasedNotification"`
 
 	PCattleDeceasedRequest *CattleNotificationRequest `xml:"p_CattleDeceasedRequest,omitempty"`
 }
 
 type WriteCattleDeceasedNotificationResponse struct {
-	XMLName                               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeceasedNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeceasedNotificationResponse"`
 
 	WriteCattleDeceasedNotificationResult *CattleNotificationResult `xml:"WriteCattleDeceasedNotificationResult,omitempty"`
 }
 
 type WriteCattleYardSlaughterNotification struct {
-	XMLName                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleYardSlaughterNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleYardSlaughterNotification"`
 
 	PCattleYardSlaughteredRequest *CattleNotificationRequest `xml:"p_CattleYardSlaughteredRequest,omitempty"`
 }
 
 type WriteCattleYardSlaughterNotificationResponse struct {
-	XMLName                                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleYardSlaughterNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleYardSlaughterNotificationResponse"`
 
 	WriteCattleYardSlaughterNotificationResult *CattleNotificationResult `xml:"WriteCattleYardSlaughterNotificationResult,omitempty"`
 }
 
 type WriteCattleExportNotification struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleExportNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleExportNotification"`
 
 	PCattleExportRequest *CattleNotificationWithCountryRequest `xml:"p_CattleExportRequest,omitempty"`
 }
 
 type WriteCattleExportNotificationResponse struct {
-	XMLName                             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleExportNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleExportNotificationResponse"`
 
 	WriteCattleExportNotificationResult *CattleNotificationResult `xml:"WriteCattleExportNotificationResult,omitempty"`
 }
 
 type WriteCattleBirthNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBirthNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBirthNotification"`
 
 	PManufacturerKey string           `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32            `xml:"p_LCID,omitempty"`
@@ -363,13 +363,13 @@ type WriteCattleBirthNotification struct {
 }
 
 type WriteCattleBirthNotificationResponse struct {
-	XMLName                            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBirthNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBirthNotificationResponse"`
 
 	WriteCattleBirthNotificationResult *CattleNotificationResult `xml:"WriteCattleBirthNotificationResult,omitempty"`
 }
 
 type WriteCattleDaystayBatchNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDaystayBatchNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDaystayBatchNotification"`
 
 	PManufacturerKey string                  `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                   `xml:"p_LCID,omitempty"`
@@ -378,13 +378,13 @@ type WriteCattleDaystayBatchNotification struct {
 }
 
 type WriteCattleDaystayBatchNotificationResponse struct {
-	XMLName                                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDaystayBatchNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDaystayBatchNotificationResponse"`
 
 	WriteCattleDaystayBatchNotificationResult *WriteCattleBatchNotificationResult `xml:"WriteCattleDaystayBatchNotificationResult,omitempty"`
 }
 
 type WriteCattleLeavingBatchNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleLeavingBatchNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleLeavingBatchNotification"`
 
 	PManufacturerKey string                  `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                   `xml:"p_LCID,omitempty"`
@@ -393,13 +393,13 @@ type WriteCattleLeavingBatchNotification struct {
 }
 
 type WriteCattleLeavingBatchNotificationResponse struct {
-	XMLName                                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleLeavingBatchNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleLeavingBatchNotificationResponse"`
 
 	WriteCattleLeavingBatchNotificationResult *WriteCattleBatchNotificationResult `xml:"WriteCattleLeavingBatchNotificationResult,omitempty"`
 }
 
 type GetAnimalHusbandryMemberships struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryMemberships"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryMemberships"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -407,13 +407,13 @@ type GetAnimalHusbandryMemberships struct {
 }
 
 type GetAnimalHusbandryMembershipsResponse struct {
-	XMLName                             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryMembershipsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryMembershipsResponse"`
 
 	GetAnimalHusbandryMembershipsResult *HusbandryMembershipResult `xml:"GetAnimalHusbandryMembershipsResult,omitempty"`
 }
 
 type GetEarTagOrders struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEarTagOrders"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEarTagOrders"`
 
 	PManufacturerKey string    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32     `xml:"p_LCID,omitempty"`
@@ -424,13 +424,13 @@ type GetEarTagOrders struct {
 }
 
 type GetEarTagOrdersResponse struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEarTagOrdersResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEarTagOrdersResponse"`
 
 	GetEarTagOrdersResult *EarTagOrderResult `xml:"GetEarTagOrdersResult,omitempty"`
 }
 
 type WriteCattleDeformationNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeformationNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeformationNotification"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -440,13 +440,13 @@ type WriteCattleDeformationNotification struct {
 }
 
 type WriteCattleDeformationNotificationResponse struct {
-	XMLName                                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeformationNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeformationNotificationResponse"`
 
 	WriteCattleDeformationNotificationResult *CattleNotificationResult `xml:"WriteCattleDeformationNotificationResult,omitempty"`
 }
 
 type DeleteAnimalHusbandryMemberships struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMemberships"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMemberships"`
 
 	PManufacturerKey      string    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                 int32     `xml:"p_LCID,omitempty"`
@@ -455,13 +455,13 @@ type DeleteAnimalHusbandryMemberships struct {
 }
 
 type DeleteAnimalHusbandryMembershipsResponse struct {
-	XMLName                                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMembershipsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMembershipsResponse"`
 
 	DeleteAnimalHusbandryMembershipsResult *DeleteAnimalHusbandryMembershipResult `xml:"DeleteAnimalHusbandryMembershipsResult,omitempty"`
 }
 
 type DeleteCattleNotifications struct {
-	XMLName                            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteCattleNotifications"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteCattleNotifications"`
 
 	PManufacturerKey                   string    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                              int32     `xml:"p_LCID,omitempty"`
@@ -470,13 +470,13 @@ type DeleteCattleNotifications struct {
 }
 
 type DeleteCattleNotificationsResponse struct {
-	XMLName                         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteCattleNotificationsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteCattleNotificationsResponse"`
 
 	DeleteCattleNotificationsResult *WriteCattleBatchNotificationResult `xml:"DeleteCattleNotificationsResult,omitempty"`
 }
 
 type WriteCattleDeathBirthNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeathBirthNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeathBirthNotification"`
 
 	PManufacturerKey string                `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                 `xml:"p_LCID,omitempty"`
@@ -485,13 +485,13 @@ type WriteCattleDeathBirthNotification struct {
 }
 
 type WriteCattleDeathBirthNotificationResponse struct {
-	XMLName                                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeathBirthNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleDeathBirthNotificationResponse"`
 
 	WriteCattleDeathBirthNotificationResult *CattleDeathBirthNotificationResult `xml:"WriteCattleDeathBirthNotificationResult,omitempty"`
 }
 
 type WriteCattleSlaughterBatchNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotification"`
 
 	PManufacturerKey string                  `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                   `xml:"p_LCID,omitempty"`
@@ -500,13 +500,13 @@ type WriteCattleSlaughterBatchNotification struct {
 }
 
 type WriteCattleSlaughterBatchNotificationResponse struct {
-	XMLName                                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationResponse"`
 
 	WriteCattleSlaughterBatchNotificationResult *WriteCattleBatchNotificationResult `xml:"WriteCattleSlaughterBatchNotificationResult,omitempty"`
 }
 
 type WriteCattleSlaughterBatchNotificationV2 struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationV2"`
 
 	PManufacturerKey string                    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32                     `xml:"p_LCID,omitempty"`
@@ -515,14 +515,14 @@ type WriteCattleSlaughterBatchNotificationV2 struct {
 }
 
 type WriteCattleSlaughterBatchNotificationV2Response struct {
-	XMLName                                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleSlaughterBatchNotificationV2Response"`
 
 	WriteCattleSlaughterBatchNotificationV2Result *WriteCattleBatchNotificationResult `xml:"WriteCattleSlaughterBatchNotificationV2Result,omitempty"`
 }
 
 type GetCattleEarTags struct {
 	//edited
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleEarTags"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleEarTags"`
 
 	Action           string `xml:"-"`
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
@@ -532,13 +532,13 @@ type GetCattleEarTags struct {
 }
 
 type GetCattleEarTagsResponse struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleEarTagsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleEarTagsResponse"`
 
 	GetCattleEarTagsResult *CattleEarTagsResult `xml:"GetCattleEarTagsResult,omitempty"`
 }
 
 type GetCattleMovements struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleMovements"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleMovements"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -547,13 +547,13 @@ type GetCattleMovements struct {
 }
 
 type GetCattleMovementsResponse struct {
-	XMLName                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleMovementsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleMovementsResponse"`
 
 	GetCattleMovementsResult *CattleMovementsResult `xml:"GetCattleMovementsResult,omitempty"`
 }
 
 type GetCattleHistory struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleHistory"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleHistory"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -562,13 +562,13 @@ type GetCattleHistory struct {
 }
 
 type GetCattleHistoryResponse struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleHistoryResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleHistoryResponse"`
 
 	GetCattleHistoryResult *CattleHistoryResult `xml:"GetCattleHistoryResult,omitempty"`
 }
 
 type GetCattleLivestock struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestock"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestock"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -579,14 +579,14 @@ type GetCattleLivestock struct {
 }
 
 type GetCattleLivestockResponse struct {
-	XMLName                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockResponse"`
 
 	GetCattleLivestockResult *CattleLivestockResult `xml:"GetCattleLivestockResult,omitempty"`
 }
 
 type GetCattleLivestockV2 struct {
 	//edited
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockV2"`
 
 	Action           string             `xml:"-"`
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
@@ -598,13 +598,13 @@ type GetCattleLivestockV2 struct {
 }
 
 type GetCattleLivestockV2Response struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleLivestockV2Response"`
 
 	GetCattleLivestockV2Result *CattleLivestockResultV2 `xml:"GetCattleLivestockV2Result,omitempty"`
 }
 
 type GetCattleDetail struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetail"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetail"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -613,15 +613,15 @@ type GetCattleDetail struct {
 }
 
 type GetCattleDetailResponse struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailResponse"`
 
 	GetCattleDetailResult *CattleDetailResult `xml:"GetCattleDetailResult,omitempty"`
 }
 
 type GetCattleDetailV2 struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailV2"`
 
-	Action           string `xml:"-"`
+	Action string `xml:"-"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -630,13 +630,13 @@ type GetCattleDetailV2 struct {
 }
 
 type GetCattleDetailV2Response struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleDetailV2Response"`
 
 	GetCattleDetailV2Result *CattleDetailResultV2 `xml:"GetCattleDetailV2Result,omitempty"`
 }
 
 type GetCattleStatus struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatus"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatus"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -644,13 +644,13 @@ type GetCattleStatus struct {
 }
 
 type GetCattleStatusResponse struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusResponse"`
 
 	GetCattleStatusResult *CattleStateExternalResult `xml:"GetCattleStatusResult,omitempty"`
 }
 
 type GetCattleStatusV2 struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusV2"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -658,13 +658,13 @@ type GetCattleStatusV2 struct {
 }
 
 type GetCattleStatusV2Response struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleStatusV2Response"`
 
 	GetCattleStatusV2Result *CattleStateExternalResultV2 `xml:"GetCattleStatusV2Result,omitempty"`
 }
 
 type WriteNewEarTagOrder struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewEarTagOrder"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -674,13 +674,13 @@ type WriteNewEarTagOrder struct {
 }
 
 type WriteNewEarTagOrderResponse struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewEarTagOrderResponse"`
 
 	WriteNewEarTagOrderResult *NewEarTagOrderResult `xml:"WriteNewEarTagOrderResult,omitempty"`
 }
 
 type WriteNewLabelEarTagOrder struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewLabelEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewLabelEarTagOrder"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -690,13 +690,13 @@ type WriteNewLabelEarTagOrder struct {
 }
 
 type WriteNewLabelEarTagOrderResponse struct {
-	XMLName                        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewLabelEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNewLabelEarTagOrderResponse"`
 
 	WriteNewLabelEarTagOrderResult *NewEarTagOrderResult `xml:"WriteNewLabelEarTagOrderResult,omitempty"`
 }
 
 type CheckCattleForDisposalContribution struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattleForDisposalContribution"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattleForDisposalContribution"`
 
 	PManufacturerKey string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32              `xml:"p_LCID,omitempty"`
@@ -705,13 +705,13 @@ type CheckCattleForDisposalContribution struct {
 }
 
 type CheckCattleForDisposalContributionResponse struct {
-	XMLName                                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattleForDisposalContributionResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattleForDisposalContributionResponse"`
 
 	CheckCattleForDisposalContributionResult *DisposalContributionResult `xml:"CheckCattleForDisposalContributionResult,omitempty"`
 }
 
 type WriteAnimalClassificationNotification struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotification"`
 
 	PManufacturerKey          string                    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                     int32                     `xml:"p_LCID,omitempty"`
@@ -720,13 +720,13 @@ type WriteAnimalClassificationNotification struct {
 }
 
 type WriteAnimalClassificationNotificationResponse struct {
-	XMLName                                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationResponse"`
 
 	WriteAnimalClassificationNotificationResult *NotificationResult `xml:"WriteAnimalClassificationNotificationResult,omitempty"`
 }
 
 type WriteAnimalClassificationNotificationV2 struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationV2"`
 
 	PManufacturerKey          string                      `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                     int32                       `xml:"p_LCID,omitempty"`
@@ -735,13 +735,13 @@ type WriteAnimalClassificationNotificationV2 struct {
 }
 
 type WriteAnimalClassificationNotificationV2Response struct {
-	XMLName                                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationV2Response"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteAnimalClassificationNotificationV2Response"`
 
 	WriteAnimalClassificationNotificationV2Result *NotificationResult `xml:"WriteAnimalClassificationNotificationV2Result,omitempty"`
 }
 
 type EnableDataAccess struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EnableDataAccess"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EnableDataAccess"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -750,13 +750,13 @@ type EnableDataAccess struct {
 }
 
 type EnableDataAccessResponse struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EnableDataAccessResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EnableDataAccessResponse"`
 
 	EnableDataAccessResult *DataAccessResult `xml:"EnableDataAccessResult,omitempty"`
 }
 
 type DisableDataAccess struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisableDataAccess"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisableDataAccess"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -765,13 +765,13 @@ type DisableDataAccess struct {
 }
 
 type DisableDataAccessResponse struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisableDataAccessResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisableDataAccessResponse"`
 
 	DisableDataAccessResult *DataAccessResult `xml:"DisableDataAccessResult,omitempty"`
 }
 
 type CheckCattlesForPassport struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattlesForPassport"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattlesForPassport"`
 
 	PManufacturerKey string       `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32        `xml:"p_LCID,omitempty"`
@@ -780,13 +780,13 @@ type CheckCattlesForPassport struct {
 }
 
 type CheckCattlesForPassportResponse struct {
-	XMLName                       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattlesForPassportResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CheckCattlesForPassportResponse"`
 
 	CheckCattlesForPassportResult *CattlePassportResult `xml:"CheckCattlesForPassportResult,omitempty"`
 }
 
 type WriteCattlePassportOrders struct {
-	XMLName           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattlePassportOrders"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattlePassportOrders"`
 
 	PManufacturerKey  string       `xml:"p_ManufacturerKey,omitempty"`
 	PLCID             int32        `xml:"p_LCID,omitempty"`
@@ -796,13 +796,13 @@ type WriteCattlePassportOrders struct {
 }
 
 type WriteCattlePassportOrdersResponse struct {
-	XMLName                         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattlePassportOrdersResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattlePassportOrdersResponse"`
 
 	WriteCattlePassportOrdersResult *CattlePassportResult `xml:"WriteCattlePassportOrdersResult,omitempty"`
 }
 
 type DeleteEarTagOrder struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteEarTagOrder"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -811,13 +811,13 @@ type DeleteEarTagOrder struct {
 }
 
 type DeleteEarTagOrderResponse struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteEarTagOrderResponse"`
 
 	DeleteEarTagOrderResult *NotificationResult `xml:"DeleteEarTagOrderResult,omitempty"`
 }
 
 type WriteCattleChangeNameNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleChangeNameNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleChangeNameNotification"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -827,13 +827,13 @@ type WriteCattleChangeNameNotification struct {
 }
 
 type WriteCattleChangeNameNotificationResponse struct {
-	XMLName                                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleChangeNameNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleChangeNameNotificationResponse"`
 
 	WriteCattleChangeNameNotificationResult *NotificationResult `xml:"WriteCattleChangeNameNotificationResult,omitempty"`
 }
 
 type GetLabelEarTagOrders struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetLabelEarTagOrders"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetLabelEarTagOrders"`
 
 	PManufacturerKey string    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32     `xml:"p_LCID,omitempty"`
@@ -844,13 +844,13 @@ type GetLabelEarTagOrders struct {
 }
 
 type GetLabelEarTagOrdersResponse struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetLabelEarTagOrdersResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetLabelEarTagOrdersResponse"`
 
 	GetLabelEarTagOrdersResult *EarTagOrderResult `xml:"GetLabelEarTagOrdersResult,omitempty"`
 }
 
 type WriteCattleTypeOfUseNotification struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleTypeOfUseNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleTypeOfUseNotification"`
 
 	PManufacturerKey string    `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32     `xml:"p_LCID,omitempty"`
@@ -861,13 +861,13 @@ type WriteCattleTypeOfUseNotification struct {
 }
 
 type WriteCattleTypeOfUseNotificationResponse struct {
-	XMLName                                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleTypeOfUseNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleTypeOfUseNotificationResponse"`
 
 	WriteCattleTypeOfUseNotificationResult *NotificationResult `xml:"WriteCattleTypeOfUseNotificationResult,omitempty"`
 }
 
 type DeleteLabelEarTagOrder struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteLabelEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteLabelEarTagOrder"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -876,13 +876,13 @@ type DeleteLabelEarTagOrder struct {
 }
 
 type DeleteLabelEarTagOrderResponse struct {
-	XMLName                      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteLabelEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteLabelEarTagOrderResponse"`
 
 	DeleteLabelEarTagOrderResult *NotificationResult `xml:"DeleteLabelEarTagOrderResult,omitempty"`
 }
 
 type WriteReplacementEarTagOrder struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementEarTagOrder"`
 
 	PManufacturerKey string `xml:"p_ManufacturerKey,omitempty"`
 	PLCID            int32  `xml:"p_LCID,omitempty"`
@@ -894,13 +894,13 @@ type WriteReplacementEarTagOrder struct {
 }
 
 type WriteReplacementEarTagOrderResponse struct {
-	XMLName                           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementEarTagOrderResponse"`
 
 	WriteReplacementEarTagOrderResult *NewEarTagOrderResult `xml:"WriteReplacementEarTagOrderResult,omitempty"`
 }
 
 type GetCattleOffsprings struct {
-	XMLName             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleOffsprings"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleOffsprings"`
 
 	PManufacturerKey    string             `xml:"p_ManufacturerKey,omitempty"`
 	PLCID               int32              `xml:"p_LCID,omitempty"`
@@ -909,13 +909,13 @@ type GetCattleOffsprings struct {
 }
 
 type GetCattleOffspringsResponse struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleOffspringsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattleOffspringsResponse"`
 
 	GetCattleOffspringsResult *CattleOffspringResult `xml:"GetCattleOffspringsResult,omitempty"`
 }
 
 type WritePoultrySlaughterNotification struct {
-	XMLName             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultrySlaughterNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultrySlaughterNotification"`
 
 	PManufacturerKey    string           `xml:"p_ManufacturerKey,omitempty"`
 	PLCID               int32            `xml:"p_LCID,omitempty"`
@@ -928,13 +928,13 @@ type WritePoultrySlaughterNotification struct {
 }
 
 type WritePoultrySlaughterNotificationResponse struct {
-	XMLName                                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultrySlaughterNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultrySlaughterNotificationResponse"`
 
 	WritePoultrySlaughterNotificationResult *ProcessingResult `xml:"WritePoultrySlaughterNotificationResult,omitempty"`
 }
 
 type WritePoultryBarnInNotification struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultryBarnInNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultryBarnInNotification"`
 
 	PManufacturerKey           string                     `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                      int32                      `xml:"p_LCID,omitempty"`
@@ -943,61 +943,61 @@ type WritePoultryBarnInNotification struct {
 }
 
 type WritePoultryBarnInNotificationResponse struct {
-	XMLName                              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultryBarnInNotificationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePoultryBarnInNotificationResponse"`
 
 	WritePoultryBarnInNotificationResult *ProcessingResult `xml:"WritePoultryBarnInNotificationResult,omitempty"`
 }
 
 type GetPoultryBarnInNotifications struct {
-	XMLName                                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotifications"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotifications"`
 
 	PSearchPoultryBarnInNotificationRequest *SearchPoultryBarnInNotificationRequest `xml:"p_SearchPoultryBarnInNotificationRequest,omitempty"`
 }
 
 type GetPoultryBarnInNotificationsResponse struct {
-	XMLName                             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotificationsResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotificationsResponse"`
 
 	GetPoultryBarnInNotificationsResult *GetPoultryBarnInNotificationResult `xml:"GetPoultryBarnInNotificationsResult,omitempty"`
 }
 
 type GetAnimalHusbandryDetail struct {
-	XMLName                          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetail"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetail"`
 
 	PGetAnimalHusbandryDetailRequest *GetAnimalHusbandryDetailRequest `xml:"p_GetAnimalHusbandryDetailRequest,omitempty"`
 }
 
 type GetAnimalHusbandryDetailResponse struct {
-	XMLName                        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResponse"`
 
 	GetAnimalHusbandryDetailResult *GetAnimalHusbandryDetailResult `xml:"GetAnimalHusbandryDetailResult,omitempty"`
 }
 
 type GetPigArrivalNotificationForBreedingOrganisation struct {
-	XMLName                           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPigArrivalNotificationForBreedingOrganisation"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPigArrivalNotificationForBreedingOrganisation"`
 
 	PSearchSmallAnimalMovementRequest *SearchSmallAnimalMovementRequest `xml:"p_SearchSmallAnimalMovementRequest,omitempty"`
 }
 
 type GetPigArrivalNotificationForBreedingOrganisationResponse struct {
-	XMLName                                                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPigArrivalNotificationForBreedingOrganisationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPigArrivalNotificationForBreedingOrganisationResponse"`
 
 	GetPigArrivalNotificationForBreedingOrganisationResult *PigArrivalNotificationResult `xml:"GetPigArrivalNotificationForBreedingOrganisationResult,omitempty"`
 }
 
 type GetMembershipForOrganisation struct {
-	XMLName  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisation"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisation"`
 
 	PRequest *GetMembershipForOrganisationRequest `xml:"p_Request,omitempty"`
 }
 
 type GetMembershipForOrganisationResponse struct {
-	XMLName                            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationResponse"`
 
 	GetMembershipForOrganisationResult *GetMembershipForOrganisationResult `xml:"GetMembershipForOrganisationResult,omitempty"`
 }
 
 type WriteReplacementBatchEarTagOrder struct {
-	XMLName                                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrder"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrder"`
 
 	PManufacturerKey                         string                                   `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                                    int32                                    `xml:"p_LCID,omitempty"`
@@ -1005,13 +1005,13 @@ type WriteReplacementBatchEarTagOrder struct {
 }
 
 type WriteReplacementBatchEarTagOrderResponse struct {
-	XMLName                                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrderResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrderResponse"`
 
 	WriteReplacementBatchEarTagOrderResult *ReplacementEarTagOrdersResult `xml:"WriteReplacementBatchEarTagOrderResult,omitempty"`
 }
 
 type GetCattlesPerLeavingDate struct {
-	XMLName                          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDate"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDate"`
 
 	PManufacturerKey                 string                           `xml:"p_ManufacturerKey,omitempty"`
 	PLCID                            int32                            `xml:"p_LCID,omitempty"`
@@ -1019,13 +1019,13 @@ type GetCattlesPerLeavingDate struct {
 }
 
 type GetCattlesPerLeavingDateResponse struct {
-	XMLName                        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateResponse"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateResponse"`
 
 	GetCattlesPerLeavingDateResult *GetCattlesPerLeavingDateResult `xml:"GetCattlesPerLeavingDateResult,omitempty"`
 }
 
 type WritePigEntryMovementV2Request struct {
-	XMLName                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementV2Request"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WritePigEntryMovementV2Request"`
 
 	*BaseRequest
 
@@ -1037,21 +1037,21 @@ type WritePigEntryMovementV2Request struct {
 }
 
 type BaseRequest struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 BaseRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 BaseRequest"`
 
 	ManufacturerKey string `xml:"ManufacturerKey,omitempty"`
 	LCID            int32  `xml:"LCID,omitempty"`
 }
 
 type WriteMovementResult struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteMovementResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteMovementResult"`
 
 	MovementId       int32             `xml:"MovementId,omitempty"`
 	ProcessingResult *ProcessingResult `xml:"ProcessingResult,omitempty"`
 }
 
 type ProcessingResult struct {
-	XMLName     xml.Name
+	XMLName xml.Name
 
 	Code        int32  `xml:"Code,omitempty"`
 	Description string `xml:"Description,omitempty"`
@@ -1059,7 +1059,7 @@ type ProcessingResult struct {
 }
 
 type EquidOwnershipListRequest struct {
-	XMLName                                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidOwnershipListRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidOwnershipListRequest"`
 
 	OnBehalfOfAgateNumber                      string    `xml:"OnBehalfOfAgateNumber,omitempty"`
 	SearchDateFrom                             time.Time `xml:"SearchDateFrom,omitempty"`
@@ -1068,20 +1068,20 @@ type EquidOwnershipListRequest struct {
 }
 
 type GetEquidOwnershipListResult struct {
-	XMLName   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipListResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetEquidOwnershipListResult"`
 
 	Result    *ProcessingResult `xml:"Result,omitempty"`
 	EquidList *ArrayOfEquidItem `xml:"EquidList,omitempty"`
 }
 
 type ArrayOfEquidItem struct {
-	XMLName   xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfEquidItem"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfEquidItem"`
 
 	EquidItem []*EquidItem `xml:"EquidItem,omitempty"`
 }
 
 type EquidItem struct {
-	XMLName           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidItem"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidItem"`
 
 	OwnerFirstName    string                                          `xml:"OwnerFirstName,omitempty"`
 	OwnerLastName     string                                          `xml:"OwnerLastName,omitempty"`
@@ -1104,7 +1104,7 @@ type EquidItem struct {
 }
 
 type HusbandryResult struct {
-	XMLName   xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryResult"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryResult"`
 
 	TVDNumber string `xml:"TVDNumber,omitempty"`
 	Name      string `xml:"Name,omitempty"`
@@ -1114,7 +1114,7 @@ type HusbandryResult struct {
 }
 
 type EquidLivestockRequest struct {
-	XMLName        xml.Name
+	XMLName xml.Name
 
 	TVDNumber      int32     `xml:"ns:TVDNumber,omitempty"`
 	SearchDateFrom time.Time `xml:"ns:SearchDateFrom,omitempty"`
@@ -1122,14 +1122,14 @@ type EquidLivestockRequest struct {
 }
 
 type GetEquidLivestockResult struct {
-	XMLName   xml.Name
+	XMLName xml.Name
 
 	Result    *ProcessingResult `xml:"Result,omitempty"`
 	EquidList *ArrayOfEquidItem `xml:"EquidList,omitempty"`
 }
 
 type EquidRelocationRequest struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidRelocationRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidRelocationRequest"`
 
 	OnBehalfOfAgateNumber string                       `xml:"OnBehalfOfAgateNumber,omitempty"`
 	Ueln                  string                       `xml:"Ueln,omitempty"`
@@ -1143,11 +1143,11 @@ type EquidRelocationRequest struct {
 type WriteNotificationResult struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteNotificationResult"`
 
-	Result  *ProcessingResult `xml:"Result,omitempty"`
+	Result *ProcessingResult `xml:"Result,omitempty"`
 }
 
 type EquidAcquireOwnershipRequest struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidAcquireOwnershipRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidAcquireOwnershipRequest"`
 
 	OnBehalfOfAgateNumber  string    `xml:"OnBehalfOfAgateNumber,omitempty"`
 	Ueln                   string    `xml:"Ueln,omitempty"`
@@ -1156,7 +1156,7 @@ type EquidAcquireOwnershipRequest struct {
 }
 
 type EquidCedeOwnershipRequest struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidCedeOwnershipRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EquidCedeOwnershipRequest"`
 
 	OnBehalfOfAgateNumber       string    `xml:"OnBehalfOfAgateNumber,omitempty"`
 	Ueln                        string    `xml:"Ueln,omitempty"`
@@ -1166,20 +1166,20 @@ type EquidCedeOwnershipRequest struct {
 }
 
 type PersonListResult struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonListResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonListResult"`
 
 	Result          *ProcessingResult `xml:"Result,omitempty"`
 	PersonDataItems *PersonDataArray  `xml:"PersonDataItems,omitempty"`
 }
 
 type PersonDataArray struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonDataArray"`
 
 	PersonDataItem []*PersonResult `xml:"PersonDataItem,omitempty" json:"-"`
 }
 
 type PersonResult struct {
-	XMLName               xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonResult"`
+	XMLName xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonResult"`
 
 	AgateNumber           string       `xml:"AgateNumber,omitempty" json:"agateNumber"`
 	LastName              string       `xml:"LastName,omitempty" json:"lastName"`
@@ -1193,13 +1193,13 @@ type PersonResult struct {
 }
 
 type StringArray struct {
-	XMLName    xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 StringArray"`
+	XMLName xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 StringArray"`
 
 	StringItem []string `xml:"StringItem,omitempty" json:"stringItem"`
 }
 
 type FarmManagerResult struct {
-	XMLName               xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 FarmManagerResult"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 FarmManagerResult"`
 
 	AgateNumber           string            `xml:"AgateNumber,omitempty"`
 	Title                 string            `xml:"Title,omitempty"`
@@ -1215,7 +1215,7 @@ type FarmManagerResult struct {
 }
 
 type AnimalHusbandryAddressResult struct {
-	XMLName                  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalHusbandryAddressResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalHusbandryAddressResult"`
 
 	Result                   *ProcessingResult `xml:"Result,omitempty"`
 	PostData                 *HusbandryResult  `xml:"PostData,omitempty"`
@@ -1234,34 +1234,34 @@ type AnimalHusbandryAddressResult struct {
 }
 
 type AnimalHusbandryAddressResultV2 struct {
-	XMLName             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalHusbandryAddressResultV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalHusbandryAddressResultV2"`
 
-	Result              *ProcessingResult `xml:"Result,omitempty"`
-	PostData            *HusbandryResult  `xml:"PostData,omitempty"`
-	IsActive            bool              `xml:"IsActive,omitempty"`
-	MunicipalityName    string            `xml:"MunicipalityName,omitempty"`
-	CantonShortname     string            `xml:"CantonShortname,omitempty"`
-	CoordinateX         int32             `xml:"CoordinateX,omitempty"`
-	CoordinateY         int32             `xml:"CoordinateY,omitempty"`
+	Result                   *ProcessingResult `xml:"Result,omitempty"`
+	PostData                 *HusbandryResult  `xml:"PostData,omitempty"`
+	IsActive                 bool              `xml:"IsActive,omitempty"`
+	MunicipalityName         string            `xml:"MunicipalityName,omitempty"`
+	CantonShortname          string            `xml:"CantonShortname,omitempty"`
+	CoordinateX              int32             `xml:"CoordinateX,omitempty"`
+	CoordinateY              int32             `xml:"CoordinateY,omitempty"`
 	Altitude                 int32             `xml:"Altitude,omitempty"`
 	CantonAnimalHusbandryKey string            `xml:"CantonAnimalHusbandryKey,omitempty"`
 	CantonPersonKey          string            `xml:"CantonPersonKey,omitempty"`
-	BurNumber           string            `xml:"BurNumber,omitempty"`
-	AnimalHusbandryType int32             `xml:"AnimalHusbandryType,omitempty"`
-	MunicipalityNumber  int32             `xml:"MunicipalityNumber,omitempty"`
-	TypeOfUse           int32             `xml:"TypeOfUse,omitempty"`
-	IsMountain          bool              `xml:"IsMountain,omitempty"`
+	BurNumber                string            `xml:"BurNumber,omitempty"`
+	AnimalHusbandryType      int32             `xml:"AnimalHusbandryType,omitempty"`
+	MunicipalityNumber       int32             `xml:"MunicipalityNumber,omitempty"`
+	TypeOfUse                int32             `xml:"TypeOfUse,omitempty"`
+	IsMountain               bool              `xml:"IsMountain,omitempty"`
 }
 
 type CodesResult struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CodesResult"`
 
-	Result  *ProcessingResult `xml:"Result,omitempty"`
-	Codes   *CodeArray        `xml:"Codes,omitempty"`
+	Result *ProcessingResult `xml:"Result,omitempty"`
+	Codes  *CodeArray        `xml:"Codes,omitempty"`
 }
 
 type CodeArray struct {
-	XMLName  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CodeArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CodeArray"`
 
 	CodeItem []*Code `xml:"CodeItem,omitempty"`
 }
@@ -1269,14 +1269,14 @@ type CodeArray struct {
 type Code struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 Code"`
 
-	Key     int32  `xml:"Key,omitempty"`
-	Textde  string `xml:"Text_de,omitempty"`
-	Textfr  string `xml:"Text_fr,omitempty"`
-	Textit  string `xml:"Text_it,omitempty"`
+	Key    int32  `xml:"Key,omitempty"`
+	Textde string `xml:"Text_de,omitempty"`
+	Textfr string `xml:"Text_fr,omitempty"`
+	Textit string `xml:"Text_it,omitempty"`
 }
 
 type PersonAddressResult struct {
-	XMLName     xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonAddressResult"`
+	XMLName xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonAddressResult"`
 
 	Result      *ProcessingResult `xml:"Result,omitempty" json:"-"`
 	Title       string            `xml:"Title,omitempty" json:"title"`
@@ -1284,7 +1284,7 @@ type PersonAddressResult struct {
 }
 
 type PersonIdentifiersResult struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonIdentifiersResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PersonIdentifiersResult"`
 
 	Result          *ProcessingResult `xml:"Result,omitempty"`
 	CantonPersonKey string            `xml:"CantonPersonKey,omitempty"`
@@ -1294,8 +1294,8 @@ type PersonIdentifiersResult struct {
 type GeneraResult struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GeneraResult"`
 
-	Result  *ProcessingResult `xml:"Result,omitempty"`
-	Genera  *IntArray         `xml:"Genera,omitempty"`
+	Result *ProcessingResult `xml:"Result,omitempty"`
+	Genera *IntArray         `xml:"Genera,omitempty"`
 }
 
 type IntArray struct {
@@ -1305,13 +1305,13 @@ type IntArray struct {
 }
 
 type CattleArrivalDataArray struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleArrivalDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleArrivalDataArray"`
 
 	CattleArrivalDataItem []*CattleArrivalData `xml:"CattleArrivalDataItem,omitempty"`
 }
 
 type CattleArrivalData struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleArrivalData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleArrivalData"`
 
 	EarTagNumber    string    `xml:"EarTagNumber,omitempty"`
 	EventDate       time.Time `xml:"EventDate,omitempty"`
@@ -1319,20 +1319,20 @@ type CattleArrivalData struct {
 }
 
 type WriteCattleBatchNotificationResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBatchNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteCattleBatchNotificationResult"`
 
 	Result        *ProcessingResult              `xml:"Result,omitempty"`
 	Resultdetails *CattleNotificationResultArray `xml:"Resultdetails,omitempty"`
 }
 
 type CattleNotificationResultArray struct {
-	XMLName                      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationResultArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationResultArray"`
 
 	CattleNotificationResultItem []*CattleNotificationResult `xml:"CattleNotificationResultItem,omitempty"`
 }
 
 type CattleNotificationResult struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationResult"`
 
 	EarTagNumber   string            `xml:"EarTagNumber,omitempty"`
 	NotificationID int32             `xml:"NotificationID,omitempty"`
@@ -1340,7 +1340,7 @@ type CattleNotificationResult struct {
 }
 
 type CattleNotificationRequest struct {
-	XMLName      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleNotificationRequest"`
 
 	*BaseRequest
 
@@ -1358,7 +1358,7 @@ type CattleNotificationWithCountryRequest struct {
 }
 
 type CattleBirthData struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleBirthData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleBirthData"`
 
 	EarTagNumber              string    `xml:"EarTagNumber,omitempty"`
 	IsMultipleBirth           bool      `xml:"IsMultipleBirth,omitempty"`
@@ -1379,13 +1379,13 @@ type CattleBirthData struct {
 }
 
 type CattleDaystayDataArray struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDaystayDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDaystayDataArray"`
 
 	CattleDaystayDataItem []*CattleDaystayData `xml:"CattleDaystayDataItem,omitempty"`
 }
 
 type CattleDaystayData struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDaystayData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDaystayData"`
 
 	EarTagNumber    string    `xml:"EarTagNumber,omitempty"`
 	EventDate       time.Time `xml:"EventDate,omitempty"`
@@ -1393,13 +1393,13 @@ type CattleDaystayData struct {
 }
 
 type CattleLeavingDataArray struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLeavingDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLeavingDataArray"`
 
 	CattleLeavingDataItem []*CattleLeavingData `xml:"CattleLeavingDataItem,omitempty"`
 }
 
 type CattleLeavingData struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLeavingData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLeavingData"`
 
 	EarTagNumber                string    `xml:"EarTagNumber,omitempty"`
 	EventDate                   time.Time `xml:"EventDate,omitempty"`
@@ -1409,20 +1409,20 @@ type CattleLeavingData struct {
 }
 
 type HusbandryMembershipResult struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembershipResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembershipResult"`
 
 	Result      *ProcessingResult         `xml:"Result,omitempty"`
 	Memberships *HusbandryMembershipArray `xml:"Memberships,omitempty"`
 }
 
 type HusbandryMembershipArray struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembershipArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembershipArray"`
 
 	HusbandryMembershipItem []*HusbandryMembership `xml:"HusbandryMembershipItem,omitempty"`
 }
 
 type HusbandryMembership struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembership"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryMembership"`
 
 	IDPRG       int32  `xml:"ID_PRG,omitempty"`
 	AgateNumber string `xml:"AgateNumber,omitempty"`
@@ -1433,20 +1433,20 @@ type HusbandryMembership struct {
 }
 
 type EarTagOrderResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderResult"`
 
 	Result        *ProcessingResult     `xml:"Result,omitempty"`
 	Resultdetails *EarTagOrderDataArray `xml:"Resultdetails,omitempty"`
 }
 
 type EarTagOrderDataArray struct {
-	XMLName             xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderDataArray"`
 
 	EarTagOrderDataItem []*EarTagOrderData `xml:"EarTagOrderDataItem,omitempty"`
 }
 
 type EarTagOrderData struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EarTagOrderData"`
 
 	NotificationID   int32     `xml:"NotificationID,omitempty"`
 	EarTagType       int32     `xml:"EarTagType,omitempty"`
@@ -1461,20 +1461,20 @@ type EarTagOrderData struct {
 }
 
 type DeleteAnimalHusbandryMembershipResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMembershipResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DeleteAnimalHusbandryMembershipResult"`
 
 	Result        *ProcessingResult                 `xml:"Result,omitempty"`
 	Resultdetails *HusbandryNotificationResultArray `xml:"Resultdetails,omitempty"`
 }
 
 type HusbandryNotificationResultArray struct {
-	XMLName                         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryNotificationResultArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryNotificationResultArray"`
 
 	HusbandryNotificationResultItem []*HusbandryNotificationResult `xml:"HusbandryNotificationResultItem,omitempty"`
 }
 
 type HusbandryNotificationResult struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 HusbandryNotificationResult"`
 
 	TVDNumber      int32             `xml:"TVDNumber,omitempty"`
 	NotificationID int32             `xml:"NotificationID,omitempty"`
@@ -1482,7 +1482,7 @@ type HusbandryNotificationResult struct {
 }
 
 type CattleDeathBirthData struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDeathBirthData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDeathBirthData"`
 
 	DeathBirthTime            int32     `xml:"DeathBirthTime,omitempty"`
 	IsMultipleBirth           bool      `xml:"IsMultipleBirth,omitempty"`
@@ -1503,20 +1503,20 @@ type CattleDeathBirthData struct {
 }
 
 type CattleDeathBirthNotificationResult struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDeathBirthNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDeathBirthNotificationResult"`
 
 	NotificationID int32             `xml:"NotificationID,omitempty"`
 	Result         *ProcessingResult `xml:"Result,omitempty"`
 }
 
 type CattleSlaughterDataArray struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleSlaughterDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleSlaughterDataArray"`
 
 	CattleSlaughterDataItem []*CattleSlaughterData `xml:"CattleSlaughterDataItem,omitempty"`
 }
 
 type CattleSlaughterData struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleSlaughterData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleSlaughterData"`
 
 	EarTagNumber                string    `xml:"EarTagNumber,omitempty"`
 	EventDate                   time.Time `xml:"EventDate,omitempty"`
@@ -1525,20 +1525,20 @@ type CattleSlaughterData struct {
 }
 
 type CattleEarTagsResult struct {
-	XMLName       xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagsResult"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagsResult"`
 
 	Result        *ProcessingResult      `xml:"Result,omitempty"`
 	CattleEarTags *CattleEarTagDataArray `xml:"CattleEarTags,omitempty"`
 }
 
 type CattleEarTagDataArray struct {
-	XMLName              xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagDataArray"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagDataArray"`
 
 	CattleEarTagDataItem []*CattleEarTagData `xml:"CattleEarTagDataItem,omitempty"`
 }
 
 type CattleEarTagData struct {
-	XMLName      xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagData"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleEarTagData"`
 
 	EarTagNumber string `xml:"EarTagNumber,omitempty"`
 	OrderDate    string `xml:"OrderDate,omitempty"`
@@ -1546,13 +1546,13 @@ type CattleEarTagData struct {
 }
 
 type WorkingFocusArray struct {
-	XMLName          xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WorkingFocusArray"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WorkingFocusArray"`
 
 	WorkingFocusItem *[]WorkingFocus `xml:"WorkingFocusItem,omitempty"`
 }
 
 type WorkingFocus struct {
-	XMLName          xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WorkingFocus"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WorkingFocus"`
 
 	WorkingFocusType int32  `xml:"WorkingFocusType,omitempty"`
 	TVDNumber        int32  `xml:"TVDNumber,omitempty"`
@@ -1560,7 +1560,7 @@ type WorkingFocus struct {
 }
 
 type CattleMovementsResult struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementsResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementsResult"`
 
 	Result             *ProcessingResult        `xml:"Result,omitempty"`
 	CattleHistoryState int32                    `xml:"CattleHistoryState,omitempty"`
@@ -1569,13 +1569,13 @@ type CattleMovementsResult struct {
 }
 
 type CattleMovementDataArray struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementDataArray"`
 
 	CattleMovementDataItem []*CattleMovementData `xml:"CattleMovementDataItem,omitempty"`
 }
 
 type CattleMovementData struct {
-	XMLName           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleMovementData"`
 
 	NotificationID    int32     `xml:"NotificationID,omitempty"`
 	EventDate         time.Time `xml:"EventDate,omitempty"`
@@ -1586,7 +1586,7 @@ type CattleMovementData struct {
 }
 
 type CattleHistoryResult struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleHistoryResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleHistoryResult"`
 
 	Result             *ProcessingResult    `xml:"Result,omitempty"`
 	EarTagNumber       string               `xml:"EarTagNumber,omitempty"`
@@ -1596,13 +1596,13 @@ type CattleHistoryResult struct {
 }
 
 type CattleStayDataArray struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStayDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStayDataArray"`
 
 	CattleStayDataItem []*CattleStayData `xml:"CattleStayDataItem,omitempty"`
 }
 
 type CattleStayData struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStayData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStayData"`
 
 	ArrivalDate             time.Time `xml:"ArrivalDate,omitempty"`
 	ArrivalNotificationDate time.Time `xml:"ArrivalNotificationDate,omitempty"`
@@ -1618,7 +1618,7 @@ type CattleStayData struct {
 }
 
 type CattleLivestockResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockResult"`
 
 	Result        *ProcessingResult         `xml:"Result,omitempty"`
 	TVDNumber     int32                     `xml:"TVDNumber,omitempty"`
@@ -1626,13 +1626,13 @@ type CattleLivestockResult struct {
 }
 
 type CattleLivestockDataArray struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataArray"`
 
 	CattleLivestockDataItem []*CattleLivestockData `xml:"CattleLivestockDataItem,omitempty"`
 }
 
 type CattleLivestockData struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockData"`
 
 	EarTagNumber       string    `xml:"EarTagNumber,omitempty"`
 	Name               string    `xml:"Name,omitempty"`
@@ -1652,7 +1652,7 @@ type CattleLivestockData struct {
 }
 
 type CattleLivestockResultV2 struct {
-	XMLName       xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockResultV2"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockResultV2"`
 
 	Result        *ProcessingResult           `xml:"Result,omitempty"`
 	TVDNumber     int32                       `xml:"TVDNumber,omitempty"`
@@ -1660,14 +1660,14 @@ type CattleLivestockResultV2 struct {
 }
 
 type CattleLivestockDataArrayV2 struct {
-	XMLName                 xml.Name                 //`xml:"-"`//`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataArrayV2"`
+	XMLName xml.Name //`xml:"-"`//`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataArrayV2"`
 
 	CattleLivestockDataItem []*CattleLivestockDataV2 //`xml:"CattleLivestockDataItem,omitempty"`
 }
 
 type CattleLivestockDataV2 struct {
-					       //edited
-	XMLName            xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataV2"`
+	//edited
+	XMLName xml.Name `json:"-"` //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleLivestockDataV2"`
 
 	EarTagNumber       string `xml:"EarTagNumber,omitempty" json:"earTagNumber"`
 	Name               string `xml:"Name,omitempty" json:"name"`
@@ -1688,14 +1688,14 @@ type CattleLivestockDataV2 struct {
 }
 
 type CattleDetailResult struct {
-	XMLName      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailResult"`
 
 	Result       *ProcessingResult `xml:"Result,omitempty"`
 	CattleDetail *CattleDetailData `xml:"CattleDetail,omitempty"`
 }
 
 type CattleDetailData struct {
-	XMLName               xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailData"`
 
 	BirthNotificationData *CattleBirthData `xml:"BirthNotificationData,omitempty"`
 	LongName              string           `xml:"LongName,omitempty"`
@@ -1721,7 +1721,7 @@ type CattleDetailData struct {
 }
 
 type CattleDetailResultV2 struct {
-	XMLName      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailResultV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleDetailResultV2"`
 
 	Result       *ProcessingResult   `xml:"Result,omitempty"`
 	CattleDetail *CattleDetailDataV2 `xml:"CattleDetail,omitempty"`
@@ -1732,18 +1732,18 @@ type CattleDetailDataV2 struct {
 
 	*CattleDetailData
 
-	LValue  float64 `xml:"LValue,omitempty"`
+	LValue float64 `xml:"LValue,omitempty"`
 }
 
 type CattleStateExternalResult struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateExternalResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateExternalResult"`
 
 	Result      *ProcessingResult `xml:"Result,omitempty"`
 	CattleState *CattleStateData  `xml:"CattleState,omitempty"`
 }
 
 type CattleStateData struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateData"`
 
 	EarTagNumber       string `xml:"EarTagNumber,omitempty"`
 	Name               string `xml:"Name,omitempty"`
@@ -1752,14 +1752,14 @@ type CattleStateData struct {
 }
 
 type CattleStateExternalResultV2 struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateExternalResultV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateExternalResultV2"`
 
 	Result      *ProcessingResult  `xml:"Result,omitempty"`
 	CattleState *CattleStateDataV2 `xml:"CattleState,omitempty"`
 }
 
 type CattleStateDataV2 struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateDataV2"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleStateDataV2"`
 
 	EarTagNumber       string    `xml:"EarTagNumber,omitempty"`
 	Name               string    `xml:"Name,omitempty"`
@@ -1770,21 +1770,21 @@ type CattleStateDataV2 struct {
 }
 
 type NewEarTagOrderResult struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 NewEarTagOrderResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 NewEarTagOrderResult"`
 
 	Result      *ProcessingResult `xml:"Result,omitempty"`
 	EarTagOrder *EarTagOrderData  `xml:"EarTagOrder,omitempty"`
 }
 
 type DisposalContributionResult struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisposalContributionResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DisposalContributionResult"`
 
 	DisposalContributionState bool              `xml:"DisposalContributionState,omitempty"`
 	Result                    *ProcessingResult `xml:"Result,omitempty"`
 }
 
 type AnimalClassificationData struct {
-	XMLName                     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalClassificationData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 AnimalClassificationData"`
 
 	MessageID                   int64     `xml:"MessageID,omitempty"`
 	EarTagNumber                string    `xml:"EarTagNumber,omitempty"`
@@ -1803,7 +1803,7 @@ type AnimalClassificationData struct {
 }
 
 type NotificationResult struct {
-	XMLName        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 NotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 NotificationResult"`
 
 	Result         *ProcessingResult `xml:"Result,omitempty"`
 	NotificationID int32             `xml:"NotificationID,omitempty"`
@@ -1814,31 +1814,31 @@ type AnimalClassificationDataV2 struct {
 
 	*AnimalClassificationData
 
-	LValue  float64 `xml:"LValue,omitempty"`
+	LValue float64 `xml:"LValue,omitempty"`
 }
 
 type DataAccessResult struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 DataAccessResult"`
 
-	Result  *ProcessingResult `xml:"Result,omitempty"`
-	IDPRG   int32             `xml:"ID_PRG,omitempty"`
+	Result *ProcessingResult `xml:"Result,omitempty"`
+	IDPRG  int32             `xml:"ID_PRG,omitempty"`
 }
 
 type CattlePassportResult struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassportResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassportResult"`
 
 	Result          *ProcessingResult    `xml:"Result,omitempty"`
 	CattlePassports *CattlePassportArray `xml:"CattlePassports,omitempty"`
 }
 
 type CattlePassportArray struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassportArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassportArray"`
 
 	CattlePassportItem []*CattlePassport `xml:"CattlePassportItem,omitempty"`
 }
 
 type CattlePassport struct {
-	XMLName           xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassport"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattlePassport"`
 
 	EarTagNumber      string            `xml:"EarTagNumber,omitempty"`
 	PassportNumber    int32             `xml:"PassportNumber,omitempty"`
@@ -1847,7 +1847,7 @@ type CattlePassport struct {
 }
 
 type CattleOffspringResult struct {
-	XMLName            xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringResult"`
 
 	Result             *ProcessingResult         `xml:"Result,omitempty"`
 	EarTagNumberMother string                    `xml:"EarTagNumberMother,omitempty"`
@@ -1855,13 +1855,13 @@ type CattleOffspringResult struct {
 }
 
 type CattleOffspringDataArray struct {
-	XMLName                 xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringDataArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringDataArray"`
 
 	CattleOffspringDataItem []*CattleOffspringData `xml:"CattleOffspringDataItem,omitempty"`
 }
 
 type CattleOffspringData struct {
-	XMLName      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 CattleOffspringData"`
 
 	EarTagNumber string    `xml:"EarTagNumber,omitempty"`
 	BirthDate    time.Time `xml:"BirthDate,omitempty"`
@@ -1871,7 +1871,7 @@ type CattleOffspringData struct {
 }
 
 type PoultryBarnInNotification struct {
-	XMLName                   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PoultryBarnInNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PoultryBarnInNotification"`
 
 	Amount                    int32                   `xml:"Amount,omitempty"`
 	EventDate                 time.Time               `xml:"EventDate,omitempty"`
@@ -1881,7 +1881,7 @@ type PoultryBarnInNotification struct {
 }
 
 type SearchPoultryBarnInNotificationRequest struct {
-	XMLName   xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchPoultryBarnInNotificationRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchPoultryBarnInNotificationRequest"`
 
 	*BaseRequest
 
@@ -1891,20 +1891,20 @@ type SearchPoultryBarnInNotificationRequest struct {
 }
 
 type GetPoultryBarnInNotificationResult struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetPoultryBarnInNotificationResult"`
 
 	Result               *ProcessingResult                                                      `xml:"Result,omitempty"`
 	ArrivalNotifications *SmallAnimalNotificationDataArrayOfTypeSearchPoultryBarnInNotification `xml:"ArrivalNotifications,omitempty"`
 }
 
 type SmallAnimalNotificationDataArrayOfTypeSearchPoultryBarnInNotification struct {
-	XMLName                              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SmallAnimalNotificationDataArrayOfTypeSearchPoultryBarnInNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SmallAnimalNotificationDataArrayOfTypeSearchPoultryBarnInNotification"`
 
 	SmallAnimalNotificationDataArrayItem []*SearchPoultryBarnInNotification `xml:"SmallAnimalNotificationDataArrayItem,omitempty"`
 }
 
 type SearchPoultryBarnInNotification struct {
-	XMLName                    xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchPoultryBarnInNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchPoultryBarnInNotification"`
 
 	Amount                     int32                                       `xml:"Amount,omitempty"`
 	EventDate                  time.Time                                   `xml:"EventDate,omitempty"`
@@ -1918,7 +1918,7 @@ type SearchPoultryBarnInNotification struct {
 }
 
 type GetAnimalHusbandryDetailRequest struct {
-	XMLName   xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailRequest"`
+	XMLName xml.Name //`xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailRequest"`
 
 	*BaseRequest
 
@@ -1926,7 +1926,7 @@ type GetAnimalHusbandryDetailRequest struct {
 }
 
 type GetAnimalHusbandryDetailResult struct {
-	XMLName                  xml.Name // `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResult"`
+	XMLName xml.Name // `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetAnimalHusbandryDetailResult"`
 
 	Result                   *ProcessingResult                                 `xml:"Result,omitempty"`
 	PostData                 *HusbandryResult                                  `xml:"PostData,omitempty"`
@@ -1948,7 +1948,7 @@ type GetAnimalHusbandryDetailResult struct {
 }
 
 type SearchSmallAnimalMovementRequest struct {
-	XMLName  xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchSmallAnimalMovementRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SearchSmallAnimalMovementRequest"`
 
 	*BaseRequest
 
@@ -1957,20 +1957,20 @@ type SearchSmallAnimalMovementRequest struct {
 }
 
 type PigArrivalNotificationResult struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PigArrivalNotificationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PigArrivalNotificationResult"`
 
 	Result               *ProcessingResult                                             `xml:"Result,omitempty"`
 	ArrivalNotifications *SmallAnimalNotificationDataArrayOfTypePigArrivalNotification `xml:"ArrivalNotifications,omitempty"`
 }
 
 type SmallAnimalNotificationDataArrayOfTypePigArrivalNotification struct {
-	XMLName                              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SmallAnimalNotificationDataArrayOfTypePigArrivalNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 SmallAnimalNotificationDataArrayOfTypePigArrivalNotification"`
 
 	SmallAnimalNotificationDataArrayItem []*PigArrivalNotification `xml:"SmallAnimalNotificationDataArrayItem,omitempty"`
 }
 
 type PigArrivalNotification struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PigArrivalNotification"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 PigArrivalNotification"`
 
 	TVDNumber       int32                                `xml:"TVDNumber,omitempty"`
 	SourceTVDNumber int32                                `xml:"SourceTVDNumber,omitempty"`
@@ -1982,7 +1982,7 @@ type PigArrivalNotification struct {
 }
 
 type GetMembershipForOrganisationRequest struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationRequest"`
 
 	*BaseRequest
 
@@ -1991,7 +1991,7 @@ type GetMembershipForOrganisationRequest struct {
 }
 
 type GetMembershipForOrganisationResult struct {
-	XMLName                xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetMembershipForOrganisationResult"`
 
 	Result                 *ProcessingResult `xml:"Result,omitempty"`
 	MembershipOrganisation *GenusElements    `xml:"MembershipOrganisation,omitempty"`
@@ -2001,11 +2001,11 @@ type GetMembershipForOrganisationResult struct {
 type GenusElements struct {
 	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GenusElements"`
 
-	Genus   []string `xml:"Genus,omitempty"`
+	Genus []string `xml:"Genus,omitempty"`
 }
 
 type WriteReplacementBatchEarTagOrderRequest struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrderRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 WriteReplacementBatchEarTagOrderRequest"`
 
 	TVDNumber            int32                 `xml:"TVDNumber,omitempty"`
 	Genus                *EnumGenus            `xml:"Genus,omitempty"`
@@ -2013,13 +2013,13 @@ type WriteReplacementBatchEarTagOrderRequest struct {
 }
 
 type EartagOrderItemArray struct {
-	XMLName              xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EartagOrderItemArray"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EartagOrderItemArray"`
 
 	EartagOrderArrayItem []*EartagOrderItem `xml:"EartagOrderArrayItem,omitempty"`
 }
 
 type EartagOrderItem struct {
-	XMLName          xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EartagOrderItem"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 EartagOrderItem"`
 
 	EarTagNumber     string `xml:"EarTagNumber,omitempty"`
 	IsExpress        bool   `xml:"IsExpress,omitempty"`
@@ -2028,20 +2028,20 @@ type EartagOrderItem struct {
 }
 
 type ReplacementEarTagOrdersResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ReplacementEarTagOrdersResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ReplacementEarTagOrdersResult"`
 
 	Result        *ProcessingResult                      `xml:"Result,omitempty"`
 	ResultDetails *ArrayOfReplacementEarTagOrderDataItem `xml:"ResultDetails,omitempty"`
 }
 
 type ArrayOfReplacementEarTagOrderDataItem struct {
-	XMLName                        xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfReplacementEarTagOrderDataItem"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfReplacementEarTagOrderDataItem"`
 
 	ReplacementEarTagOrderDataItem []*ReplacementEarTagOrderDataItem `xml:"ReplacementEarTagOrderDataItem,omitempty"`
 }
 
 type ReplacementEarTagOrderDataItem struct {
-	XMLName         xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ReplacementEarTagOrderDataItem"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ReplacementEarTagOrderDataItem"`
 
 	NotificationID  int32                                `xml:"NotificationID,omitempty"`
 	CombiArticle    int32                                `xml:"CombiArticle,omitempty"`
@@ -2053,27 +2053,27 @@ type ReplacementEarTagOrderDataItem struct {
 }
 
 type GetCattlesPerLeavingDateRequest struct {
-	XMLName     xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateRequest"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateRequest"`
 
 	TVDNumber   int32     `xml:"TVDNumber,omitempty"`
 	LeavingDate time.Time `xml:"LeavingDate,omitempty"`
 }
 
 type GetCattlesPerLeavingDateResult struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateResult"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateResult"`
 
 	Result        *ProcessingResult                    `xml:"Result,omitempty"`
 	ResultDetails *ArrayOfGetCattlesPerLeavingDateData `xml:"ResultDetails,omitempty"`
 }
 
 type ArrayOfGetCattlesPerLeavingDateData struct {
-	XMLName                      xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfGetCattlesPerLeavingDateData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 ArrayOfGetCattlesPerLeavingDateData"`
 
 	GetCattlesPerLeavingDateData []*GetCattlesPerLeavingDateData `xml:"GetCattlesPerLeavingDateData,omitempty"`
 }
 
 type GetCattlesPerLeavingDateData struct {
-	XMLName       xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateData"`
+	XMLName xml.Name `xml:"http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1 GetCattlesPerLeavingDateData"`
 
 	EarTagNumber  string                              `xml:"EarTagNumber,omitempty"`
 	Name          string                              `xml:"Name,omitempty"`
@@ -3321,91 +3321,91 @@ const (
 )
 
 type TranslatedEnumTypeOfEnumEquidNotificationState struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidNotificationState"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidNotificationState"`
 
 	EnumValue            *EnumEquidNotificationState `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                      `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumEquidTypeOfUse struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidTypeOfUse"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidTypeOfUse"`
 
 	EnumValue            *EnumEquidTypeOfUse `xml:"EnumValue,omitempty"`
 	RequestedTranslation string              `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumGender struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumGender"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumGender"`
 
 	EnumValue            *EnumGender `xml:"EnumValue,omitempty"`
 	RequestedTranslation string      `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumEquidBreed struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidBreed"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidBreed"`
 
 	EnumValue            *EnumEquidBreed `xml:"EnumValue,omitempty"`
 	RequestedTranslation string          `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumEquidWithersClass struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidWithersClass"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumEquidWithersClass"`
 
 	EnumValue            *EnumEquidWithersClass `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                 `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumPoultryUsageReason struct {
-	XMLName              xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPoultryUsageReason"`
+	XMLName xml.Name `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPoultryUsageReason"`
 
 	EnumValue            *EnumPoultryUsageReason `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                  `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumAnimalHusbandryType struct {
-	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryType"`
+	XMLName xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryType"`
 
 	EnumValue            *EnumAnimalHusbandryType `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                   `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse struct {
-	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse"`
+	XMLName xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumAnimalHusbandryTypeOfUse"`
 
 	EnumValue            *EnumAnimalHusbandryTypeOfUse `xml:"EnumValue,omitempty"`
 	RequestedTranslation string                        `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumZone struct {
-	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumZone"`
+	XMLName xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumZone"`
 
 	EnumValue            *EnumZone `xml:"EnumValue,omitempty"`
 	RequestedTranslation string    `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumArea struct {
-	XMLName              xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumArea"`
+	XMLName xml.Name // `xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumArea"`
 
 	EnumValue            *EnumArea `xml:"EnumValue,omitempty"`
 	RequestedTranslation string    `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumPigCategory struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPigCategory"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumPigCategory"`
 
 	EnumValue            *EnumPigCategory `xml:"EnumValue,omitempty"`
 	RequestedTranslation string           `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumOrderStatus struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumOrderStatus"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumOrderStatus"`
 
 	EnumValue            *EnumOrderStatus `xml:"EnumValue,omitempty"`
 	RequestedTranslation string           `xml:"RequestedTranslation,omitempty"`
 }
 
 type TranslatedEnumTypeOfEnumCattleRace struct {
-	XMLName              xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumCattleRace"`
+	XMLName xml.Name //`xml:"http://www.identitas.ch/enumerations TranslatedEnumTypeOfEnumCattleRace"`
 
 	EnumValue            *EnumCattleRace `xml:"EnumValue,omitempty"`
 	RequestedTranslation string          `xml:"RequestedTranslation,omitempty"`
@@ -4117,14 +4117,14 @@ type SOAPEnvelope struct {
 	XmlSOAP string   `xml:"xmlns:soap,attr"`
 	XmlNS   string   `xml:"xmlns:ns,attr"`
 
-	Header  SOAPHeader
-	Body    SOAPBody
+	Header SOAPHeader
+	Body   SOAPBody
 }
 
 type SOAPResponseEnvelope struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Envelope"`
 
-	Body    SOAPResponseBody
+	Body SOAPResponseBody
 }
 
 type SOAPResponseBody struct {
@@ -4159,10 +4159,10 @@ type SOAPBody struct {
 type SOAPFault struct {
 	XMLName xml.Name `xml:"http://www.w3.org/2003/05/soap-envelope Fault"`
 
-	Code    string `xml:"faultcode,omitempty"`
-	String  string `xml:"faultstring,omitempty"`
-	Actor   string `xml:"faultactor,omitempty"`
-	Detail  string `xml:"detail,omitempty"`
+	Code   string `xml:"faultcode,omitempty"`
+	String string `xml:"faultstring,omitempty"`
+	Actor  string `xml:"faultactor,omitempty"`
+	Detail string `xml:"detail,omitempty"`
 }
 
 type BasicAuth struct {
@@ -4182,12 +4182,12 @@ func (b *SOAPResponseBody) UnmarshalXML(d *xml.Decoder, start xml.StartElement) 
 	}
 
 	var (
-		token xml.Token
-		err error
+		token    xml.Token
+		err      error
 		consumed bool
 	)
 
-	Loop:
+Loop:
 	for {
 		if token, err = d.Token(); err != nil {
 			return err
