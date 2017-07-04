@@ -60,11 +60,11 @@ contract Request is mortal {
 
   mapping (uint => LackNew) public newLacks;
 
-  function Request(uint16[] _contributionCodes, string _remark, address _rbacAddress) public {
+  function Request(uint16[] _contributionCodes, string _remark, address _rbacAddress, uint16[] gves) public {
     rbac = RBAC(_rbacAddress);
     contributionCodes = _contributionCodes;
     remark = _remark;
-    //setGVE(gves[0], gves[1], gves[2], gves[3], gves[4], gves[5], gves[6], gves[7], gves[8]);
+    setGVE(gves[0], gves[1], gves[2], gves[3], gves[4], gves[5], gves[6], gves[7], gves[8]);
     setCreated();
   }
 
@@ -87,11 +87,15 @@ contract Request is mortal {
   }
 
   function addLacks(uint16[] _contributionCodes, int64[] _controlCategoryIds, uint16[] _pointGroupCodes, int64[] _controlPointIds, int64[] _lackIds, uint8[] _points) {
-    //    require(msg.sender == inspectorAddress);
+    require(msg.sender == inspectorAddress);
     for (uint16 i = 0; i < _contributionCodes.length; i++) {
       uint lacksIndex = numLacks++;
       newLacks[lacksIndex] = LackNew(_contributionCodes[i], _controlCategoryIds[i], _pointGroupCodes[i], _controlPointIds[i], _lackIds[i], _points[i]);
+      if (_contributionCodes[i] == 5416) {
+        updateBtsPoint(_pointGroupCodes[i], _points[i]);
+      }
     }
+    setModified();
     //  numLacks = _contributionCodes[0];
   }
 
