@@ -28,8 +28,8 @@ func init() {
 	orm.RegisterModel(new(User))
 }
 
-func (_User *User) HasRole(roleName string) bool {
-	for _, role := range _User.Roles {
+func (user *User) HasRole(roleName string) bool {
+	for _, role := range user.Roles {
 		if role.Name == roleName {
 			return true
 		}
