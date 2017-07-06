@@ -6,6 +6,7 @@ import (
 	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services/tvd"
 	"strconv"
+	"time"
 )
 
 func AddJournalEntry(journalEntry *models.JournalEntry) error {
@@ -45,7 +46,7 @@ func GetJournal(tvd string) (*models.Journal, error) {
 func GetMonthlyStats(userTvd int32, month uint8, year uint16) (models.MonthlyStats, error) {
 	monthlyStats := models.MonthlyStats{Month: month, Year: year}
 
-	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd)
+	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd, time.Now().AddDate(0, 0, -1), time.Now().AddDate(0, 0, 0))
 	if err != nil {
 		return monthlyStats, err
 	}

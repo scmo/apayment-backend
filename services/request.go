@@ -15,7 +15,7 @@ import (
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
 	// TODO: Uncomment this when TVD is again up
-	gvesMap, err := tvd.GetNumberOfGVE(request.User.TVD)
+	gvesMap, err := tvd.GetNumberOfGVELastYear(request.User.TVD)
 	if err != nil {
 		beego.Error("Failed to get GVE. ", err)
 		return err

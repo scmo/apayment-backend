@@ -5,11 +5,12 @@ import (
 	"github.com/astaxie/beego/orm"
 	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services/tvd"
+	"time"
 )
 
 func GetCowFromUser(userTvd int32) ([]*models.Cow, error) {
 	cows := []*models.Cow{}
-	getCattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd)
+	getCattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd, time.Now().AddDate(0, 0, -1), time.Now().AddDate(0, 0, 0))
 
 	if err != nil {
 		return cows, err
@@ -29,7 +30,7 @@ func GetCowFromUser(userTvd int32) ([]*models.Cow, error) {
 
 func GetCategories(userTvd int32) ([]*models.Category, error) {
 	categories := make([]*models.Category, 0)
-	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd)
+	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(userTvd, time.Now().AddDate(0, 0, -1), time.Now().AddDate(0, 0, 0))
 	if err != nil {
 		return categories, err
 	}
