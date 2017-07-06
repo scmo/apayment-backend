@@ -38,15 +38,6 @@ contract Request is mortal {
 
   struct Lack {
   uint16 contributionCode;
-  string controlCategoryId;
-  uint16 pointGroupCode;
-  string controlPointId;
-  int64 lackId;
-  uint8 points;
-  }
-
-  struct LackNew {
-  uint16 contributionCode;
   int64 controlCategoryId;
   uint16 pointGroupCode;
   int64 controlPointId;
@@ -58,7 +49,6 @@ contract Request is mortal {
 
   mapping (uint => Lack) public lacks;
 
-  mapping (uint => LackNew) public newLacks;
 
   function Request(uint16[] _contributionCodes, string _remark, address _rbacAddress, uint16[] gves) public {
     rbac = RBAC(_rbacAddress);
@@ -75,28 +65,16 @@ contract Request is mortal {
     setModified();
   }
 
-  function addLack(uint16 _contributionCode, string _controlCategoryId, uint16 _pointGroupCode, string _controlPointId, int64 _lackId, uint8 _points) {
-    require(msg.sender == inspectorAddress);
-    uint lacksIndex = numLacks++;
-    lacks[lacksIndex] = Lack(_contributionCode, _controlCategoryId, _pointGroupCode, _controlPointId, _lackId, _points);
-    setModified();
-
-    if (_contributionCode == 5416) {
-      updateBtsPoint(_pointGroupCode, _points);
-    }
-  }
-
   function addLacks(uint16[] _contributionCodes, int64[] _controlCategoryIds, uint16[] _pointGroupCodes, int64[] _controlPointIds, int64[] _lackIds, uint8[] _points) {
     require(msg.sender == inspectorAddress);
     for (uint16 i = 0; i < _contributionCodes.length; i++) {
       uint lacksIndex = numLacks++;
-      newLacks[lacksIndex] = LackNew(_contributionCodes[i], _controlCategoryIds[i], _pointGroupCodes[i], _controlPointIds[i], _lackIds[i], _points[i]);
+      lacks[lacksIndex] = Lack(_contributionCodes[i], _controlCategoryIds[i], _pointGroupCodes[i], _controlPointIds[i], _lackIds[i], _points[i]);
       if (_contributionCodes[i] == 5416) {
         updateBtsPoint(_pointGroupCodes[i], _points[i]);
       }
     }
     setModified();
-    //  numLacks = _contributionCodes[0];
   }
 
   /* ==============================
@@ -165,6 +143,7 @@ contract Request is mortal {
     btsPointGroup.gve = _gve1144;
 
     calculateBTS();
+    setModified();
   }
 
   //  function getBTSGVE(uint16 _pointGroupCode) constant returns (uint16) {
@@ -174,6 +153,7 @@ contract Request is mortal {
   function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
     CalcVariables btsPointGroup = pointGroups[_pointGroupCode];
     btsPointGroup.btsPoints = btsPointGroup.btsPoints + _points;
+    setModified();
   }
 
   function calculateBTS() {

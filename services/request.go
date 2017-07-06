@@ -177,18 +177,47 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return err
 	}
+
+	// TODO
+	// prepare data to send to contract
+	var contributionCodes = make([]uint16, 0)
+	var controlCategoryIds = make([]int64, 0)
+	var pointGroupCodes = make([]uint16, 0)
+	var controlPointIds = make([]int64, 0)
+	var lackIds = make([]int64, 0)
+	var points = make([]uint8, 0)
+	for _, lack := range inspection.Lacks {
+		contributionCodes = append(contributionCodes, lack.ContributionCode)
+		controlCategoryIds = append(controlCategoryIds, lack.ControlCategoryId)
+		pointGroupCodes = append(pointGroupCodes, lack.PointGroupCode)
+		controlPointIds = append(controlPointIds, lack.ControlPointId)
+		lackIds = append(lackIds, lack.LackId)
+		points = append(points, lack.Points)
+	}
+
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
-	for _, lack := range inspection.Lacks {
-		beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
-		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
-		if err != nil {
-			beego.Critical("Failed to update name: ", err)
-			return err
-		}
-		beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
+	tx, err := session.AddLacks(contributionCodes, controlCategoryIds, pointGroupCodes, controlPointIds, lackIds, points)
+	if err != nil {
+		beego.Critical("Failed to update name: ", err)
+		return err
 	}
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
+	//session := getRequestContractSession(requestContract)
+	//session.TransactOpts.From = auth.From
+	//session.TransactOpts.Signer = auth.Signer
+	//for _, lack := range inspection.Lacks {
+	//	beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
+	//	tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
+	//	if err != nil {
+	//		beego.Critical("Failed to update name: ", err)
+	//		return err
+	//	}
+	//	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+	//}
 	return err
 }
 
