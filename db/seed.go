@@ -417,6 +417,7 @@ func Seed_Users() {
 	roles[0] = &farmer
 	services.CreateUser(&models.User{Username: "farmer1", Password: "farmer1", TVD: 1015010, Roles: roles, Email: "farmer1@apayment.ch"})
 	services.CreateUser(&models.User{Username: "farmer2", Password: "farmer2", TVD: 1015010, Roles: roles, Email: "farmer2@apayment.ch"})
+	services.CreateUser(&models.User{Username: "field", Password: "field", TVD: 0, Lastname: "Field", Firstname: "Test", Roles: roles, Email: "field@apayment.ch"})
 
 	roles = make([]*models.Role, 1)
 	roles[0] = &inspector

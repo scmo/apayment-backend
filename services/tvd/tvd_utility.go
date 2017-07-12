@@ -56,10 +56,28 @@ func GetUserCattleLivestock(userTvd int32, begin time.Time, end time.Time) (*Get
 	return cattleLivestockV2Response, nil
 }
 
+func getFieldTestGVE() (map[uint16]uint16, error) {
+	return map[uint16]uint16{
+		1110: 11,
+		1150: 12,
+		1128: 13,
+		1141: 14,
+		1142: 15,
+		1124: 16,
+		1129: 17,
+		1143: 18,
+		1144: 19,
+	}, nil
+}
+
 /*
 	Calculates the GVE from previous year.
 */
 func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint16, error) {
+	// FOR FIELD TEST
+	if userTvd == 0 {
+		return getFieldTestGVE()
+	}
 	a1 := float32(0) // a1 1110    Milchkühe
 	a2 := float32(0) // a2 1150   andere Kühe
 	a3 := float32(0) // a3 1128    weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung,
@@ -129,7 +147,10 @@ func round(val float32) uint16 {
 }
 
 func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
-
+	// FOR FIELD TEST
+	if userTvd == 0 {
+		return getFieldTestGVE()
+	}
 	a1 := 0 // a1 1110    Milchkühe
 	a2 := 0 // a2 1150   andere Kühe
 	a3 := 0 // a3 1128    weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung,

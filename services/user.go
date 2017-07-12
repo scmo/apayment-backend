@@ -210,6 +210,7 @@ func setTVD(user *models.User) {
 	}
 	user.PersonAddressResult = personAddressResult
 
+	// FOR FIELD TEST
 	if user.TVD == 0 {
 		return
 	}
