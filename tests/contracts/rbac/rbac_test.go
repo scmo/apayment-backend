@@ -54,7 +54,7 @@ func init() {
 /*
  Deploy RBAC contract
 */
-func TestDeployRBACContract(t *testing.T) {
+func Test_DeployRBACContract(t *testing.T) {
 	beego.Trace("Test: ", "Deploy RBAC ContractRequest")
 	_, _, rc, err := rbac.DeployRBACContract(systemAuth, sim)
 	sim.Commit()
