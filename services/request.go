@@ -12,6 +12,7 @@ import (
 	"math/big"
 )
 
+// CreateRequest deploys a new Request Contract in the blockchain.
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
 
@@ -50,6 +51,7 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	return err
 }
 
+// GetAllRequests loads all request address stored in the database. With the address, the contract of the request get loaded.
 func GetAllRequests() []*models.Request {
 	o := orm.NewOrm()
 	var requests []*models.Request
