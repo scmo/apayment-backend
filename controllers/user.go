@@ -50,8 +50,6 @@ func (this *UserController) GetAll() {
 			if err != nil {
 				beego.Error("Error while fetching users by Role", err)
 			}
-		} else if 1 != 1 {
-			// maybe another condition
 		} else {
 			this.Data["json"] = services.GetAllUsers()
 		}
