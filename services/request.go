@@ -14,22 +14,25 @@ import (
 
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	// TODO: Uncomment this when TVD is again up
+
 	gvesMap, err := tvd.GetNumberOfGVELastYear(request.User.TVD)
 	if err != nil {
 		beego.Error("Failed to get GVE. ", err)
 		return err
 	}
-	//var gvesList [9]uint16
 	var gvesList = make([]uint16, 0)
 	for _, value := range gvesMap {
 		gvesList = append(gvesList, value)
-		//gvesList[i] = value
+
 	}
 
-	//gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
+	previousYearAmount, err := getRequestAmountFromPreviousYear(request.User)
+	if err != nil {
+		beego.Error("Error to get amount from last year: ", err)
+		return err
+	}
 
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")), gvesList)
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")), gvesList, previousYearAmount)
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -298,6 +301,11 @@ func getRequestContractSession(requestContract *directpaymentrequest.RequestCont
 	}
 	return requestContractSesssion
 
+}
+
+// TODO
+func getRequestAmountFromPreviousYear(user *models.User) (*big.Int, error) {
+	return big.NewInt(0), nil
 }
 
 func getContributionCodes(request *models.Request) []uint16 {
