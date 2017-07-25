@@ -271,18 +271,26 @@ func SetGVE(request *models.Request) error {
 //}
 
 func GetFirstPaymentAmount(request *models.Request) (*big.Int, error) {
-	ethereumController := ethereum.GetEthereumController()
-
 	requestContract, err := getRequestContractByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return nil, err
 	}
-	session := getRequestContractSession(requestContract)
-	session.TransactOpts.From = ethereumController.Auth.From
-	session.TransactOpts.Signer = ethereumController.Auth.Signer
+	amount, err := requestContract.GetFirstPaymentAmount(nil)
+	if err != nil {
+		beego.Error("Error while first payment amount: ", err)
+		return nil, err
+	}
+	return amount, err
+}
 
-	amount, err := session.GetFirstPaymentAmount()
+func GetSecondPaymentAmount(request *models.Request) (*big.Int, error) {
+	requestContract, err := getRequestContractByAddress(request.Address)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return nil, err
+	}
+	amount, err := requestContract.GetFinalPaymentAmount(nil)
 	if err != nil {
 		beego.Error("Error while first payment amount: ", err)
 		return nil, err

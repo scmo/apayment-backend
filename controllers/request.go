@@ -231,9 +231,18 @@ func (this *RequestController) Pay() {
 		}
 	} else if len(request.Payments) == 1 {
 		beego.Debug("make second payment")
-		//services.AddPayment(request, common.HexToAddress(user.Address), big.NewInt(333))
-	} else if len(request.Payments) == 2 {
-		beego.Debug("make third payment")
+		amount, err := services.GetSecondPaymentAmount(request)
+		if err != nil {
+			beego.Error("Error while getting second payment amount. ", err)
+			this.CustomAbort(500, err.Error())
+		}
+		apaymentTransfer.Amount = amount
+		apaymentTransfer.Message = "Second Payment"
+		err = services.Transfer(apaymentTransfer, request.Address)
+		if err != nil {
+			beego.Debug("Error while transfer", err)
+			this.CustomAbort(500, err.Error())
+		}
 	}
 
 	//request = services.GetRequestById(r.Id)
