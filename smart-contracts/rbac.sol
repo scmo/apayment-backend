@@ -8,7 +8,6 @@ contract RBAC {
   mapping (address => bool) admins;
   mapping (address => bool) inspectors;
   mapping (address => bool) farmers;
-
   mapping (address => bool) cantonEmployees;
 
   function RBAC(){

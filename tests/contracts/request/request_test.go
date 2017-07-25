@@ -233,11 +233,6 @@ func Test_PointGroupCalculation(t *testing.T) {
 */
 func Test_CalculateBTS(t *testing.T) {
 	Convey("Subject: Check if total amount and deduction is calculated correctly for BTS\n", t, func() {
-		_, err := requestContract.CalculateBTS(cantonAuth)
-		sim.Commit()
-		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
-		})
 		Convey("Pointgroup 1110: Amount is 261000", func() {
 			cv, _ := requestContract.PointGroups(nil, 1110)
 			So(cv.BtsTotal.Cmp(big.NewInt(261000)), ShouldEqual, 0)
@@ -278,11 +273,6 @@ func Test_CalculateBTS(t *testing.T) {
 */
 func Test_CalculateRAUS(t *testing.T) {
 	Convey("Subject: Check if total amount and deduction is calculated correctly for RAUS\n", t, func() {
-		_, err := requestContract.CalculateRAUS(cantonAuth)
-		sim.Commit()
-		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
-		})
 		Convey("Pointgroup 1110: Amount is 551000", func() {
 			cv, _ := requestContract.PointGroups(nil, 1110)
 			So(cv.RausTotal.Cmp(big.NewInt(551000)), ShouldEqual, 0)

@@ -17,11 +17,11 @@ contract mortal {
   /* Function to recover the funds on the contract */
   function kill() {if (msg.sender == owner) selfdestruct(owner);}
 
-  function setCreated(){
+  function setCreated() internal {
     created = block.timestamp;
   }
 
-  function setModified(){
+  function setModified() internal {
     modified = block.timestamp;
   }
 }
@@ -78,9 +78,10 @@ contract Request is mortal {
         updateRausPoint(_pointGroupCodes[i], _points[i]);
       }
     }
+    calculateBTS();
+    calculateRAUS();
     setModified();
   }
-
 
   // For each pointGroup there is a PointGroupCalculation
   uint16[9] pointGroupCodes = [1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144];
@@ -122,17 +123,17 @@ contract Request is mortal {
   }
 
 
-  function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) {
+  function updateBtsPoint(uint16 _pointGroupCode, uint16 _points) internal {
     PointGroupCalculation storage pointGroupCalculation = pointGroups[_pointGroupCode];
     pointGroupCalculation.btsPoints = pointGroupCalculation.btsPoints + _points;
   }
 
-  function updateRausPoint(uint16 _pointGroupCode, uint16 _points) {
+  function updateRausPoint(uint16 _pointGroupCode, uint16 _points) internal {
     PointGroupCalculation storage pointGroupCalculation = pointGroups[_pointGroupCode];
     pointGroupCalculation.rausPoints = pointGroupCalculation.rausPoints + _points;
   }
 
-  function calculateBTS() {
+  function calculateBTS() internal {
     for (uint16 i = 0; i < pointGroupCodes.length; i++) {
       PointGroupCalculation storage btsPointGroup = pointGroups[pointGroupCodes[i]];
 
@@ -150,7 +151,7 @@ contract Request is mortal {
     }
   }
 
-  function calculateRAUS() {
+  function calculateRAUS() internal {
     for (uint16 i = 0; i < pointGroupCodes.length; i++) {
       PointGroupCalculation storage rausPointGroup = pointGroups[pointGroupCodes[i]];
       uint256 multiplier = 0;
