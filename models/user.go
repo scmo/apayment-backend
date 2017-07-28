@@ -7,20 +7,18 @@ import (
 )
 
 type User struct {
-	Id                          int64  `json:"id"`
-	Username                    string `orm:"unique" json:"username"`
-	Password                    string `json:"password"`
-
-	Roles                       []*Role  `orm:"rel(m2m)" json:"roles"`
-	JwtToken                    string   `orm:"-" json:"token"`
-	EtherumAddress              string   `json:"etherumAddress"`
-	EthereumBalance             *big.Int `orm:"-" json:"ethereumBalance"`
-	APaymentTokenBalance        *big.Int `orm:"-" json:"apaymentTokenBalance"`
-
-	Firstname                   string `json:"firstname"`
-	Lastname                    string `json:"lastname"`
-
-	PersonAddressResult         *tvd.PersonAddressResult            `orm:"-" json:"personAddressResult"`
+	Id                          int64                               `json:"id"`
+	Username                    string                              `orm:"unique" json:"username"`
+	Password                    string                              `json:"password"`
+	Email                       string                              `orm:"unique" json:"email"`
+	Roles                       []*Role                             `orm:"rel(m2m)" json:"roles"`
+	JwtToken                    string                              `orm:"-" json:"token"`
+	EtherumAddress              string                              `json:"etherumAddress"`
+	EthereumBalance             *big.Int                            `orm:"-" json:"ethereumBalance"`
+	APaymentTokenBalance        *big.Int                            `orm:"-" json:"apaymentTokenBalance"`
+	Firstname                   string                              `json:"firstname"`
+	Lastname                    string                              `json:"lastname"`
+	PersonAddressResult         *tvd.PersonAddressResult            `orm:"-" json:"agateDetails"`
 	AnimalHusbandryDetailResult *tvd.GetAnimalHusbandryDetailResult `orm:"-" json:"AnimalHusbandryDetailResult"`
 	TVD                         int32                               `json:"tvd"`
 }
@@ -30,8 +28,8 @@ func init() {
 	orm.RegisterModel(new(User))
 }
 
-func (_User *User) HasRole(roleName string) bool {
-	for _, role := range _User.Roles {
+func (user *User) HasRole(roleName string) bool {
+	for _, role := range user.Roles {
 		if role.Name == roleName {
 			return true
 		}

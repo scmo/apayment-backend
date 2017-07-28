@@ -75,8 +75,8 @@ func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribu
 		beego.Error("Error while loading Contribution. (ContributionCode: ", iL.ContributionCode, ") Error:", err)
 		return &contribution
 	}
-	controlCategory := models.ControlCategory{ControlCategoryId: iL.ControlCategoryId, Contribution: &contribution}
-	err = o.Read(&controlCategory, "ControlCategoryId")
+	controlCategory := models.ControlCategory{Id: iL.ControlCategoryId, Contribution: &contribution}
+	err = o.Read(&controlCategory)
 	if err != nil {
 		beego.Error("Error while loading ControlCategory. (ControlCategoryId: ", iL.ControlCategoryId, ") Error:", err)
 		return &contribution
@@ -91,8 +91,8 @@ func GetContributionByInspectionLack(iL *models.InspectionLack) *models.Contribu
 	}
 	controlCategory.PointGroups = append(controlCategory.PointGroups, &pointGroup)
 
-	controlPoint := models.ControlPoint{ControlPointId: iL.ControlPointId, PointGroup: &pointGroup}
-	err = o.Read(&controlPoint, "ControlPointId")
+	controlPoint := models.ControlPoint{Id: iL.ControlPointId, PointGroup: &pointGroup}
+	err = o.Read(&controlPoint)
 	if err != nil {
 		beego.Error("Error while loading ControlPoint. (ControlPointId: ", iL.ControlPointId, ") Error:", err)
 		return &contribution

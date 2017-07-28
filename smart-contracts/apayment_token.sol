@@ -27,10 +27,12 @@ contract ERC20 {
 
 contract APaymentToken is ERC20, DPMath {
   uint256                                            _supply;
-
   mapping (address => uint256)                       _balances;
-
   mapping (address => mapping (address => uint256))  _approvals;
+
+  string public constant name = "aPayment Token";
+
+  string public constant symbol = "APT";
 
   function APaymentToken(uint256 supply) {
     _balances[msg.sender] = supply;

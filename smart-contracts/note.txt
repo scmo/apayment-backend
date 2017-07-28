@@ -12,3 +12,4 @@ abigen --abi ./rbac/RBAC.abi --pkg rbac --type RBACContract --out ./rbac/rbac.go
 solc -o ./apayment-token --abi --bin apayment_token.sol
 abigen --abi ./apayment-token/APaymentToken.abi --pkg apaymenttoken --type APaymentTokenContract --out ./apayment-token/apayment-token.go --bin ./apayment-token/APaymentToken.bin
 
+

@@ -50,8 +50,6 @@ func (this *UserController) GetAll() {
 			if err != nil {
 				beego.Error("Error while fetching users by Role", err)
 			}
-		} else if 1 != 1 {
-			// maybe another condition
 		} else {
 			this.Data["json"] = services.GetAllUsers()
 		}
@@ -64,6 +62,7 @@ func (this *UserController) GetAll() {
 
 // @Title Get my Profile
 // @Description get user based on JWT Token
+// @Param   Authorization     header   string true       "JWT token"
 // @Success 200 {object} models.User
 // @Failure 404
 // @router /profile [get]
@@ -146,16 +145,23 @@ func (this *UserController) Register() {
 
 // @Title Login
 // @Description Logs user into the system
-// @Param	username		query 	string	true		"The username for login"
-// @Param	password		query 	string	true		"The password for login"
+// @Param	body		body 	models.User	true		"body for user content"
 // @Success 200 {string} login success
 // @Failure 403 user not exist
 // @router /login [post]
 func (this *UserController) Login() {
 	var user models.User
 	json.Unmarshal(this.Ctx.Input.RequestBody, &user)
+	var err error
+	beego.Debug(user)
+	if user.Username != "" {
+		user, err = services.CheckLoginWithUsername(user.Username, user.Password)
+	} else if user.Email != "" {
+		user, err = services.CheckLoginWithEmail(user.Email, user.Password)
+	} else {
+		this.CustomAbort(401, "No username / email provided")
+	}
 
-	user, err := services.CheckLogin(user.Username, user.Password)
 	if err != nil {
 		// TODO: Return appropiate Errer, when 'no row found'
 		beego.Error("CheckLogin ", err.Error())

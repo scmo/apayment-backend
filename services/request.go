@@ -12,21 +12,28 @@ import (
 	"math/big"
 )
 
+// CreateRequest deploys a new Request Contract in the blockchain.
 func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	ethereumController := ethereum.GetEthereumController()
-	// TODO: Uncomment this when TVD is again up
-	//gvesMap, err := tvd.GetNumberOfGVE(request.User.TVD, beego.AppConfig.String("agate_username"), beego.AppConfig.String("agate_password"))
-	//if ( err != nil ) {
-	//	beego.Error("Failed to get GVE. ", err)
-	//	return err
-	//}
-	//var gvesList [9]uint16
-	//for  i, value := range gvesMap {
-	//	gvesList[i] = value
-	//}
-	//gvesList := [9]uint16{29, 0, 18, 21, 0, 0, 5, 9, 1}
 
-	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")))
+	gvesMap, err := tvd.GetNumberOfGVELastYear(request.User.TVD)
+	if err != nil {
+		beego.Error("Failed to get GVE. ", err)
+		return err
+	}
+	var gvesList = make([]uint16, 0)
+	for _, value := range gvesMap {
+		gvesList = append(gvesList, value)
+
+	}
+
+	previousYearAmount, err := getRequestAmountFromPreviousYear(request.User)
+	if err != nil {
+		beego.Error("Error to get amount from last year: ", err)
+		return err
+	}
+
+	address, tx, _, err := directpaymentrequest.DeployRequestContract(auth, ethereumController.Client, getContributionCodes(request), request.Remark, common.HexToAddress(beego.AppConfig.String("accessControlContract")), gvesList, previousYearAmount)
 	if err != nil {
 		beego.Error("Failed to deploy new token contract: ", err)
 		return err
@@ -44,6 +51,7 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 	return err
 }
 
+// GetAllRequests loads all request address stored in the database. With the address, the contract of the request get loaded.
 func GetAllRequests() []*models.Request {
 	o := orm.NewOrm()
 	var requests []*models.Request
@@ -174,18 +182,47 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return err
 	}
+
+	// TODO
+	// prepare data to send to contract
+	var contributionCodes = make([]uint16, 0)
+	var controlCategoryIds = make([]int64, 0)
+	var pointGroupCodes = make([]uint16, 0)
+	var controlPointIds = make([]int64, 0)
+	var lackIds = make([]int64, 0)
+	var points = make([]uint8, 0)
+	for _, lack := range inspection.Lacks {
+		contributionCodes = append(contributionCodes, lack.ContributionCode)
+		controlCategoryIds = append(controlCategoryIds, lack.ControlCategoryId)
+		pointGroupCodes = append(pointGroupCodes, lack.PointGroupCode)
+		controlPointIds = append(controlPointIds, lack.ControlPointId)
+		lackIds = append(lackIds, lack.LackId)
+		points = append(points, lack.Points)
+	}
+
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
-	for _, lack := range inspection.Lacks {
-		beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
-		tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
-		if err != nil {
-			beego.Critical("Failed to update name: ", err)
-			return err
-		}
-		beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
+	tx, err := session.AddLacks(contributionCodes, controlCategoryIds, pointGroupCodes, controlPointIds, lackIds, points)
+	if err != nil {
+		beego.Critical("Failed to update name: ", err)
+		return err
 	}
+	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+
+	//session := getRequestContractSession(requestContract)
+	//session.TransactOpts.From = auth.From
+	//session.TransactOpts.Signer = auth.Signer
+	//for _, lack := range inspection.Lacks {
+	//	beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
+	//	tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
+	//	if err != nil {
+	//		beego.Critical("Failed to update name: ", err)
+	//		return err
+	//	}
+	//	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+	//}
 	return err
 }
 
@@ -234,18 +271,26 @@ func SetGVE(request *models.Request) error {
 //}
 
 func GetFirstPaymentAmount(request *models.Request) (*big.Int, error) {
-	ethereumController := ethereum.GetEthereumController()
-
 	requestContract, err := getRequestContractByAddress(request.Address)
 	if err != nil {
 		beego.Error("Error while fetching RequestContract by Address: ", err)
 		return nil, err
 	}
-	session := getRequestContractSession(requestContract)
-	session.TransactOpts.From = ethereumController.Auth.From
-	session.TransactOpts.Signer = ethereumController.Auth.Signer
+	amount, err := requestContract.GetFirstPaymentAmount(nil)
+	if err != nil {
+		beego.Error("Error while first payment amount: ", err)
+		return nil, err
+	}
+	return amount, err
+}
 
-	amount, err := session.GetFirstPaymentAmount()
+func GetSecondPaymentAmount(request *models.Request) (*big.Int, error) {
+	requestContract, err := getRequestContractByAddress(request.Address)
+	if err != nil {
+		beego.Error("Error while fetching RequestContract by Address: ", err)
+		return nil, err
+	}
+	amount, err := requestContract.GetFinalPaymentAmount(nil)
 	if err != nil {
 		beego.Error("Error while first payment amount: ", err)
 		return nil, err
@@ -266,6 +311,11 @@ func getRequestContractSession(requestContract *directpaymentrequest.RequestCont
 	}
 	return requestContractSesssion
 
+}
+
+// TODO
+func getRequestAmountFromPreviousYear(user *models.User) (*big.Int, error) {
+	return big.NewInt(0), nil
 }
 
 func getContributionCodes(request *models.Request) []uint16 {
@@ -334,7 +384,7 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 					for _, cc := range contribution.ControlCategories {
 						for i, pg := range cc.PointGroups {
 							if pg.PointGroupCode == pointGroupCode {
-								cc.PointGroups = append(cc.PointGroups[:i], cc.PointGroups[i + 1:]...)
+								cc.PointGroups = append(cc.PointGroups[:i], cc.PointGroups[i+1:]...)
 								break
 							}
 						}

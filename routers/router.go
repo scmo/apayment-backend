@@ -68,6 +68,21 @@ func init() {
 				&controllers.APaymentTokenController{},
 			),
 		),
+		beego.NSNamespace("/journal",
+			beego.NSInclude(
+				&controllers.JournalController{},
+			),
+		),
+		beego.NSNamespace("/cow",
+			beego.NSInclude(
+				&controllers.CowController{},
+			),
+		),
+		beego.NSNamespace("/category",
+			beego.NSInclude(
+				&controllers.CategoryController{},
+			),
+		),
 		beego.NSNamespace("/ping",
 			beego.NSInclude(
 				&controllers.PingController{},
@@ -82,6 +97,7 @@ var HandleJWT = func(ctx *context.Context) {
 		return
 	}
 	if strings.HasPrefix(ctx.Input.URL(), "/v1/user/login") {
+
 		return
 	}
 	if services.Validate(ctx.Request.Header.Get("Authorization")) {

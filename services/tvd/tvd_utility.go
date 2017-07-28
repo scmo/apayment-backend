@@ -11,7 +11,21 @@ func GetPointGroupCodes() []uint16 {
 	return []uint16{1110, 1150, 1128, 1141, 1142, 1124, 1129, 1143, 1144}
 }
 
-func GetUserCattleLivestock(userTvd int32) (*GetCattleLivestockV2Response, error) {
+func GetPointGroupName() []string {
+	return []string{
+		"Milchkühe",
+		"andere Kühe",
+		"weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung",
+		"weibliche Tiere über 160 - 365 Tage alt",
+		"weibliche Tiere bis 160 Tage alt",
+		"männliche Tiere, über 730 Tage alt",
+		"männliche Tiere, über 365 bis 730 Tage alt",
+		"männliche Tiere, über 160 bis 365 Tage alt",
+		"männliche Tiere, bis 160 Tage alt",
+	}
+}
+
+func GetUserCattleLivestock(userTvd int32, begin time.Time, end time.Time) (*GetCattleLivestockV2Response, error) {
 	animalTracingPortType := NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, getAuth())
 
 	workingFocus := []WorkingFocus{}
@@ -30,8 +44,8 @@ func GetUserCattleLivestock(userTvd int32) (*GetCattleLivestockV2Response, error
 		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
 		PTVDNumber:       userTvd,
 		PLCID:            2055,
-		PSearchDateFrom:  time.Now().AddDate(0, 0, -1),
-		PSearchDateTo:    time.Now().AddDate(0, 0, 0),
+		PSearchDateFrom:  begin,
+		PSearchDateTo:    end,
 		PWorkingFocus:    &workingFocusArray,
 	}
 
@@ -42,8 +56,101 @@ func GetUserCattleLivestock(userTvd int32) (*GetCattleLivestockV2Response, error
 	return cattleLivestockV2Response, nil
 }
 
-func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
+func getFieldTestGVE() (map[uint16]uint16, error) {
+	return map[uint16]uint16{
+		1110: 11,
+		1150: 12,
+		1128: 13,
+		1141: 14,
+		1142: 15,
+		1124: 16,
+		1129: 17,
+		1143: 18,
+		1144: 19,
+	}, nil
+}
 
+/*
+	Calculates the GVE from previous year.
+*/
+func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint16, error) {
+	// FOR FIELD TEST
+	if userTvd == 0 {
+		return getFieldTestGVE()
+	}
+	a1 := float32(0) // a1 1110    Milchkühe
+	a2 := float32(0) // a2 1150   andere Kühe
+	a3 := float32(0) // a3 1128    weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung,
+	a4 := float32(0) // a4 1141    weibliche Tiere über 160 - 365 Tage alt
+	a5 := float32(0) // a5 1142   weibliche Tiere bis 160 Tage alt (nur RAUS)
+	a6 := float32(0) // a6 1124   männliche Tiere, über 730 Tage alt
+	a7 := float32(0) // a7 1129   männliche Tiere, über 365 bis 730 Tage alt
+	a8 := float32(0) // a8 1143   männliche Tiere, über 160 bis 365 Tage alt
+	a9 := float32(0) // a9 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
+
+	oc, _ := time.LoadLocation("Europe/Zurich")
+	begin := time.Date(time.Now().Year()-1, time.Month(1), 0, 0, 0, 0, 0, oc)
+	end := time.Date(time.Now().Year()-1, time.Month(12), 30, 23, 59, 0, 0, oc)
+
+	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, begin, end)
+	if err != nil {
+		beego.Error("Error while fetching CattleLiveStockV2: ", err)
+	}
+	for _, cattleLiveStockDataItem := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
+		cat, err := GetAnimalCategory(cattleLiveStockDataItem)
+		if err != nil {
+			return nil, err
+		}
+		days, err := cattleLiveStockDataItem.getStayLengthInDays()
+
+		gve := float32(days) / 365
+		switch cat {
+		case 1:
+			a1 += gve
+		case 2:
+			a2 += gve
+		case 3:
+			a3 += gve
+		case 4:
+			a4 += gve
+		case 5:
+			a5 += gve
+		case 6:
+			a6 += gve
+		case 7:
+			a7 += gve
+		case 8:
+			a8 += gve
+		case 9:
+			a9 += gve
+		default:
+			beego.Error("No category defined")
+		}
+	}
+	return map[uint16]uint16{
+		1110: round(a1),
+		1150: round(a2),
+		1128: round(a3),
+		1141: round(a4),
+		1142: round(a5),
+		1124: round(a6),
+		1129: round(a7),
+		1143: round(a8),
+		1144: round(a9),
+	}, nil
+}
+func round(val float32) uint16 {
+	if val < 0 {
+		return uint16(val - 0.5)
+	}
+	return uint16(val + 0.5)
+}
+
+func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
+	// FOR FIELD TEST
+	if userTvd == 0 {
+		return getFieldTestGVE()
+	}
 	a1 := 0 // a1 1110    Milchkühe
 	a2 := 0 // a2 1150   andere Kühe
 	a3 := 0 // a3 1128    weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung,
@@ -54,7 +161,7 @@ func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
 	a8 := 0 // a8 1143   männliche Tiere, über 160 bis 365 Tage alt
 	a9 := 0 // a9 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
 
-	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd)
+	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, time.Now().AddDate(0, 0, -1), time.Now().AddDate(0, 0, 0))
 	if err != nil {
 		beego.Error("Error while fetching CattleLiveStockV2: ", err)
 	}
@@ -157,6 +264,27 @@ func getAgeInDays(cattleLiveStockDataItem *CattleLivestockDataV2) (uint32, error
 		return 0, err
 	}
 	return uint32(time.Now().Sub(birthdate).Hours() / 24), nil
+}
+
+func (cattleLiveStockDataItem *CattleLivestockDataV2) getStayLengthInDays() (uint16, error) {
+	layout := "2006-01-02T00:00:00"
+	arrival, err := time.Parse(layout, cattleLiveStockDataItem.ArrivalDate)
+	if err != nil {
+		beego.Error("Error while parsing date.", err)
+		return 0, err
+	}
+	oc, _ := time.LoadLocation("Europe/Zurich")
+	leaving := time.Date(time.Now().Year()-1, time.Month(12), 30, 23, 59, 0, 0, oc)
+	if cattleLiveStockDataItem.LeavingDate != "" {
+		leaving, err = time.Parse(layout, cattleLiveStockDataItem.LeavingDate)
+		if err != nil {
+			beego.Error("Error while parsing date.", err)
+			return 0, err
+		}
+	}
+
+	duration := leaving.Sub(arrival).Hours()
+	return uint16(duration / 24), nil
 }
 
 func GetPersonAddressFromTVD() (*PersonAddressResult, error) {

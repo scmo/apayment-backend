@@ -42,7 +42,7 @@ func Init() {
 	}
 
 	// Keystore to administrate accounts
-	ks := keystore.NewKeyStore(pathToEthereum + "keystore", keystore.LightScryptN, keystore.LightScryptP)
+	ks := keystore.NewKeyStore(pathToEthereum+"keystore", keystore.LightScryptN, keystore.LightScryptP)
 	ethereumController = EthereumController{Auth: nil, Client: client, Keystore: ks}
 	auth := GetAuth(beego.AppConfig.String("systemAccountAddress"))
 	ethereumController.Auth = auth

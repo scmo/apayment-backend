@@ -6,6 +6,7 @@ type Lack struct {
 	Id           int64         `json:"id"`
 	Name         string        `json:"name"`
 	Points       int8          `json:"points"`
+	Francs       int16         `json:"francs"`
 	ControlPoint *ControlPoint `orm:"rel(fk);null" json:"-"`
 }
 
