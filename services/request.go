@@ -22,10 +22,10 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 		return err
 	}
 	var gvesList = make([]uint16, 0)
-	for _, value := range gvesMap {
-		gvesList = append(gvesList, value)
+		for _, value := range gvesMap {
+			gvesList = append(gvesList, value)
 
-	}
+		}
 
 	previousYearAmount, err := getRequestAmountFromPreviousYear(request.User)
 	if err != nil {
@@ -200,6 +200,7 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		points = append(points, lack.Points)
 	}
 
+	// TODO: if length of array is longer than 255, split array and call it multiple times
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer

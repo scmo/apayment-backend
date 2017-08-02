@@ -95,6 +95,8 @@ func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint16, error) {
 	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, begin, end)
 	if err != nil {
 		beego.Error("Error while fetching CattleLiveStockV2: ", err)
+		// When TVD doesnt work, just return dummy values
+		return getFieldTestGVE()
 	}
 	for _, cattleLiveStockDataItem := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
 		cat, err := GetAnimalCategory(cattleLiveStockDataItem)
@@ -296,6 +298,7 @@ func GetPersonAddressFromTVD() (*PersonAddressResult, error) {
 		PLCID:            2055,
 		PAgateNumber:     beego.AppConfig.String("agate_username"),
 	}
+	beego.Debug(request)
 
 	response, err := animalTracingPortType.GetPersonAddress(&request)
 	if err != nil {

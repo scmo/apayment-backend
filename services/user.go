@@ -206,7 +206,7 @@ func GetUserByAddress(etherumAddress string) (*models.User, error) {
 func setTVD(user *models.User) {
 	personAddressResult, err := tvd.GetPersonAddressFromTVD()
 	if err != nil {
-		beego.Error("Error while fetching PersonAddress from TVD. ", err)
+		beego.Error("Error while fetching PersonAddress from TVD. ", err.Error())
 	}
 	user.PersonAddressResult = personAddressResult
 
