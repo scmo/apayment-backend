@@ -56,8 +56,8 @@ func GetUserCattleLivestock(userTvd int32, begin time.Time, end time.Time) (*Get
 	return cattleLivestockV2Response, nil
 }
 
-func getFieldTestGVE() (map[uint16]uint16, error) {
-	return map[uint16]uint16{
+func getFieldTestGVE() (map[uint16]uint32, error) {
+	return map[uint16]uint32{
 		1110: 11,
 		1150: 12,
 		1128: 13,
@@ -73,7 +73,7 @@ func getFieldTestGVE() (map[uint16]uint16, error) {
 /*
 	Calculates the GVE from previous year.
 */
-func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint16, error) {
+func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint32, error) {
 	// FOR FIELD TEST
 	if userTvd == 0 {
 		return getFieldTestGVE()
@@ -129,85 +129,20 @@ func GetNumberOfGVELastYear(userTvd int32) (map[uint16]uint16, error) {
 			beego.Error("No category defined")
 		}
 	}
-	return map[uint16]uint16{
-		1110: round(a1),
-		1150: round(a2),
-		1128: round(a3),
-		1141: round(a4),
-		1142: round(a5),
-		1124: round(a6),
-		1129: round(a7),
-		1143: round(a8),
-		1144: round(a9),
+	// multiply by 10'000 to allow 4 decimals
+	return map[uint16]uint32{
+		1110: uint32(a1 * 10000),
+		1150: uint32(a2 * 10000),
+		1128: uint32(a3 * 10000),
+		1141: uint32(a4 * 10000),
+		1142: uint32(a5 * 10000),
+		1124: uint32(a6 * 10000),
+		1129: uint32(a7 * 10000),
+		1143: uint32(a8 * 10000),
+		1144: uint32(a9 * 10000),
 	}, nil
 }
-func round(val float32) uint16 {
-	if val < 0 {
-		return uint16(val - 0.5)
-	}
-	return uint16(val + 0.5)
-}
 
-func GetNumberOfGVE(userTvd int32) (map[uint16]uint16, error) {
-	// FOR FIELD TEST
-	if userTvd == 0 {
-		return getFieldTestGVE()
-	}
-	a1 := 0 // a1 1110    Milchkühe
-	a2 := 0 // a2 1150   andere Kühe
-	a3 := 0 // a3 1128    weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung,
-	a4 := 0 // a4 1141    weibliche Tiere über 160 - 365 Tage alt
-	a5 := 0 // a5 1142   weibliche Tiere bis 160 Tage alt (nur RAUS)
-	a6 := 0 // a6 1124   männliche Tiere, über 730 Tage alt
-	a7 := 0 // a7 1129   männliche Tiere, über 365 bis 730 Tage alt
-	a8 := 0 // a8 1143   männliche Tiere, über 160 bis 365 Tage alt
-	a9 := 0 // a9 1144   männliche Tiere, bis 160 Tage alt (nur RAUS)
-
-	cattleLivestockV2Response, err := GetUserCattleLivestock(userTvd, time.Now().AddDate(0, 0, -1), time.Now().AddDate(0, 0, 0))
-	if err != nil {
-		beego.Error("Error while fetching CattleLiveStockV2: ", err)
-	}
-	for _, cattleLiveStockDataItem := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
-		//beego.Debug(cattleLiveStockDataItem)
-		cat, err := GetAnimalCategory(cattleLiveStockDataItem)
-		if err != nil {
-			return nil, err
-		}
-		switch cat {
-		case 1:
-			a1++
-		case 2:
-			a2++
-		case 3:
-			a3++
-		case 4:
-			a4++
-		case 5:
-			a5++
-		case 6:
-			a6++
-		case 7:
-			a7++
-		case 8:
-			a8++
-		case 9:
-			a9++
-		default:
-			beego.Error("No category defined")
-		}
-	}
-	return map[uint16]uint16{
-		1110: uint16(a1),
-		1150: uint16(a2),
-		1128: uint16(a3),
-		1141: uint16(a4),
-		1142: uint16(a5),
-		1124: uint16(a6),
-		1129: uint16(a7),
-		1143: uint16(a8),
-		1144: uint16(a9),
-	}, nil
-}
 
 func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, error) {
 	ageInDays, err := getAgeInDays(cattleLiveStockDataItem)
@@ -298,8 +233,6 @@ func GetPersonAddressFromTVD() (*PersonAddressResult, error) {
 		PLCID:            2055,
 		PAgateNumber:     beego.AppConfig.String("agate_username"),
 	}
-	beego.Debug(request)
-
 	response, err := animalTracingPortType.GetPersonAddress(&request)
 	if err != nil {
 		return nil, err
