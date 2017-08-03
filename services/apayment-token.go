@@ -111,13 +111,13 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 		if tx.From != beego.AppConfig.String("systemAccountAddress") {
 			from, err = GetUserByAddress(tx.From)
 			if err != nil {
-				beego.Error("Error while getting User by Address. ", err)
+				//beego.Error("Error while getting User by Address. ", err)
 				continue
 			}
 		}
 		to, err := GetUserByAddress(dst)
 		if err != nil {
-			beego.Error("Error while getting User by Address. ", err)
+			//beego.Error("Error while getting User by Address. ", err)
 			continue
 		}
 		if requestAddress == "" {

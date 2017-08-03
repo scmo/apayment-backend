@@ -190,7 +190,7 @@ func GetUserByAddress(etherumAddress string) (*models.User, error) {
 	user := models.User{EtherumAddress: etherumAddress}
 	err := o.Read(&user, "etherum_address")
 	if err == orm.ErrNoRows {
-		beego.Error("No result found.")
+		//beego.Error("No result found.")
 		return nil, err
 	} else if err == orm.ErrMissPK {
 		beego.Error("No primary key found.")
