@@ -52,7 +52,21 @@ func (this *RequestController) Get() {
 	if err != nil {
 		beego.Error(err)
 	}
-	this.Data["json"] = services.GetRequestById(requestId, true)
+
+	claims, _ := services.ParseToken(this.Ctx.Request.Header.Get("Authorization"))
+	user, err := services.GetUserByUsername(claims.Subject)
+	if err != nil {
+		this.CustomAbort(404, err.Error())
+	}
+
+	request := services.GetRequestById(requestId, true)
+	if user.HasRole("Inspector") {
+		// Check RAUS
+		services.CheckRausJournal(request)
+	}
+
+
+	this.Data["json"] = request
 	this.ServeJSON()
 }
 
@@ -176,10 +190,10 @@ func (this *RequestController) UpdateGVE() {
 	}
 
 	if (user.HasRole("Admin") || user.HasRole("Canton")) || user.EtherumAddress == request.User.EtherumAddress {
-		err = services.SetGVE(&request)
-		if err != nil {
-			this.CustomAbort(500, err.Error())
-		}
+		//err = services.SetGVE(&request)
+		//if err != nil {
+		//	this.CustomAbort(500, err.Error())
+		//}
 	}
 
 	this.Data["json"] = request

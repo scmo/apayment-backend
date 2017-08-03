@@ -28,8 +28,12 @@ type Request struct {
 }
 
 type GVE struct {
-	Amount     uint16      `json:"amount"`
+	Amount     float32      `json:"amount"`
 	PointGroup *PointGroup `json:"pointGroup"`
+}
+
+type EarTagNumbers struct {
+	EarTagNumbers      []string
 }
 
 //

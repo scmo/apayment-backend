@@ -10,6 +10,7 @@ import (
 	"github.com/scmo/apayment-backend/services/tvd"
 	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
 	"math/big"
+	"time"
 )
 
 // CreateRequest deploys a new Request Contract in the blockchain.
@@ -21,11 +22,10 @@ func CreateRequest(request *models.Request, auth *bind.TransactOpts) error {
 		beego.Error("Failed to get GVE. ", err)
 		return err
 	}
-	var gvesList = make([]uint16, 0)
-		for _, value := range gvesMap {
-			gvesList = append(gvesList, value)
-
-		}
+	var gvesList = make([]uint32, 0)
+	for _, value := range gvesMap {
+		gvesList = append(gvesList, value)
+	}
 
 	previousYearAmount, err := getRequestAmountFromPreviousYear(request.User)
 	if err != nil {
@@ -183,7 +183,6 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		return err
 	}
 
-	// TODO
 	// prepare data to send to contract
 	var contributionCodes = make([]uint16, 0)
 	var controlCategoryIds = make([]int64, 0)
@@ -200,7 +199,6 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		points = append(points, lack.Points)
 	}
 
-	// TODO: if length of array is longer than 255, split array and call it multiple times
 	session := getRequestContractSession(requestContract)
 	session.TransactOpts.From = auth.From
 	session.TransactOpts.Signer = auth.Signer
@@ -211,53 +209,20 @@ func AddLacksToRequest(inspection *models.Inspection, auth *bind.TransactOpts) e
 		return err
 	}
 	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
-
-	//session := getRequestContractSession(requestContract)
-	//session.TransactOpts.From = auth.From
-	//session.TransactOpts.Signer = auth.Signer
-	//for _, lack := range inspection.Lacks {
-	//	beego.Debug("Add Lack", lack.LackId, lack.Points, lack.PointGroupCode)
-	//	tx, err := session.AddLack(lack.ContributionCode, lack.ControlCategoryId, lack.PointGroupCode, lack.ControlPointId, lack.LackId, lack.Points)
-	//	if err != nil {
-	//		beego.Critical("Failed to update name: ", err)
-	//		return err
-	//	}
-	//	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
-	//}
 	return err
 }
 
-func SetGVE(request *models.Request) error {
-	ethereumController := ethereum.GetEthereumController()
-	gves, err := tvd.GetNumberOfGVE(request.User.TVD)
-	if err != nil {
-		beego.Error("Failed to get GVE. ", err)
-		return err
-	}
-	requestContract, err := getRequestContractByAddress(request.Address)
-	if err != nil {
-		beego.Error("Error while fetching RequestContract by Address: ", err)
-		return err
-	}
-	session := getRequestContractSession(requestContract)
-	session.TransactOpts.From = ethereumController.Auth.From
-	session.TransactOpts.Signer = ethereumController.Auth.Signer
-
-	tx, err := session.SetGVE(gves[1110], gves[1150], gves[1128], gves[1141], gves[1142], gves[1124], gves[1129], gves[1143], gves[1144])
-	if err != nil {
-		beego.Critical("Failed to update GVE: ", err)
-		return err
-	}
-	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
-
-	setGVE(request, session)
-
-	return err
-}
-
-//func AddPayment(request *models.Request, from common.Address, amount *big.Int) (error) {
+/*
+	Function obsolent, GVE values are sent in the constructor
+ */
+//func SetGVE(request *models.Request) error {
 //	ethereumController := ethereum.GetEthereumController()
-//	requestContract, err := getRequestByAddress(request.Address)
+//	gves, err := tvd.GetNumberOfGVE(request.User.TVD)
+//	if err != nil {
+//		beego.Error("Failed to get GVE. ", err)
+//		return err
+//	}
+//	requestContract, err := getRequestContractByAddress(request.Address)
 //	if err != nil {
 //		beego.Error("Error while fetching RequestContract by Address: ", err)
 //		return err
@@ -266,8 +231,15 @@ func SetGVE(request *models.Request) error {
 //	session.TransactOpts.From = ethereumController.Auth.From
 //	session.TransactOpts.Signer = ethereumController.Auth.Signer
 //
-//	tx, err := session.AddPayment(from, amount)
+//	tx, err := session.SetGVE(gves[1110], gves[1150], gves[1128], gves[1141], gves[1142], gves[1124], gves[1129], gves[1143], gves[1144])
+//	if err != nil {
+//		beego.Critical("Failed to update GVE: ", err)
+//		return err
+//	}
 //	beego.Info("Transaction waiting to be mined: ", tx.Hash().String())
+//
+//	setGVE(request, session)
+//
 //	return err
 //}
 
@@ -299,8 +271,65 @@ func GetSecondPaymentAmount(request *models.Request) (*big.Int, error) {
 	return amount, err
 }
 
+func CheckRausJournal(request *models.Request) (error) {
+	for _, contribution := range request.Contributions {
+		if contribution.Code == 5417 {
+			// RAUS contribution exists
+			cowList := prepareTVDList(request.User.TVD)
+			for _, controlCategory := range contribution.ControlCategories {
+				for _, pointGroup := range controlCategory.PointGroups {
+					cows := cowList[pointGroup.PointGroupCode]
+					missedDays, err := requestRausJournal(cows)
+					if err != nil {
+						beego.Error("Error while calling RAUS API")
+					}
+					for _, controlPoints := range pointGroup.ControlPoints {
+						for _, issue := range controlPoints.Lacks {
+							if issue.Computed {
+								issue.Points = issue.Points * missedDays
+							}
+						}
+					}
+				}
+			}
+			break
+		}
+	}
+
+	return nil
+}
+
+func prepareTVDList(tvdNr int32) (map[uint16]models.EarTagNumbers) {
+	// Cows per PointGroup
+	var cowList = make(map[uint16]models.EarTagNumbers)
+
+	// get all cows from current year
+	oc, _ := time.LoadLocation("Europe/Zurich")
+	begin := time.Date(time.Now().Year(), time.Month(1), 0, 0, 0, 0, 0, oc)
+
+	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(tvdNr, begin, time.Now())
+	if err != nil {
+		beego.Error("Error while fetching GetUserCattleLivestock: ", err)
+	}
+	for _, cattleLivestockDataItem := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
+		catIndex, err := tvd.GetAnimalCategory(cattleLivestockDataItem)
+		if err != nil {
+			beego.Error("Error while fetching GetUserCattleLivestock: ", err)
+			continue
+		}
+		pointGroup := tvd.GetPointGroupCodes()[catIndex-1]
+		earTagNumber := cowList[pointGroup]
+		earTagNumber.EarTagNumbers = append(earTagNumber.EarTagNumbers, cattleLivestockDataItem.EarTagNumber)
+		cowList[pointGroup] = earTagNumber
+	}
+	return cowList
+}
+
+func requestRausJournal(cows models.EarTagNumbers) (int8, error) {
+	return 4, nil
+}
+
 func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) *directpaymentrequest.RequestContractSession {
-	//ethereumController := ethereum.GetEthereumController()
 	requestContractSesssion := &directpaymentrequest.RequestContractSession{
 		Contract: requestContract,
 		CallOpts: bind.CallOpts{Pending: true},
@@ -369,7 +398,6 @@ func setContributions(request *models.Request, session *directpaymentrequest.Req
 	index := big.NewInt(0)
 	for next {
 		code, err := session.ContributionCodes(index)
-		beego.Debug(code)
 		if err != nil {
 			next = false
 		}
@@ -411,7 +439,6 @@ func setLacksInspected(request *models.Request, session *directpaymentrequest.Re
 			beego.Error("Error getting Lack", err)
 			return
 		}
-
 		inspectionLack := models.InspectionLack(lack)
 		contribution := GetContributionByInspectionLack(&inspectionLack)
 		contributions = AddContributionToContributions(contributions, contribution)
@@ -444,14 +471,14 @@ func setTimestamps(request *models.Request, session *directpaymentrequest.Reques
 // Function fetches GVE values from the smart contract and adds it to the 'request' model
 func setGVE(request *models.Request, session *directpaymentrequest.RequestContractSession) {
 	pointGroupCodes := tvd.GetPointGroupCodes()
-
 	for i := range pointGroupCodes {
 		requestGVE, err := session.PointGroups(pointGroupCodes[i])
 		if err != err {
 			beego.Critical("Error get GVE", err)
 		}
 		pointGroup, err := GetAllPointGroupByCode(pointGroupCodes[i])
-		gve := models.GVE{PointGroup: pointGroup, Amount: requestGVE.Gve}
+		// device through 10000, to get the real GVE value. To store GVE with 4 decimal places, it has been multiplied by 10000
+		gve := models.GVE{PointGroup: pointGroup, Amount: float32(requestGVE.Gve / 10000)}
 		request.GVE = append(request.GVE, &gve)
 	}
 }
