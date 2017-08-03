@@ -47,10 +47,8 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cp1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cp1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cp1})
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cp2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cp2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cp2})
 
 	// A2	Rinder - andere Kühe
 	pg2 := models.PointGroup{PointGroupId: "A2", Abbreviation: "Rinder - andere Kühe", PointGroup: "Rinder - andere Kühe", PointGroupCode: 1150, ControlCategory: &cc}
@@ -61,24 +59,20 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA2_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA2_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA2_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1})
 
 	cpA2_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA2_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA2_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_2})
 
 	cpA2_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA2_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_3})
 
 	cpA2_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA2_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA2_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_4})
 
 	cpA2_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_5)
@@ -87,14 +81,13 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA2_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA2_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA2_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_6})
 
 	cpA2_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA2_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA2_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA2_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_7})
+
 
 	cpA2_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_8)
@@ -103,7 +96,6 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA2_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA2_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA2_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_9})
 
 	/*
 		A3 - Rinder - weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung
@@ -117,41 +109,38 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA3_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA3_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA3_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1})
+
 	cpA3_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA3_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA3_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_2})
+
 	cpA3_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA3_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_3})
+
 	cpA3_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA3_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA3_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_4})
 	cpA3_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_5)
 	cpA3_6 := models.ControlPoint{ControlPointId: "05.1.1", Abbreviation: "Liegemattenfabrikat BTS-konform", ControlPoint: "Bewirtschafter kann BTS-Konformität nachweisen:\n - Beleg der Mattenlieferfirma mit Name, BVET-Bewilligungsnummer und Datum der Installation\n Falls Mattenfabrikat ohne öffentlich zugänglichen Prüfbericht: betriebsspezifischer Prüfbericht nach Anhang 6 Bst. C Ziff. 1.3.", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA3_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA3_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_6})
 	cpA3_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA3_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA3_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA3_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_7})
 	cpA3_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_8)
 	cpA3_9 := models.ControlPoint{ControlPointId: "05.2.1", Abbreviation: "Liegebereich: Strohmatratze oder gleichwertiger Liegebereich", ControlPoint: "Liegebereich: Strohmatratze oder für das Tier gleichwertige Unterterlage (z.B. Sägemehlbett) / ohne Perforierung", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA3_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA3_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_9})
+
 
 	/*
 		A4 = Rinder - weibliche Tiere, über 160-365 Tage alt
@@ -163,41 +152,34 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA4_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA4_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA4_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1})
 	cpA4_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA4_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA4_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_2})
 	cpA4_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA4_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_3})
 	cpA4_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA4_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA4_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_4})
 	cpA4_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_5)
 	cpA4_6 := models.ControlPoint{ControlPointId: "05.1.1", Abbreviation: "Liegemattenfabrikat BTS-konform", ControlPoint: "Bewirtschafter kann BTS-Konformität nachweisen:\n - Beleg der Mattenlieferfirma mit Name, BVET-Bewilligungsnummer und Datum der Installation\n Falls Mattenfabrikat ohne öffentlich zugänglichen Prüfbericht: betriebsspezifischer Prüfbericht nach Anhang 6 Bst. C Ziff. 1.3.", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA4_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA4_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_6})
 	cpA4_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA4_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA4_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA4_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_7})
 	cpA4_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_8)
 	cpA4_9 := models.ControlPoint{ControlPointId: "05.2.1", Abbreviation: "Liegebereich: Strohmatratze oder gleichwertiger Liegebereich", ControlPoint: "Liegebereich: Strohmatratze oder für das Tier gleichwertige Unterterlage (z.B. Sägemehlbett) / ohne Perforierung", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA4_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA4_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_9})
 
 	/*
 		A6 - Rinder - männliche Tiere, über 730 Tage alt
@@ -209,41 +191,34 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA6_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA6_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA6_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1})
 	cpA6_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA6_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA6_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_2})
 	cpA6_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA6_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_3})
 	cpA6_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA6_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA6_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_4})
 	cpA6_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_5)
 	cpA6_6 := models.ControlPoint{ControlPointId: "05.1.1", Abbreviation: "Liegemattenfabrikat BTS-konform", ControlPoint: "Bewirtschafter kann BTS-Konformität nachweisen:\n - Beleg der Mattenlieferfirma mit Name, BVET-Bewilligungsnummer und Datum der Installation\n Falls Mattenfabrikat ohne öffentlich zugänglichen Prüfbericht: betriebsspezifischer Prüfbericht nach Anhang 6 Bst. C Ziff. 1.3.", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA6_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA6_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_6})
 	cpA6_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA6_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA6_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA6_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_7})
 	cpA6_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_8)
 	cpA6_9 := models.ControlPoint{ControlPointId: "05.2.1", Abbreviation: "Liegebereich: Strohmatratze oder gleichwertiger Liegebereich", ControlPoint: "Liegebereich: Strohmatratze oder für das Tier gleichwertige Unterterlage (z.B. Sägemehlbett) / ohne Perforierung", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA6_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA6_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_9})
 
 	/*
 		A7 - Rinder - männliche Tiere, über 365- 730 Tage alt
@@ -255,41 +230,34 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA7_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA7_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA7_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1})
 	cpA7_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA7_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA7_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_2})
 	cpA7_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA7_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_3})
 	cpA7_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA7_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA7_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_4})
 	cpA7_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_5)
 	cpA7_6 := models.ControlPoint{ControlPointId: "05.1.1", Abbreviation: "Liegemattenfabrikat BTS-konform", ControlPoint: "Bewirtschafter kann BTS-Konformität nachweisen:\n - Beleg der Mattenlieferfirma mit Name, BVET-Bewilligungsnummer und Datum der Installation\n Falls Mattenfabrikat ohne öffentlich zugänglichen Prüfbericht: betriebsspezifischer Prüfbericht nach Anhang 6 Bst. C Ziff. 1.3.", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA7_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA7_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_6})
 	cpA7_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA7_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA7_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA7_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_7})
 	cpA7_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_8)
 	cpA7_9 := models.ControlPoint{ControlPointId: "05.2.1", Abbreviation: "Liegebereich: Strohmatratze oder gleichwertiger Liegebereich", ControlPoint: "Liegebereich: Strohmatratze oder für das Tier gleichwertige Unterterlage (z.B. Sägemehlbett) / ohne Perforierung", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA7_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA7_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_9})
 	/*
 		A8 - Rinder - männliche Tiere, über 160-365 Tage alt
 	*/
@@ -299,41 +267,34 @@ func Seed_BTS_Rindergattung_Wasserbueffel() {
 	services.CreateControlPoint(&cpA8_1)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA8_1})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von der Gruppenhaltung für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA8_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1})
 	cpA8_2 := models.ControlPoint{ControlPointId: "02", Abbreviation: "Mind. 15 Lux Tageslicht im Stall", ControlPoint: "Alle Ställe, in denen sich die Tiere überwiegend aufhalten, verfügen über Tageslicht von mindestens 15 Lux Stärke (Kunstlicht zur Beurteilung ausschalten!). In Ruhe- und Rückugsbereichen ist eine geringere Beleuchtung zulässig.", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_2)
 	services.CreateLack(&models.Lack{Name: "Etwas zu wenig Tageslicht", Points: 10, ControlPoint: &cpA8_2})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig Tageslicht", Points: 110, ControlPoint: &cpA8_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_2})
 	cpA8_3 := models.ControlPoint{ControlPointId: "03", Abbreviation: "Fress- und Tränkebereich: befestigter Boden", ControlPoint: "Befestigter Boden, mit oder ohne Perforierung\n Ausnahme: Abkalbebox und Krankenabteil", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_3)
 	services.CreateLack(&models.Lack{Name: "Fress- und Tränkebereich: unbefestigter Boden", Points: 110, ControlPoint: &cpA8_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_3})
 	cpA8_4 := models.ControlPoint{ControlPointId: "04", Abbreviation: "Alle Tiere haben dauernd (jeden Tag /24h) Zugang zu BTS-Liegebereich und nicht eingestreutem Bereich", ControlPoint: "Alle Tiere der Katgorie haben dauernd (jeden Tag* / während 24h**) Zugang zu einem BTS-konformen Liegebereich und einem nicht eingestreuten Bereich *) Alternative zwischen 1.4. und 30.11.: 24 h am Tag auf Weide **) zulässige Abweichungen gemäss DZV Anhang 6, A, 1.4	", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_4)
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für weniger als 10% der Tiere", Points: 60, ControlPoint: &cpA8_4})
 	services.CreateLack(&models.Lack{Name: "Nicht zulässige Abweichung von dauernd Zugang zu BTS-konfromeme Liegebereich und zu nicht eingestreutem Bereich für 10 oder mehr % der Tiere", Points: 110, ControlPoint: &cpA8_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_4})
 	cpA8_5 := models.ControlPoint{ControlPointId: "05.1", Abbreviation: "Liegebereich in Boxen-Laufställen mit Liegematten", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_5)
 	cpA8_6 := models.ControlPoint{ControlPointId: "05.1.1", Abbreviation: "Liegemattenfabrikat BTS-konform", ControlPoint: "Bewirtschafter kann BTS-Konformität nachweisen:\n - Beleg der Mattenlieferfirma mit Name, BVET-Bewilligungsnummer und Datum der Installation\n Falls Mattenfabrikat ohne öffentlich zugänglichen Prüfbericht: betriebsspezifischer Prüfbericht nach Anhang 6 Bst. C Ziff. 1.3.", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_6)
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei weniger als 10% der Boxen", Points: 60, ControlPoint: &cpA8_6})
 	services.CreateLack(&models.Lack{Name: "Liegemattenfabrikat nicht BTS-konform bei 10 oder mehr % der Boxen", Points: 110, ControlPoint: &cpA8_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_6})
 	cpA8_7 := models.ControlPoint{ControlPointId: "05.1.2", Abbreviation: "Alle Liegematten ausschliesslich mit gehäckseltem Stroh eingestreut", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_7)
 	services.CreateLack(&models.Lack{Name: "Zu wenig BTS-konforme Einstreu", Points: 10, ControlPoint: &cpA8_7})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig BTS-konforme Einstreu", Points: 60, ControlPoint: &cpA8_7})
 	services.CreateLack(&models.Lack{Name: "Keine BTS-konforme Einstreu", Points: 110, ControlPoint: &cpA8_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_7})
 	cpA8_8 := models.ControlPoint{ControlPointId: "05.2", Abbreviation: "Liegebereich in allen anderen Laufställen	", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_8)
 	cpA8_9 := models.ControlPoint{ControlPointId: "05.2.1", Abbreviation: "Liegebereich: Strohmatratze oder gleichwertiger Liegebereich", ControlPoint: "Liegebereich: Strohmatratze oder für das Tier gleichwertige Unterterlage (z.B. Sägemehlbett) / ohne Perforierung", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_9)
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf weniger als 10% der Fläche", Points: 60, ControlPoint: &cpA8_9})
 	services.CreateLack(&models.Lack{Name: "Liegebereich nicht BTS-konform (z.B. nicht kompakt) auf 10 oder mehr % der Fläche", Points: 110, ControlPoint: &cpA8_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_9})
 }
 
 func Seed_RAUS_Weidetiere() {
@@ -379,51 +340,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA1_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA1_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA1_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA1_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA1_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA1_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA1_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA1_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA1_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA1_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA1_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA1_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA1_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA1_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA1_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA1_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA1_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA1_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA1_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA1_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA1_1421})
 
 	// A2	Rinder - andere Kühe
 	pg2 := models.PointGroup{PointGroupId: "A2", Abbreviation: "Rinder - andere Kühe", PointGroup: "Rinder - andere Kühe", PointGroupCode: 1150, ControlCategory: &cc}
@@ -463,51 +410,36 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA2_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA2_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA2_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA2_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA2_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA2_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA2_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA2_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA2_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA2_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA2_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA2_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA2_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA2_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA2_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_11})
-
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA2_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA2_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA2_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA2_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA2_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA2_1421})
 
 	// A3 - Rinder - weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung
 	pg3 := models.PointGroup{PointGroupId: "A3", Abbreviation: "Rinder - weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung", PointGroup: "weibliche Tiere über 365 - 730 Tage alt, ohne Abkalbung", PointGroupCode: 1128, ControlCategory: &cc}
@@ -547,51 +479,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA3_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA3_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA3_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA3_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA3_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA3_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA3_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA3_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA3_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA3_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA3_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA3_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA3_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA3_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA3_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA3_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA3_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA3_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA3_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA3_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA3_1421})
 
 	// A4 = Rinder - weibliche Tiere, über 160-365 Tage alt
 	pg4 := models.PointGroup{PointGroupId: "A4", Abbreviation: "Rinder - weibliche Tiere, über 160-365 Tage alt", PointGroup: "weibliche Tiere über 160 - 365 Tage alt", PointGroupCode: 1141, ControlCategory: &cc}
@@ -631,51 +549,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA4_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA4_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA4_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA4_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA4_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA4_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA4_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA4_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA4_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA4_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA4_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA4_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA4_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA4_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA4_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA4_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA4_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA4_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA4_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA4_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA4_1421})
 
 	// A5 - Rinder - weibliche Tiere, bis 160 Tage alt
 	pg5 := models.PointGroup{PointGroupId: "A5", Abbreviation: "Rinder - weibliche Tiere, bis 160 Tage alt", PointGroup: "weibliche Tiere bis 160 Tage alt", PointGroupCode: 1142, ControlCategory: &cc}
@@ -717,55 +621,40 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA5_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA5_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA5_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA5_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA5_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA5_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA5_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA5_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA5_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA5_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA5_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA5_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA5_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA5_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_8})
 
 	services.CreateLack(&models.Lack{Name: "Alter des fixierten Tiers weniger als 4 Monate", Points: 110, ControlPoint: &cpA5_9})
 	services.CreateLack(&models.Lack{Name: "2015 und 2016: Alter des fixierten Tiers älter als 4 Monate", ControlPoint: &cpA5_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_9})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA5_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA5_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA5_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA5_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA5_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA5_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA5_1421})
 
 	// A6 - Rinder - männliche Tiere, über 730 Tage alt
 	pg6 := models.PointGroup{PointGroupId: "A6", Abbreviation: "Rinder - männliche Tiere, über 730 Tage alt", PointGroup: "männliche Tiere, über 730 Tage alt", PointGroupCode: 1124, ControlCategory: &cc}
@@ -805,51 +694,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA6_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA6_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA6_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA6_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA6_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA6_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA6_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA6_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA6_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA6_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA6_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA6_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA6_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA6_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA6_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA6_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA6_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA6_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA6_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA6_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA6_1421})
 
 	// A7 - Rinder - männliche Tiere, über 365- 730 Tage alt
 	pg7 := models.PointGroup{PointGroupId: "A7", Abbreviation: "Rinder - männliche Tiere, über 365- 730 Tage alt", PointGroup: "männliche Tiere, über 365 bis 730 Tage alt", PointGroupCode: 1129, ControlCategory: &cc}
@@ -889,51 +764,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA7_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA7_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA7_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA7_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA7_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA7_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA7_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA7_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA7_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA7_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA7_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA7_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA7_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA7_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA7_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA7_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA7_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA7_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA7_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA7_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA7_1421})
 
 	// A8 - Rinder - männliche Tiere, über 160-365 Tage alt
 	pg8 := models.PointGroup{PointGroupId: "A8", Abbreviation: "Rinder - männliche Tiere, über 160-365 Tage alt", PointGroup: "männliche Tiere, über 160 bis 365 Tage alt", PointGroupCode: 1143, ControlCategory: &cc}
@@ -973,51 +834,37 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA8_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA8_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA8_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA8_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA8_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA8_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA8_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA8_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA8_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA8_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA8_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA8_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA8_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA8_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_8})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA8_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA8_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA8_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA8_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA8_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA8_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA8_1421})
 
 	// A9 - Rinder - männliche Tiere, bis 160 Tage alt
 	pg9 := models.PointGroup{PointGroupId: "A8", Abbreviation: "Rinder - männliche Tiere, bis 160 Tage alt", PointGroup: "männliche Tiere, bis 160 Tage alt", PointGroupCode: 1144, ControlCategory: &cc}
@@ -1059,55 +906,40 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA9_1421)
 
 	services.CreateLack(&models.Lack{Name: "Laufhof befindet sich nicht im Freien", Points: 110, ControlPoint: &cpA9_1})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_1})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA9_2})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA9_2})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_2})
 
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche umweniger als 10 %", Points: 60, ControlPoint: &cpA9_3})
 	services.CreateLack(&models.Lack{Name: "Nachgemessene Gesamtfläche oder ungedeckte Laufhoffläche unterschreitet Mindestfläche um10 oder mehr %", Points: 110, ControlPoint: &cpA9_3})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_3})
 
 	services.CreateLack(&models.Lack{Name: "Laufhof-Skizze kann nicht vorgewiesen werden, entspricht nicht den Anforderungen, ist nicht verifiziert oder nicht aktuell", Francs: 200, ControlPoint: &cpA9_4})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_4})
 
 	services.CreateLack(&models.Lack{Name: "Aktuelle Tierzahl pro Auslauf grösser als maximale Tierzahl auf aktueller und verifizierter Laufhof-Skizze", Points: 110, ControlPoint: &cpA9_5})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_5})
 
 	services.CreateLack(&models.Lack{Name: "Vom 1.11 ' 28.2. ein Schattennetz", Points: 10, ControlPoint: &cpA9_6})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_6})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA9_7})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_7})
 
 	services.CreateLack(&models.Lack{Name: "Zu wenig geeignete Einstreu", Points: 10, ControlPoint: &cpA9_8})
 	services.CreateLack(&models.Lack{Name: "Viel zu wenig geeignete Einstreu", Points: 40, ControlPoint: &cpA9_8})
 	services.CreateLack(&models.Lack{Name: "Keine geeignete Einstreu", Points: 110, ControlPoint: &cpA9_8})
 	services.CreateLack(&models.Lack{Name: "Liegebereich(e) mit Perforation", Points: 110, ControlPoint: &cpA9_8})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_8})
 
 	services.CreateLack(&models.Lack{Name: "Alter des fixierten Tiers weniger als 4 Monate", Points: 110, ControlPoint: &cpA9_9})
 	services.CreateLack(&models.Lack{Name: "2015 und 2016: Alter des fixierten Tiers älter als 4 Monate", ControlPoint: &cpA9_9})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_9})
 
 	services.CreateLack(&models.Lack{Name: "morastige Stelle(n) nicht ausgezäunt", Points: 10, ControlPoint: &cpA9_11})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_11})
 
 	services.CreateLack(&models.Lack{Name: "Weide kann an Weidetagen nicht ca. 25% des TS-Verzehrs decken", Points: 60, ControlPoint: &cpA9_12})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_12})
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA9_1411})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA9_1412})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_1412})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA9_1413})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA9_1421})
-	services.CreateLack(&models.Lack{Name: "Anderer Mangel", ControlPoint: &cpA9_1421})
 }
 
 func Seed_Users() {
