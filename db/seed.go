@@ -366,9 +366,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA1_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA1_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA1_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA1_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA1_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA1_1421})
 
@@ -435,9 +435,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA2_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA2_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA2_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA2_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA2_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA2_1421})
 
@@ -505,9 +505,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA3_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA3_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA3_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA3_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA3_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA3_1421})
 
@@ -575,9 +575,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA4_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA4_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA4_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA4_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA4_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA4_1421})
 
@@ -650,9 +650,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA5_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA5_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA5_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA5_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA5_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA5_1421})
 
@@ -720,9 +720,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA6_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA6_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA6_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA6_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA6_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA6_1421})
 
@@ -790,9 +790,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA7_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA7_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA7_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA7_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA7_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA7_1421})
 
@@ -860,9 +860,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA8_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA8_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA8_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA8_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA8_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA8_1421})
 
@@ -935,9 +935,9 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA9_1411})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA9_1412})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA9_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, ControlPoint: &cpA9_1413})
+	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA9_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA9_1421})
 }
