@@ -6,20 +6,33 @@ import (
 	"github.com/scmo/apayment-backend/db"
 	"github.com/scmo/apayment-backend/ethereum"
 	_ "github.com/scmo/apayment-backend/routers"
+	"os"
 )
 
 func init() {
+	setConfigFile()
 	// TODO: ethereum struct
 	ethereum.Init()
 	// Setup DB
 	db.Init()
 
 }
+func setConfigFile(){
+	if _, err := os.Stat("conf/app.conf"); os.IsNotExist(err) {
+		beego.Info("Config file does not exist in ./conf/app.conf")
+		if _, err := os.Stat("/usr/local/etc/apayment-conf/app.conf"); !os.IsNotExist(err) {
+			beego.Info("Change config file to /usr/loca/etc/apayment-conf/app.conf")
+			beego.LoadAppConfig("ini", "/usr/local/etc/apayment-conf/app.conf")
+		}
+	}
+}
 func main() {
 	if beego.BConfig.RunMode == "dev" {
 		beego.BConfig.WebConfig.DirectoryIndex = true
 		beego.BConfig.WebConfig.StaticDir["/swagger"] = "swagger"
 	}
+
+
 
 	//beego.InsertFilter("/*", beego.BeforeRouter, routers.HandleJWT)
 

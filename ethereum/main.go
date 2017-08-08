@@ -29,9 +29,7 @@ var ethereumController EthereumController
 
 func Init() {
 	pathToEthereum := beego.AppConfig.String("ethereumRootPath")
-	//if beego.BConfig.RunMode == "dev" {
-	//	pathToEthereum = pathToEthereum + "testnet/"
-	//}
+
 	pathToIPCEndpoint := pathToEthereum + "geth.ipc"
 
 	// Create an IPC based RPC connection to a remote node
@@ -40,6 +38,7 @@ func Init() {
 	if err != nil {
 		beego.Critical("Failed to connect to the Ethereum client: ", err)
 	}
+	beego.Info("Path to IPC endpoint: ", pathToIPCEndpoint)
 
 	// Keystore to administrate accounts
 	ks := keystore.NewKeyStore(pathToEthereum+"keystore", keystore.LightScryptN, keystore.LightScryptP)
@@ -58,7 +57,7 @@ func deployRoleBasedAccessControlContract() {
 		if err != nil {
 			beego.Critical("Error while creating RBAC: ", err)
 		}
-		beego.Debug(address.Str())
+		beego.Debug(address.String())
 		beego.AppConfig.Set("accessControlContract", address.String())
 	}
 }
