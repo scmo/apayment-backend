@@ -79,7 +79,6 @@ func init() {
 func Test_DeployContract(t *testing.T) {
 	contributionCodes := []uint16{5416}
 	remark := "This is my remark"
-	beego.Trace("Test: ", "DeployContractRequest", "ContributionCodes: ", contributionCodes)
 	gvesList := []uint32{290000, 0, 180000, 210000, 0, 0, 50000, 90000, 10000}
 
 	_, _, rc, err := directpaymentrequest.DeployRequestContract(farmerAuth, sim, contributionCodes, remark, rbacAddress, gvesList, amountPreviousYear)
@@ -240,7 +239,6 @@ func Test_CalculateBTS(t *testing.T) {
 		})
 		Convey("Pointgroup 1110: Deduction is 4500", func() {
 			cv, _ := requestContract.PointGroups(nil, 1110)
-			beego.Debug(cv)
 			So(cv.BtsDeduction.Cmp(big.NewInt(45000000)), ShouldEqual, 0)
 		})
 		Convey("Pointgroup 1128: Amount is 162000", func() {
@@ -400,7 +398,6 @@ func Test_CalculateRAUS2(t *testing.T) {
 	Convey("Subject: Check if total amount and deduction is calculated correctly for RAUS\n", t, func() {
 		Convey("Pointgroup 1129: Amount is 907212000", func() {
 			cv, _ := requestContract2.PointGroups(nil, 1129)
-			beego.Debug(cv)
 			So(cv.RausTotal.Cmp(big.NewInt(907212000)), ShouldEqual, 0)
 		})
 		Convey("Pointgroup 1129: Deduction is 0", func() {
@@ -444,7 +441,6 @@ func Test_FinalPayoutAmount2(t *testing.T) {
 			So(err, ShouldBeNil)
 		})
 		Convey("Second payment should be ", func() {
-			beego.Debug(amount)
 			So(amount.Cmp(big.NewInt(1225509	)), ShouldEqual, 0)
 		})
 	})

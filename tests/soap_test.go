@@ -9,7 +9,7 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 	"path/filepath"
 	"runtime"
-	"strconv"
+	"os"
 )
 
 func init() {
@@ -20,20 +20,22 @@ func init() {
 
 func Test_TvdVersion(t *testing.T) {
 	auth := tvd.BasicAuth{
-		Login:    beego.AppConfig.String("agate_username"),
-		Password: beego.AppConfig.String("agate_password"),
+		Login:    os.Getenv("AGATE_USERNAME"),
+		Password: os.Getenv("AGATE_PASSWORD"),
 	}
+
 	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
 
 	versionRequest := tvd.Version{
-		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
+		PManufacturerKey: os.Getenv("TVD_MANUFACTURER_KEY"),
 		Action:           "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/Version",
 	}
-	versionResponse, err := animalTracingPortType.Version(&versionRequest)
 
+
+	versionResponse, err := animalTracingPortType.Version(&versionRequest)
 	Convey("Subject: Test TVD Version\n", t, func() {
 		Convey("Error should be nil", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Version should not be null (= '')", func() {
 			So(len(versionResponse.VersionResult), ShouldBeGreaterThan, 0)
@@ -112,40 +114,19 @@ func Test_SetCategory(t *testing.T) {
 	})
 }
 
-func _Test_GetFarmer(t *testing.T) {
-	auth := tvd.BasicAuth{
-		Login:    beego.AppConfig.String("agate_username"),
-		Password: beego.AppConfig.String("agate_password"),
-	}
-	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
-
-	agate_username, _ := strconv.ParseInt(beego.AppConfig.String("agate_username"), 8, 32)
-	getFarmersRequest := tvd.GetFarmers{
-		PManufacturerKey: beego.AppConfig.String("tvd_manufacturerKey"),
-		PLCID:            2055,
-		PTVDNumber:       int32(agate_username),
-	}
-
-	getFarmersResponse, err := animalTracingPortType.GetFarmers(&getFarmersRequest)
-	if err != nil {
-		beego.Error("Failed to fetch info about the farmber: ", err)
-	}
-	beego.Debug(getFarmersResponse)
-}
-
 func Test_GetPersonAddress(t *testing.T) {
 
 	auth := tvd.BasicAuth{
-		Login:    beego.AppConfig.String("agate_username"),
-		Password: beego.AppConfig.String("agate_password"),
+		Login:    os.Getenv("AGATE_USERNAME"),
+		Password: os.Getenv("AGATE_PASSWORD"),
 	}
 	animalTracingPortType := tvd.NewAnimalTracingPortType("https://ws-in.wbf.admin.ch/Livestock/AnimalTracing/1", true, &auth)
 
 	getPersonAddressRequest := tvd.GetPersonAddress{
 		Action:           "http://www.admin.ch/xmlns/Services/evd/Livestock/AnimalTracing/1/AnimalTracingPortType/GetPersonAddress",
-		PManufacturerKey: "bebc4e6a-2477-4ec6-8837-d503a87e85f2",
+		PManufacturerKey: os.Getenv("TVD_MANUFACTURER_KEY"),
 		PLCID:            2055,
-		PAgateNumber:     beego.AppConfig.String("agate_username"),
+		PAgateNumber:     os.Getenv("AGATE_USERNAME"),
 	}
 
 	resp, err := animalTracingPortType.GetPersonAddress(&getPersonAddressRequest)
@@ -153,4 +134,21 @@ func Test_GetPersonAddress(t *testing.T) {
 		beego.Error("Failed to fetch info about the person: ", err)
 	}
 	beego.Debug(resp.GetPersonAddressResult.PostAddress)
+	Convey("Subject: Retrieve correct Address from TVD\n", t, func() {
+		Convey("Error should be nil", func() {
+			So(err, ShouldBeNil)
+		})
+		Convey("Name is Meinrad", func() {
+			So(resp.GetPersonAddressResult.PostAddress.FirstName, ShouldEqual, "Meinrad")
+		})
+		Convey("Street is Rüeggerstrasse 8", func() {
+			So(resp.GetPersonAddressResult.PostAddress.Street, ShouldEqual, "Rüeggerstrasse 8")
+		})
+		Convey("Postcode is 9108", func() {
+			So(resp.GetPersonAddressResult.PostAddress.PostCode, ShouldEqual, "9108")
+		})
+		Convey("City is Gonten", func() {
+			So(resp.GetPersonAddressResult.PostAddress.City, ShouldEqual, "Gonten")
+		})
+	})
 }
