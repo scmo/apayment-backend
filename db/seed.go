@@ -330,10 +330,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA1_141)
 	cpA1_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg1}
 	services.CreateControlPoint(&cpA1_1411)
-	cpA1_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg1}
+	cpA1_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg1}
 	services.CreateControlPoint(&cpA1_1412)
-	cpA1_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg1}
-	services.CreateControlPoint(&cpA1_1413)
 	cpA1_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg1}
 	services.CreateControlPoint(&cpA1_142)
 	cpA1_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg1}
@@ -368,8 +367,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA1_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA1_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA1_1421})
 
 	// A2	Rinder - andere Kühe
@@ -400,10 +397,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA2_141)
 	cpA2_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_1411)
-	cpA2_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg2}
+	cpA2_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_1412)
-	cpA2_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg2}
-	services.CreateControlPoint(&cpA2_1413)
 	cpA2_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg2}
 	services.CreateControlPoint(&cpA2_142)
 	cpA2_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg2}
@@ -437,8 +433,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA2_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA2_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA2_1421})
 
 	// A3 - Rinder - weibliche Tiere, über 365 Tage alt, bis zur ersten Abkalbung
@@ -469,10 +463,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA3_141)
 	cpA3_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_1411)
-	cpA3_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg3}
+	cpA3_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_1412)
-	cpA3_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg3}
-	services.CreateControlPoint(&cpA3_1413)
 	cpA3_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg3}
 	services.CreateControlPoint(&cpA3_142)
 	cpA3_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg3}
@@ -507,8 +500,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA3_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA3_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA3_1421})
 
 	// A4 = Rinder - weibliche Tiere, über 160-365 Tage alt
@@ -539,10 +530,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA4_141)
 	cpA4_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_1411)
-	cpA4_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg4}
+	cpA4_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_1412)
-	cpA4_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg4}
-	services.CreateControlPoint(&cpA4_1413)
 	cpA4_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg4}
 	services.CreateControlPoint(&cpA4_142)
 	cpA4_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg4}
@@ -577,8 +567,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA4_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA4_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA4_1421})
 
 	// A5 - Rinder - weibliche Tiere, bis 160 Tage alt
@@ -611,10 +599,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA5_141)
 	cpA5_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg5}
 	services.CreateControlPoint(&cpA5_1411)
-	cpA5_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg5}
+	cpA5_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg5}
 	services.CreateControlPoint(&cpA5_1412)
-	cpA5_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg5}
-	services.CreateControlPoint(&cpA5_1413)
 	cpA5_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg5}
 	services.CreateControlPoint(&cpA5_142)
 	cpA5_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg5}
@@ -652,8 +639,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA5_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA5_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA5_1421})
 
 	// A6 - Rinder - männliche Tiere, über 730 Tage alt
@@ -684,10 +669,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA6_141)
 	cpA6_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_1411)
-	cpA6_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg6}
+	cpA6_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_1412)
-	cpA6_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg6}
-	services.CreateControlPoint(&cpA6_1413)
 	cpA6_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg6}
 	services.CreateControlPoint(&cpA6_142)
 	cpA6_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg6}
@@ -722,8 +706,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA6_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA6_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA6_1421})
 
 	// A7 - Rinder - männliche Tiere, über 365- 730 Tage alt
@@ -754,10 +736,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA7_141)
 	cpA7_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_1411)
-	cpA7_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg7}
+	cpA7_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_1412)
-	cpA7_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg7}
-	services.CreateControlPoint(&cpA7_1413)
 	cpA7_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg7}
 	services.CreateControlPoint(&cpA7_142)
 	cpA7_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg7}
@@ -792,8 +773,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA7_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA7_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA7_1421})
 
 	// A8 - Rinder - männliche Tiere, über 160-365 Tage alt
@@ -824,10 +803,9 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA8_141)
 	cpA8_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_1411)
-	cpA8_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg8}
+	cpA8_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_1412)
-	cpA8_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg8}
-	services.CreateControlPoint(&cpA8_1413)
 	cpA8_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg8}
 	services.CreateControlPoint(&cpA8_142)
 	cpA8_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg8}
@@ -862,8 +840,6 @@ func Seed_RAUS_Weidetiere() {
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA8_1412})
 
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA8_1413})
-
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA8_1421})
 
 	// A9 - Rinder - männliche Tiere, bis 160 Tage alt
@@ -896,10 +872,10 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateControlPoint(&cpA9_141)
 	cpA9_1411 := models.ControlPoint{ControlPointId: "14.1.1", Abbreviation: "Auslauf-Dokumentation entspricht den Anforderungen", ControlPoint: "Anforderungen an die Dokumentation: 1. Auslauf je Auslaufgruppe bzw. je Tier eingetragen 2. a) Auslauf nach spätestens 3 Tagen eingetragen bzw. b) Anfang und Ende von Zeitspannen eingetragen, während denen die Tiere 24 h am Tag Zugang haben zu - einer Weide (01.05.-31.10.) bzw. - einem Laufhof (01.11.-30.04.) Ist die Einhaltung der Auslaufbestimmungen während des ganzen Jahres durch das Haltungssystem gewährleistet, ist kein Journal erforderlich", PointGroup: &pg9}
 	services.CreateControlPoint(&cpA9_1411)
-	cpA9_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg9}
+	cpA9_1412 := models.ControlPoint{ControlPointId: "14.1.2", Abbreviation: "genügend Weide- bzw. bis Auslauftage",
+		ControlPoint: "Allen Tieren der Kategorie wurde vom 01.05 bis zum 31.10. an mindestens 26 Tagen pro Monat und vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf auf einer Weide gewährt oder zulässige Abweichungen gemäss DZV", PointGroup: &pg9}
 	services.CreateControlPoint(&cpA9_1412)
-	cpA9_1413 := models.ControlPoint{ControlPointId: "14.1.3", Abbreviation: "1.11.-30.4.: genügend Auslauftage", ControlPoint: "Allen Tieren der Kategorie wurde vom 01.11. bis zum 30.04. an mindestens 13 Tagen pro Monat Auslauf gewährt oder zulässige Abweichungen nach DZV", PointGroup: &pg9}
-	services.CreateControlPoint(&cpA9_1413)
+
 	cpA9_142 := models.ControlPoint{ControlPointId: "14.2", Abbreviation: "Auslauf: Alternativ-Variante (ohne Weide)", PointGroup: &pg9}
 	services.CreateControlPoint(&cpA9_142)
 	cpA9_1421 := models.ControlPoint{ControlPointId: "14.2.1", Abbreviation: "Alternativ-Variante für betreffende Tiere zulässig und Laufhof dauernd zugänglich", ControlPoint: "Auslauf-Alternativ-Variante für Tiere der Rindergattung, - die gemästet werden; - männliche Zuchttiere; und - bis 160 Tage alte weibliche Zuchttiere Alle Tiere d. Kategorie hatten während des ganzen Jahres dauernd (24 h pro Tag) Zugang zu Laufhof oder zulässige Abweichungen gemäss DZV", PointGroup: &pg9}
@@ -936,8 +912,6 @@ func Seed_RAUS_Weidetiere() {
 	services.CreateLack(&models.Lack{Name: "Auslauf-Dokumentation entspricht nicht den Anforderungen", Francs: 200, ControlPoint: &cpA9_1411})
 
 	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA9_1412})
-
-	services.CreateLack(&models.Lack{Name: "zu wenig Tage mit Zugang zur Weide- bzw. zum Laufhof nachgewiesen", Points: 4, Computed:true, ControlPoint: &cpA9_1413})
 
 	services.CreateLack(&models.Lack{Name: "Alternativ Variante für betreffende Tiere nicht zulässig oder Laufhof nicht dauernd zugänglich", Points: 110, ControlPoint: &cpA9_1421})
 }

@@ -124,8 +124,10 @@ func GetTransactions() ([]*models.APaymentTokenTransaction, error) {
 			transactions = append(transactions, &models.APaymentTokenTransaction{From: from, To: to, Amount: &amount, Timestamp: tx.Timestamp, Message: msg})
 		} else {
 			requestId := GetRequestIdByAddress(requestAddress)
-			request := GetRequestById(requestId, false)
-			transactions = append(transactions, &models.APaymentTokenTransaction{From: from, To: to, Amount: &amount, Timestamp: tx.Timestamp, Message: msg, Request: request})
+			if requestId != 0 {
+				request := GetRequestById(requestId, false)
+				transactions = append(transactions, &models.APaymentTokenTransaction{From: from, To: to, Amount: &amount, Timestamp: tx.Timestamp, Message: msg, Request: request})
+			}
 		}
 	}
 	return transactions, err

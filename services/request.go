@@ -89,7 +89,7 @@ func GetRequestById(requestId int64, smartContract bool) *models.Request {
 	var request models.Request
 	err := o.QueryTable(new(models.Request)).Filter("Id", requestId).RelatedSel().One(&request)
 	if err != nil {
-		beego.Error("Error while fetching Request.", err)
+		beego.Error("Error while fetching Request by ID.", err)
 	}
 	setTVD(request.User)
 	if smartContract {
@@ -108,7 +108,7 @@ func GetRequestAddressById(requestId int64) string {
 	var request models.Request
 	err := o.QueryTable(new(models.Request)).Filter("Id", requestId).RelatedSel().One(&request)
 	if err != nil {
-		beego.Error("Error while fetching Request.", err)
+		beego.Error("Error while fetching Request address by ID.", err)
 	}
 	return request.Address
 }
@@ -118,7 +118,7 @@ func GetRequestIdByAddress(requestAddress string) int64 {
 	var request models.Request
 	err := o.QueryTable(new(models.Request)).Filter("Address", requestAddress).RelatedSel().One(&request)
 	if err != nil {
-		beego.Error("Error while fetching Request.", err)
+		beego.Error("Error while fetching request ID by address.", err)
 	}
 	return request.Id
 }
