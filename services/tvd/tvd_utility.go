@@ -58,15 +58,15 @@ func GetUserCattleLivestock(userTvd int32, begin time.Time, end time.Time) (*Get
 
 func getFieldTestGVE() (map[uint16]uint32, error) {
 	return map[uint16]uint32{
-		1110: 11,
-		1150: 12,
-		1128: 13,
-		1141: 14,
-		1142: 15,
-		1124: 16,
-		1129: 17,
-		1143: 18,
-		1144: 19,
+		1110: 0,
+		1150: 0,
+		1128: 0,
+		1141: 0,
+		1142: 0,
+		1124: 0,
+		1129: 47748,
+		1143: 389934,
+		1144: 0,
 	}, nil
 }
 
@@ -149,7 +149,9 @@ func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, e
 	if err != nil {
 		return 0, err
 	}
-
+	if cattleLiveStockDataItem.Gender == "" {
+		return 0, errors.New("No Gender specified")
+	}
 	genderCode, err := strconv.Atoi(cattleLiveStockDataItem.Gender)
 	if err != nil {
 		beego.Error("Error while parsing Gender: ", err)
@@ -195,6 +197,9 @@ func GetAnimalCategory(cattleLiveStockDataItem *CattleLivestockDataV2) (uint8, e
 }
 
 func getAgeInDays(cattleLiveStockDataItem *CattleLivestockDataV2) (uint32, error) {
+	if cattleLiveStockDataItem.BirthDate == "" {
+		return 0, nil
+	}
 	birthdate, err := time.Parse(beego.AppConfig.String("tvd_timeformat"), cattleLiveStockDataItem.BirthDate)
 	if err != nil {
 		beego.Error("Error while converting birthdate to days: ", err)

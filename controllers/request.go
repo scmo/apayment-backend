@@ -6,7 +6,6 @@ import (
 	"github.com/scmo/apayment-backend/ethereum"
 	"github.com/scmo/apayment-backend/models"
 	"github.com/scmo/apayment-backend/services"
-	"math/big"
 	"strconv"
 )
 
@@ -234,7 +233,7 @@ func (this *RequestController) Pay() {
 			beego.Error("Error while getting first payment amount. ", err)
 			this.CustomAbort(500, err.Error())
 		}
-		amount.Div(amount, big.NewInt(2)) // 50% of the amount
+		//amount.Div(amount, big.NewInt(2)) // 50% of the amount
 
 		apaymentTransfer.Amount = amount
 		apaymentTransfer.Message = "First Payment"

@@ -11,6 +11,9 @@ import (
 	"github.com/scmo/apayment-backend/smart-contracts/direct-payment-request"
 	"math/big"
 	"time"
+	"net/http"
+	"encoding/json"
+	"bytes"
 )
 
 // CreateRequest deploys a new Request Contract in the blockchain.
@@ -276,6 +279,9 @@ func CheckRausJournal(request *models.Request) (error) {
 		if contribution.Code == 5417 {
 			// RAUS contribution exists
 			cowList := prepareTVDList(request.User.TVD)
+			if len(cowList) == 0 {
+				return nil
+			}
 			for _, controlCategory := range contribution.ControlCategories {
 				for _, pointGroup := range controlCategory.PointGroups {
 					cows := cowList[pointGroup.PointGroupCode]
@@ -310,6 +316,7 @@ func prepareTVDList(tvdNr int32) (map[uint16]models.EarTagNumbers) {
 	cattleLivestockV2Response, err := tvd.GetUserCattleLivestock(tvdNr, begin, time.Now())
 	if err != nil {
 		beego.Error("Error while fetching GetUserCattleLivestock: ", err)
+		return cowList
 	}
 	for _, cattleLivestockDataItem := range cattleLivestockV2Response.GetCattleLivestockV2Result.Resultdetails.CattleLivestockDataItem {
 		catIndex, err := tvd.GetAnimalCategory(cattleLivestockDataItem)
@@ -325,8 +332,38 @@ func prepareTVDList(tvdNr int32) (map[uint16]models.EarTagNumbers) {
 	return cowList
 }
 
+
 func requestRausJournal(cows models.EarTagNumbers) (int8, error) {
-	return 4, nil
+	if len(cows.EarTagNumbers) == 0 {
+		return 0, nil
+	}
+	reqBody := models.RausJournalRequest{TVDs:cows.EarTagNumbers, Year: 2017}
+	jsonValue, _ := json.Marshal(reqBody)
+	req, err := http.NewRequest("POST", beego.AppConfig.String("rausJournalURL"),  bytes.NewBuffer(jsonValue))
+	if err != nil {
+		beego.Error("NewRequest: ", err)
+		return 0, err
+	}
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		beego.Error("Do: ", err)
+		return 0, err
+	}
+	defer resp.Body.Close()
+
+	var record models.RausJournalResponse
+	// Use json.Decode for reading streams of JSON data
+	if err := json.NewDecoder(resp.Body).Decode(&record); err != nil {
+		beego.Error(err)
+	}
+	//TODO RausJournal returns wrong data
+	beego.Debug("TVDs: ", cows.EarTagNumbers)
+	beego.Debug("Missed days: ", record.MissedDays)
+	beego.Debug("Numer OfInvalidcows: ", record.NumberOfInvalidCows)
+	beego.Debug("Missed days / invalid cows: ", float32(record.MissedDays) / float32(record.NumberOfInvalidCows))
+	return int8(float32(record.MissedDays) / float32(record.NumberOfInvalidCows)), nil
+	//return 4, nil
 }
 
 func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) *directpaymentrequest.RequestContractSession {

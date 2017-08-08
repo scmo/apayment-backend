@@ -47,6 +47,18 @@ type CowStats struct {
 	Name                string `json:"name"`
 }
 
+type RausJournalRequest struct {
+	TVDs []string `json:"tvds"`
+	Year int16 `json:"year"`
+}
+
+type RausJournalResponse struct {
+	Valid bool `json:"valid"`
+	MissedDays int16 `json:"missed_days"`
+	NumberOfInvalidCows int16 `json:"num_of_invalid_cows"`
+	year int16 `json:"year"`
+}
+
 func init() {
 	// Register model
 	orm.RegisterModel(new(JournalEntry))
