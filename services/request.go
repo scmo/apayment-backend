@@ -357,13 +357,7 @@ func requestRausJournal(cows models.EarTagNumbers) (int8, error) {
 	if err := json.NewDecoder(resp.Body).Decode(&record); err != nil {
 		beego.Error(err)
 	}
-	//TODO RausJournal returns wrong data
-	beego.Debug("TVDs: ", cows.EarTagNumbers)
-	beego.Debug("Missed days: ", record.MissedDays)
-	beego.Debug("Numer OfInvalidcows: ", record.NumberOfInvalidCows)
-	beego.Debug("Missed days / invalid cows: ", float32(record.MissedDays) / float32(record.NumberOfInvalidCows))
-	return int8(float32(record.MissedDays) / float32(record.NumberOfInvalidCows)), nil
-	//return 4, nil
+	return record.MissedDays, nil
 }
 
 func getRequestContractSession(requestContract *directpaymentrequest.RequestContract) *directpaymentrequest.RequestContractSession {

@@ -54,7 +54,7 @@ type RausJournalRequest struct {
 
 type RausJournalResponse struct {
 	Valid bool `json:"valid"`
-	MissedDays int16 `json:"missed_days"`
+	MissedDays int8 `json:"missed_days"`
 	NumberOfInvalidCows int16 `json:"num_of_invalid_cows"`
 	year int16 `json:"year"`
 }

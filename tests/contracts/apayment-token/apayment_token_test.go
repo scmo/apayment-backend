@@ -50,7 +50,7 @@ func Test_DeployContract(t *testing.T) {
 		sim.Commit()
 		tokenContract = tc
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("SystemAccount should have inital supply as balance", func() {
 			balance, _ := tc.BalanceOf(nil, systemAuth.From)

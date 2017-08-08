@@ -61,7 +61,7 @@ func Test_DeployRBACContract(t *testing.T) {
 
 	Convey("Subject: Deploy Request-Contract\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 	rbacContract = rc
@@ -76,7 +76,7 @@ func Test_AddFarmerRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Add farmer (role) to Contract\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 }
@@ -89,7 +89,7 @@ func Test_UserHasFarmerRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Farmer role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Farmer has role 'Farmer'", func() {
 			So(isFarmer, ShouldEqual, true)
@@ -100,7 +100,7 @@ func Test_UserHasFarmerRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Inspector Address has Farmer role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Inspector does not have 'Farmer' role", func() {
 			So(isNotFarmer, ShouldEqual, false)
@@ -116,7 +116,7 @@ func Test_RemoveFarmerRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Remove farmer\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 
@@ -124,7 +124,7 @@ func Test_RemoveFarmerRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Farmer role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Farmer does not have role 'Farmer'", func() {
 			So(isNotFarmer, ShouldEqual, false)
@@ -141,7 +141,7 @@ func Test_AddAdminRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Add user to admin roles\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 }
@@ -154,7 +154,7 @@ func Test_UserHasAdminRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Admin role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Admin has role 'Admin'", func() {
 			So(isAdmin, ShouldEqual, true)
@@ -165,7 +165,7 @@ func Test_UserHasAdminRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Admin role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 
 		Convey("Inspector does not have 'Admin' role", func() {
@@ -182,7 +182,7 @@ func Test_RemoveAdminRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Remove farmer\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 
@@ -190,7 +190,7 @@ func Test_RemoveAdminRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Farmer role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("AdminUser does not have role 'Admin'", func() {
 			So(isNotAdmin, ShouldEqual, false)
@@ -207,7 +207,7 @@ func Test_AddCantonRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Add user to canton roles\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 }
@@ -220,7 +220,7 @@ func Test_UserHasCantonRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Canton role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Canton has role 'Canton'", func() {
 			So(isCanton, ShouldEqual, true)
@@ -231,7 +231,7 @@ func Test_UserHasCantonRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Canton role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Farmer does not have role 'Canton'", func() {
 			So(isNotCanton, ShouldEqual, false)
@@ -247,7 +247,7 @@ func Test_RemoveCantonRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Remove farmer\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 
@@ -255,7 +255,7 @@ func Test_RemoveCantonRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has canton role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("CantonUser does not have role 'Canton'", func() {
 			So(isNotCanton, ShouldEqual, false)
@@ -272,7 +272,7 @@ func Test_AddInspectorRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Add user to inspector roles\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 }
@@ -285,7 +285,7 @@ func Test_UserHasInspectorRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Inspector role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Inspector has role 'Inspector'", func() {
 			So(isInspector, ShouldEqual, true)
@@ -296,7 +296,7 @@ func Test_UserHasInspectorRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has Inspector role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("Farmer does not have role 'Inspector'", func() {
 			So(isNotInspector, ShouldEqual, false)
@@ -312,7 +312,7 @@ func Test_RemoveInspectorRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Remove farmer\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 	})
 
@@ -320,7 +320,7 @@ func Test_RemoveInspectorRole(t *testing.T) {
 	sim.Commit()
 	Convey("Subject: Address has inspector role?\n", t, func() {
 		Convey("No error", func() {
-			So(err, ShouldEqual, nil)
+			So(err, ShouldBeNil)
 		})
 		Convey("InspectorUser does not have role 'Inspector'", func() {
 			So(isNotInspector, ShouldEqual, false)
