@@ -43,8 +43,8 @@ bee run
 To run tests, three environment variables have to be set:
 
 
-* ``AGATE_USERNAME=<agate username>``
-* `AGATE_PASSWORD=<agate password>`
+* `AGATE_USERNAME = <agate username>`
+* `AGATE_PASSWORD = <agate password>`
 * `TVD_MANUFACTURER_KEY = <manufacturer key>`
 
 
