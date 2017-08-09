@@ -39,6 +39,15 @@ cd $GOPATH /src/github.com/scmo/apayment
 bee run
 ```
 
+### Testing
+To run tests, three environment variables have to be set:
+
+
+* ``AGATE_USERNAME=<agate username>``
+* `AGATE_PASSWORD=<agate password>`
+* `TVD_MANUFACTURER_KEY = <manufacturer key>`
+
+
 ## Configuration
  The configuration of the backend consists of three files.
 
